@@ -1,0 +1,67 @@
+@import "./mixins.scss";
+$column-gap: 1em;
+
+.columns {
+  display: flex;
+  @include until($desktop) {
+    flex-direction: column;
+  }
+
+  .has-margin-top {
+    margin-top: (-$column-gap);
+  }
+
+  .column {
+    display: block;
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: $column-gap;
+    @include mobile {
+      flex: none;
+      width: 100%;
+    }
+
+    &.no-padding {
+      padding: 0;
+    }
+
+    & div {
+      // background: red;
+    }
+
+    &.is-full {
+      flex: none;
+      width: 100%;
+    }
+
+    &.is-one-quarter {
+      flex: none;
+      width: 25%;
+    }
+
+    &.is-half {
+      flex: none;
+      width: 50%;
+    }
+
+    &.is-one-third {
+      flex: none;
+      width: 33.3333%;
+    }
+
+    &.is-two-thirds {
+      flex: none;
+      width: 66.6666%;
+    }
+
+    &.is-narrow {
+      flex: none;
+      width: unset;
+    }
+  }
+
+  &.is-multiline {
+    flex-wrap: wrap;
+  }
+}

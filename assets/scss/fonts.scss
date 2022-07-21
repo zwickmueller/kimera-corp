@@ -1,0 +1,17 @@
+$font-families: (
+  '375': 'Buch/Waldenburg-Buch',
+  '500': 'Halbfett/Waldenburg-Halbfett',
+  '700': 'Fett/Waldenburg-Fett',
+);
+$fontsDir: '~@/assets/fonts/Waldenburg/';
+$fontFamily: 'Waldenburg';
+@each $fontWeight, $fontName in $font-families {
+  @font-face {
+    font-family: #{$fontFamily};
+    src: url("#{$fontsDir}#{$fontName}.eot");
+    src: url("#{$fontsDir}#{$fontName}.eot?#iefix") format('embedded-opentype'), url("#{$fontsDir}#{$fontName}.woff") format('woff'), url("#{$fontsDir}#{$fontName}.woff2") format('woff2');
+    font-weight: $fontWeight;
+    font-style: normal;
+    font-display: swap;
+  }
+}

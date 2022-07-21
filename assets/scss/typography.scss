@@ -1,0 +1,44 @@
+@import "./fonts.scss";
+
+.text-white {
+  color: var(--white);
+}
+
+.text-kimera-white {
+  color: var(--kimera-white);
+}
+
+.kimera-text-kacheln {
+  // font-feature-settings: 'ss04' on, 'ss05' on, 'case' on;
+  font-size: 0.8em;
+  // font-variant-ligatures: normal;
+  font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+}
+
+.kimera-text-filter {
+  font-size: 0.55em;
+  // font-size: 8.4px;
+  line-height: 80.5%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  // font-feature-settings: 'ss04' on, 'ss05' on, 'case' on;
+  font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+  text-align: center;
+}
+
+.kimera-text-filter-tags {
+  font-size: 0.55em;
+  // font-size: 8.4px;
+  line-height: 100%;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+}
+
+h1 {
+  padding-bottom: 2rem;
+  font-size: 6em;
+  @include until($tablet) {
+    font-size: 4em;
+  }
+}

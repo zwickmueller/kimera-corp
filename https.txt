@@ -1,0 +1,4 @@
+// to run https
+// in c:/windows/System32
+
+local-ssl-proxy --source 3010 --target 3000 --cert localhost.pem --key localhost-key.pem

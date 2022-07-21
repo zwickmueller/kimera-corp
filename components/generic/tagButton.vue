@@ -1,0 +1,25 @@
+<template>
+<button class="kimera-button kimera-text-filter reset">
+  <slot></slot>
+</button>
+</template>
+
+<script>
+export default {}
+</script>
+
+<style lang="scss" scoped>
+.kimera-button {
+    background: var(--black);
+    color: var(--kimera-white);
+    border-radius: var(--kimera-button-border-radius);
+    padding: 1em 0.85em 0.85em;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+}
+.kimera-button.tag.subtag {
+    background: var(--kimera-filter-color);
+    color: var(--black)!important;
+}
+</style>
