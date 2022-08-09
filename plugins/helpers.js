@@ -3,6 +3,13 @@ import Vue from 'vue'
 export default ({ app, store }, inject) => {
   inject("helpers", new Vue({
     methods: {
+      transformImage(image, option) {
+        if (!image) return "";
+        if (!option) return "";
+        var imageService = '//a.storyblok.com'
+        var path = image.replace('https:', '')
+        return image + '/m/' + option
+      },
       getRandomNumber(min, max) {
         return Math.random() * (max - min) + min;
       },

@@ -1,0 +1,78 @@
+{
+  "0": {
+    "name": "Services",
+    "isMainTag": true,
+    "subTags": [
+      "Branding",
+      "Editorial",
+      "Digital"
+    ],
+    "show": true
+  },
+  "1": {
+    "name": "Typefaces",
+    "isMainTag": true,
+    "subTags": [
+      "Sans-serif",
+      "Serif",
+      "Monospace"
+    ],
+    "show": true
+  },
+  "2": {
+    "name": "Objects",
+    "isMainTag": true,
+    "show": true
+  },
+  "3": {
+    "name": "Garmets",
+    "isMainTag": true,
+    "show": true
+  },
+  "4": {
+    "name": "Branding",
+    "subTags": [
+      "asd",
+      "qwe",
+      "ert"
+    ]
+  },
+  "5": {
+    "name": "asd"
+  },
+  "6": {
+    "name": "qwe"
+  },
+  "7": {
+    "name": "ert"
+  },
+  "8": {
+    "name": "Book"
+  },
+  "9": {
+    "name": "Magazine"
+  },
+  "10": {
+    "name": "Catalogue"
+  },
+  "11": {
+    "name": "Sans-serif"
+  },
+  "12": {
+    "name": "Serif"
+  },
+  "13": {
+    "name": "Monospace"
+  },
+  "14": {
+    "name": "Editorial",
+    "subTags": [
+      "Book",
+      "Magazine",
+      "Catalogue"
+    ]
+  },
+  "15": {
+    "name": "Digital"
+  }
+}

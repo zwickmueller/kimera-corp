@@ -16,9 +16,16 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    ],
+    script: [{
+      charset: "utf-8",
+      src: "/js/patch.js",
+    }],
   },
-
+  server: {
+    port: 3000, // default: 3000
+    host: '0.0.0.0', // default: localhost
+  },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@/assets/scss/main.scss'],
 
@@ -54,7 +61,7 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     ['@nuxtjs/composition-api/module'],
-    ["@storyblok/nuxt/module", { accessToken: "0bNYzzgC4LaoohHw9maCUAtt" }],
+    ["@storyblok/nuxt/module", { accessToken: "YwkxX7UXlj9Wd7lngwwrbAtt" }],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -71,5 +78,7 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {
+    transpile: ['gsap'],
+  }
 }

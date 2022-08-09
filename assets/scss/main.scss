@@ -12,7 +12,7 @@
   --kimera-white: #eaeaea;
   --kimera-grey: #D6D6D6;
   --kimera-border-radius: 1em;
-  --kimera-button-border-radius: 1.2em;
+  --kimera-button-border-radius: 2em;
   --kimera-side-padding: 1.25em;
   --kimera-filter-color: rgba(150, 150, 150, 0.4);
 }
@@ -31,7 +31,7 @@ html {
 }
 
 html {
-  scroll-behavior: smooth;
+  // scroll-behavior: smooth;
   color: var(--black);
   background: var(--white);
   font-size: unquote("clamp(12px, 1.05vw, 16px)");

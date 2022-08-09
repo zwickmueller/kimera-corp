@@ -1,17 +1,15 @@
 <template >
 <div class="nav-wrapper fixed fixed-reset">
-  <nav>
-    <!-- <tag-button>Services</tag-button>
-    <tag-button>Typefaces</tag-button>
-    <tag-button>Objects</tag-button>
-    <tag-button>Garmets</tag-button> -->
-    <!-- <transition-group name="list-complete" tag="nav" mode="in-out"> -->
-    <tag-button v-for="(tag,i) in tags" :key="tag.name" v-show="tag.show" @click.native="handleTagClick(tag, i)" class="tag" :data-index="i" :class="!tag.isMainTag && !tag.active ? 'subtag' : ''"
-      :style="`order: ${tag.active && tag.subTags ? 0 : i}`">
+  <!-- <nav> -->
+  <!-- <transition-group tag="nav" @before-enter="onBeforeEnter" @enter="onEnter" @after-enter="onAfterEnter" @enter-cancelled="onEnterCancelled" @before-leave="onBeforeLeave" @leave="onLeave" @after-leave="onAfterLeave"
+    @leave-cancelled="onLeaveCancelled"> -->
+  <transition-group tag="nav" :css="false" @before-leave="beforeLeave" @enter="onEnter" @before-enter="onBeforeEnter" @leave="onLeave" @after-leave="afterLeave">
+    <tag-button v-for="(tag,i) in visibleTags" :key="tag.name + tag.active" v-if="tag.show" ref="tags" @click.native="handleTagClick(tag, i)" class="tag" :data-index="i" :data-sub-index="!tag.isMainTag  ? i - activeTagsComputed.length : null"
+      :class="[!tag.isMainTag && !tag.active && !tag.isTitle ? 'subtag' : '', tag.active ? 'active' : '']" :style="`order: ${tag.active && tag.subTags ? 0 : i}`">
       {{tag.name}}{{tag.active ? ' x' : ''}}
     </tag-button>
-  </nav>
-  <!-- </transition-group> -->
+  </transition-group>
+  <!-- </nav> -->
 
 </div>
 </template>
@@ -24,6 +22,10 @@ import {
 // circle button width = height = 2.65em
 
 const tags = [{
+    name: 'Kimera',
+    isTitle: true,
+    show: false
+  }, {
     name: 'Services',
     isMainTag: true,
     subTags: ['Branding', 'Editorial', 'Digital'],
@@ -85,7 +87,14 @@ const tags = [{
   },
   {
     name: 'Digital',
+    subTags: ['Website', 'App'],
   },
+  {
+    name: 'Website'
+  },
+  {
+    name: 'App'
+  }
 ]
 
 for (var i = 0; i < tags.length; i++) {
@@ -107,13 +116,193 @@ export default {
       activeTags: [],
       subTags: [],
       tags,
+      activeTagsIncreased: false,
+      navAnimDuration: 0.55,
+      navAnimHoldDuration: .1
     }
   },
   methods: {
+    beforeLeave(el) {
+      // const {
+      //   marginLeft,
+      //   marginTop,
+      //   width,
+      //   height
+      // } = window.getComputedStyle(el)
+      // el.style.left = `${el.offsetLeft - parseFloat(marginLeft, 10)}px`
+      // el.style.top = `${el.offsetTop - parseFloat(marginTop, 10)}px`
+      // el.style.width = width
+      // el.style.height = height
+    },
+    // // called before the element is inserted into the DOM.
+    // // use this to set the "enter-from" state of the element
+    onBeforeEnter(el) {
+      // console.log("onBeforeEnter ", el);
+    },
+    //
+    // // called one frame after the element is inserted.
+    // // use this to start the animation.
+    onEnter(el, done) {
+      // call the done callback to indicate transition end
+      // optional if used in combination with CSS
+      let subIndex = Number(el.dataset.subIndex)
+      let delayModifier = 0.2
+      if (Number.isNaN(subIndex)) subIndex = -1
+      subIndex = Math.max(0, subIndex + 1)
+      console.log("onEnter ", el.dataset.subIndex, el.dataset.index, Math.max(0, el.dataset.subIndex), el.innerText, this.navAnimDuration * (subIndex + 1) * delayModifier + 1);
+      let delay = this.navAnimDuration * (subIndex + 1) * delayModifier + 1
+      console.log(el.getBoundingClientRect().width + 'px');
+      let width = el.getBoundingClientRect().width + 'px'
+      this.$nextTick(() => {
+        let gridGap = 0.5 * 2;
+        let a = gsap.utils.unitize(() => (Number(el.dataset.index) - this.activeTagsComputed.length + 1) * (-2.65 - gridGap), "em")
+        // console.log(a());
+        let b = [...document.querySelectorAll(`nav .tag:not([data-index='${el.dataset.index}'])`)]
+        let c = b.map(a => a.getBoundingClientRect().width).reduce((a, b) => a + b);
+        // console.log(b);
+        // console.log(c);
+
+        gsap.set(el, {
+          x: 0,
+
+          opacity: 0,
+          // maxWidth: "2.65em",
+          width: el.getBoundingClientRect().height + "px",
+          position: "absolute",
+          color: el.classList.contains('subtag') ? 'rgba(0,0,0,0)' : 'rgba(255,255,255,0)'
+        })
+        const tl = gsap.timeline()
+        tl.set(el, {
+          opacity: 1,
+          position: 'relative',
+          // maxWidth: "2.65em",
+          delay: this.navAnimDuration + this.navAnimHoldDuration,
+          width: el.getBoundingClientRect().height + "px"
+        })
+        tl.fromTo(el, {
+          width: el.getBoundingClientRect().height + "px"
+        }, {
+
+          onStart: function() {
+
+          },
+          x: 0,
+          // color: el.classList.contains('subtag') ? 'black' : 'white',
+          color: el.classList.contains('subtag') ? 'rgba(0,0,0,1)' : 'rgba(255,255,255,1)',
+          // color: "inherit",
+          // maxWidth: "100%",
+          width: width,
+          // display: "block",
+          duration: this.navAnimDuration,
+
+          // delay: this.navAnimDuration,
+          // delay: delay - this.navAnimDuration,
+          onComplete: done,
+          ease: "elastic.out(1.2, 0.75)"
+        })
+      })
+      // console.log(delay - this.navAnimDuration);
+      // done()
+    },
+    //
+    // // called when the enter transition has finished.
+    // onAfterEnter(el) {
+    //   console.log("onAfterEnter ", el);
+    // },
+    // onEnterCancelled(el) {
+    //   console.log("onEnterCancelled ", el)
+    // },
+    //
+    // // called before the leave hook.
+    // // Most of the time, you shoud just use the leave hook.
+    beforeLeave(el) {
+      el.style.width = el.getBoundingClientRect().width + 'px'
+      // console.log("onBeforeLeave ", el)
+      if (el.classList.contains('active')) el.dataset.wasActive = true
+    },
+    //
+    // // called when the leave transition starts.
+    // // use this to start the leaving animation.
+    onLeave(el, done) {
+      // console.log("onLeave ", el)
+      // let width = el.getBoundingClientRect().width + 'px'
+      let gridGap = 0.5 * 2;
+      const tl = gsap.timeline()
+      // console.log(el.parentNode.style.gridGap);
+      console.log();
+      this.$nextTick(() => {
+        const style = getComputedStyle(el)
+        const padding = parseFloat(style.fontSize)
+        const letterSpacing = parseFloat(style.letterSpacing)
+        // const x = gsap.utils.unitize(() => (Number(el.dataset.index) - this.activeTagsComputed.length + Number(this.activeTagsIncreased)) * (-el.getBoundingClientRect().height - (parseFloat(getComputedStyle(el.parentNode).gridRowGap))), "px")
+        // gsap.set(el, {
+        //   width: 'auto'
+        // })
+        // debugger
+        // console.log(x(), el.getBoundingClientRect().height + "px");
+        tl.to(el, {
+          // opacity: 0,
+
+          duration: this.navAnimDuration,
+          x: (-el.getBoundingClientRect().height - (padding - letterSpacing)) * (Number(el.dataset.index) - this.activeTagsComputed.length + Number(this.activeTagsIncreased)),
+          // x: (-el.getBoundingClientRect().height - (7.15 - 0.572)) * el.dataset.index,
+          // x: parseInt(x()) + 'px',
+          // x: gsap.utils.unitize(() => (Number(el.dataset.index) - this.activeTagsComputed.length + Number(this.activeTagsIncreased)) * (-2.65 - gridGap), "em"),
+          color: el.classList.contains('subtag') ? 'rgba(0,0,0,0)' : 'rgba(255,255,255,0)',
+          background: 'black',
+          width: el.getBoundingClientRect().height + "px",
+          // width: this.convertRemToPixels(2.65),
+          // ease: "linear",
+          ease: "power2.in",
+
+        })
+        tl.set(el, {
+          onComplete: done,
+          delay: this.navAnimHoldDuration
+        })
+      })
+      // done()
+    },
+    //
+    // // called when the leave transition has finished and the
+    // // element has been removed from the DOM.
+    afterLeave(el) {
+      el.dataset.wasActive = false
+      // console.log("onAfterLeave ", el)
+    },
+    //
+    // // only available with v-show transitions
+    // onLeaveCancelled(el) {
+    //   console.log("onLeaveCancelled ", el)
+    // },
+    convertRemToPixels(rem) {
+      return rem * parseFloat(getComputedStyle(document.querySelector('html')).fontSize);
+    },
     handleTagClick(tag, i) {
+      if (tag.isTitle) {
+        this.$router.push('/')
+        return
+      }
       tag.active = !tag.active
+      // const tl = gsap.timeline()
+      // tl.to(document.querySelectorAll("nav .tag:not(.active)"), {
+      //   width: "2.65em",
+      //   color: 'transparent',
+      //   // borderRadius: "100%",
+      //   x: function(index, target, targets) {
+      //     let gridGap = 0.45 * 2;
+      //     let a = gsap.utils.unitize(() => index * (-2.65 - gridGap), "em")
+      //     console.log(a());
+      //     return a()
+      //   },
+      //   duration: 5,
+      //   stagger: 0.1,
+      //   onStart: function() {
+      //
+      //   },
+      //   onComplete: () => {
+      // return
       const lastAddedTag = this.activeTagsComputed[this.activeTagsComputed.length - 1]
-      // console.log(lastAddedTag.name);
       const allMainTags = this.tags.filter(el => el.isMainTag)
       if (tag.isMainTag) {
         for (var i = 0; i < allMainTags.length; i++) {
@@ -122,7 +311,6 @@ export default {
             allMainTags[i].active = false
           }
         }
-
       }
       if (tag.isMainTag && !tag.active) {
         for (var u = 0; u < allMainTags.length; u++) {
@@ -131,18 +319,8 @@ export default {
 
         }
       }
-      // tag.show = true
 
-      // this.subTags = []
-      // console.log("tag.name ", tag.name);
-      // const activeSubTags = this.subTags
       if (tag.subTags) {
-
-        const test = this.tags.filter(tag => !tag.isMainTag && tag.active && !tag.subTags)
-        if (test) test.map(tag => {
-          tag.show = false
-          tag.active = false
-        })
         for (var i = 0; i < this.tags.length; i++) {
           const _tag = this.tags[i]
           let _subTag
@@ -151,12 +329,10 @@ export default {
             _subTag = check ? _tag : false
             return check ? _tag : false
           })
-          // console.log(_tag.name, subTag);
           if (!_tag.active && !_tag.isMainTag) _tag.show = false
           if (_subTag) _subTag.show = tag.active
           if (_subTag && !tag.active) _subTag.active = false
         }
-        // console.log(lastAddedTag);
         if (lastAddedTag && lastAddedTag.subTags) {
           for (var i = 0; i < lastAddedTag.subTags.length; i++) {
             let subTag = this.tags.find(el => el.name == lastAddedTag.subTags[i])
@@ -164,65 +340,94 @@ export default {
           }
 
         }
-        // for (var i = 0; i < tag.subTags.length; i++) {
-        //   const subTag = this.tags.find(el => el.name == tag.subTags[i])
-        //   if (subTag) subTag.show = tag.active
-        //   if (!tag.active) subTag.active = false
-        // }
 
-        // const otherSubTags = this.tags.filter(el => !el.isMainTag && el.name != tag.name)
-        // for (var o = 0; o < otherSubTags.length; o++) {
-        //   otherSubTags[o].active = false
-        //   otherSubTags[o].show = false
-        // }
+      } else {
+        const test = this.tags.filter(tag => !tag.isMainTag && tag.show && !tag.subTags)
+        test.forEach(el => {
+          if (!el.active) {
+            el.active = false
+            el.show = false
+          }
+        })
+      }
+      let lastActiveTagWithSubTags = [...this.activeTagsComputed].reverse().find(el => el.subTags)
+      if (lastActiveTagWithSubTags && !tag.active) {
+        // console.log("ASDASDASD");
 
-
-        // this.subTags = activeSubTags
-
-        let lastActiveTagWithSubTags = [...this.activeTagsComputed].reverse().find(el => el.subTags)
-        if (lastActiveTagWithSubTags && !tag.active) {
-          // console.log("lastActiveTagWithSubTags ", lastActiveTagWithSubTags, [...this.activeTagsComputed].reverse());
-          for (var i = 0; i < lastActiveTagWithSubTags.subTags.length; i++) {
-            let subTag = this.tags.find(el => el.name == lastActiveTagWithSubTags.subTags[i])
-            if (subTag) {
-              subTag.active = false
-              subTag.show = true
-            }
+        for (var i = 0; i < lastActiveTagWithSubTags.subTags.length; i++) {
+          let subTag = this.tags.find(el => el.name == lastActiveTagWithSubTags.subTags[i])
+          if (subTag) {
+            subTag.active = false
+            subTag.show = true
           }
         }
       }
-
-
-      // else if (this.activeTagsComputed) {
-      //   const lastAddedTag = this.activeTagsComputed[this.activeTagsComputed.length - 1]
-      //   console.log("lastAddedTag ", lastAddedTag);
-      //   if (lastAddedTag && lastAddedTag.subTags) {
-      //     for (var i = 0; i < lastAddedTag.subTags.length; i++) {
-      //       const b = this.tags.find(el => el.name == lastAddedTag.subTags[i])
-      //       if (b) {
-      //         b.show = true
-      //         // activeSubTags.push(b)
-      //       } else {
-      //         b.show = false
-      //       }
-      //     }
-      //     // this.subTags = activeSubTags
-      //   }
+      // console.log(this.visibleTags.filter(el => el.isMainTag).length);
+      console.log("new click");
+      const visibleMainTags = this.visibleTags.filter(el => el.isMainTag)
+      if (visibleMainTags.length >= 4) {
+        this.tags.forEach(el => el.show = el.isMainTag)
+        this.tags.forEach(el => el.active = false)
+      }
+      // console.log(this.tags.filter(el => el.active));
+      this.$root.$emit('activeTags', this.activeTagsComputed)
+      // this.$root.$emit('activeTags', this.tags.filter(el => el.active))
+      // this.$nextTick(() => {
       //
-      // } else {
-      //   console.log("ELLSEEEE");
+      //
+      //   gsap.fromTo(document.querySelectorAll("nav .tag"), {
+      //     width: "2.65em",
+      //     color: 'transparent',
+      //     // borderRadius: "100%",
+      //   }, {
+      //
+      //     width: 'auto',
+      //     color: 'white',
+      //     // borderRadius: '1.2em',
+      //     stagger: 0.05,
+      //     x: 0
+      //
+      //
+      //   })
+      // })
+
       // }
+      // })
+
     },
   },
   computed: {
+    visibleTags() {
+      return this.tags.filter(tag => tag.show)
+    },
     activeTagsComputed() {
       return this.tags.filter(tag => tag.active)
     },
-    subTagsComputed() {
-      return this.subTags.filter(tag => !tag.active)
+    // subTagsComputed() {
+    //   return this.subTags.filter(tag => !tag.active)
+    // },
+    // getTags() {
+    //   return this.activeTagsComputed.length == 0 ? this.tags.filter(tag => tag.isMainTag) : [...this.activeTagsComputed, ...this.subTagsComputed]
+    // }
+  },
+  watch: {
+    '$route': {
+      immediate: true,
+      handler: function(old, _new) {
+
+        if (old.name == 'index') {
+          // console.log("to index");
+          this.tags.forEach(el => el.show = el.isMainTag)
+        } else if (old.name !== 'index') {
+
+          this.tags.forEach(el => el.show = el.isTitle)
+          this.tags.forEach(el => el.active = false)
+          // console.log("from index");
+        }
+      },
     },
-    getTags() {
-      return this.activeTagsComputed.length == 0 ? this.tags.filter(tag => tag.isMainTag) : [...this.activeTagsComputed, ...this.subTagsComputed]
+    'activeTagsComputed': function(a, b) {
+      this.activeTagsIncreased = a.length - b.length > 0 ? true : false
     }
   },
   mounted() {}
@@ -231,6 +436,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.list-enter-active {
+    transition: 1s ease;
+}
+
+.list-leave-active {
+    transition: opacity 1s ease;
+    position: absolute;
+}
+
+.list-enter,
+.list-leave-to {
+    opacity: 0;
+    // background-color: red;
+    // transform: translateY(10px);
+}
+
+.list-move {
+    transition: 1s ease;
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+    position: absolute;
+}
 // .tag {
 //     transition: all 1s;
 //

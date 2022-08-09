@@ -12,6 +12,7 @@
   // font-feature-settings: 'ss04' on, 'ss05' on, 'case' on;
   font-size: 0.8em;
   // font-variant-ligatures: normal;
+  letter-spacing: 0.02em;
   font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
 }
 
@@ -26,6 +27,16 @@
   text-align: center;
 }
 
+.kimera-text p {
+  font-family: 'Waldenburg';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.8em;
+  line-height: 110.5%;
+  font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1, "rclt" 1;
+}
+
+.kimera-text h4,
 .kimera-text-filter-tags {
   font-size: 0.55em;
   // font-size: 8.4px;

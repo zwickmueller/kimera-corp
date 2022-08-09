@@ -2,39 +2,38 @@
 <div class="kimera-landing">
   <div ref="stickyElement" class="landing-title fixed-reset">
     <div :style="`height: ${stickyHeight}px`">
-
-      <p :class="[stickyHeight < 150 ? 'fade-title' : '',mockupData[0].color == 'white' ? 'text-kimera-white':'' ]" class="kimera-text-kacheln">
-        {{mockupData[0].title}}
+      <p :class="[stickyHeight < 150 ? 'fade-title' : '',this.elements[this.cablesIndex].blackType ? '':'text-kimera-white' ]" class="kimera-text-kacheln">
+        {{slideShowTitle}}
       </p>
     </div>
   </div>
-  <img :src="mockupData[0].image" alt="">
+  <canvas id="glcanvas" width="100vw" height="100%" tabindex="1"></canvas>
 </div>
 </template>
 
 <script>
-const mockupData = [{
-  title: "Souvenir Official Brand Makeover",
-  image: require('@/assets/img/Bild1.png'),
-  color: 'white'
-}]
 export default {
   data() {
     return {
-      mockupData,
-      stickyHeight: 0
+      stickyHeight: 0,
+      cablesIndex: 0
     }
   },
-  // computed: {
-  //   stickyHeight() {
-  //     if (!process.client || !window) return
-  //     return window.scrollY
-  //   }
-  // },
+  name: 'LandingPageGallery',
+  props: ['elements'],
   methods: {
     handleScroll() {
       this.stickyHeight = this.$refs.stickyElement.getBoundingClientRect().height - window.scrollY
     },
+    transformImage(image, option) {
+      return "https://cors.cables.gl/" + this.$helpers.transformImage(image, option)
+    }
+  },
+  computed: {
+    slideShowTitle() {
+      if (!this.elements) return ''
+      else return this.elements[this.cablesIndex].title
+    }
   },
   created() {},
   destroyed() {
@@ -42,21 +41,78 @@ export default {
   },
   mounted() {
 
+
+    let that = this
+
+    let images = this.elements.map(el => this.transformImage(el.image.filename, '2048x0/filters:format(webp)'))
+
+    function patchInitialized(patch) {}
+    const onError = (error) => console.log(error)
+    const patchFinishedLoading = (patch) => {
+      const currentIndex = CABLES.patch.getVar("currentIndex");
+      if (currentIndex) {
+        currentIndex.addListener(function(newValue) {
+          that.cablesIndex = newValue
+        });
+      }
+    }
+    console.log(CABLES.patch);
+    // if (CABLES.patch) return
+    CABLES.patch = new CABLES.Patch({
+      patch: CABLES.exportedPatch,
+      "prefixAssetPath": "",
+      "glCanvasId": "glcanvas",
+      "glCanvasResizeToWindow": false,
+      "glCanvasResizeToParent": true,
+      "onPatchLoaded": patchInitialized,
+      "onFinishedLoading": patchFinishedLoading,
+      "onError": onError,
+      // "canvas": {
+      //   "alpha": true,
+      //   "premultipliedAlpha": true
+      // },
+      "variables": {
+        "imageArray": images
+      }
+    });
+    // });
     window.addEventListener("scroll", this.handleScroll);
     this.handleScroll()
   }
 }
 </script>
 
+<style lang="scss" >
+#performance {
+    display: none !important;
+}
+</style>
 <style lang="scss" scoped>
 .kimera-landing {
+    canvas {
+        display: block;
+        position: absolute;
+        outline: 0;
+        max-height: 90vh;
+        height: 100%;
+
+    }
+    * {
+        /* disable on touch highlights of html elements, especially on mobile! */
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
     img {
         width: 100%;
         object-fit: cover;
     }
     .landing-title {
         padding-left: var(--kimera-side-padding);
-
+        z-index: 1;
         position: absolute;
         height: 100%;
         display: flex;
@@ -78,6 +134,7 @@ export default {
     }
     position: relative;
     display: flex;
+    height: 90vh;
     max-height: 90vh;
 }
 </style>
