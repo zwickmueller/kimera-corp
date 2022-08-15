@@ -1,7 +1,12 @@
 <template>
 <!-- <div  class="project-preview"> -->
 
-<nuxt-link :to="'/' + blok.project.full_slug" v-editable="blok" class="grid-item project-preview" :style="`grid-column: span ${width}`" @click.native="wasClicked = true" :class="wasClicked ? 'clicked' : ''">
+<!-- <nuxt-link :to="'/' + blok.project.full_slug" v-editable="blok" class="grid-item project-preview" @click.native="wasClicked = true" :class="[wasClicked ? 'clicked' : '', `project-width-${width}`]" :data-original-width="`project-width-${width}`"
+  data-new-width="null"> -->
+<nuxt-link :to="'/' + blok.project.full_slug" ref="link" v-editable="blok" class="grid-item project-preview" @click.native="handleClick" :data-original-width="`project-width-${width}`" data-new-width="null">
+  <!-- <nuxt-link :to="'/' + blok.project.full_slug" v-editable="blok" class="grid-item project-preview" :style="`flex-basis: calc(100%/8*${width} - 8px);width: 100%`" @click.native="wasClicked = true" :class="wasClicked ? 'clicked' : ''"> -->
+  <!-- <nuxt-link :to="'/' + blok.project.full_slug" v-editable="blok" class="grid-item project-preview" :style="` width: calc(100%/8*${width} - 8px)`" @click.native="wasClicked = true" :class="wasClicked ? 'clicked' : ''"> -->
+  <!-- <nuxt-link :to="'/' + blok.project.full_slug" v-editable="blok" class="grid-item project-preview" :style="`grid-column: span ${width}`" @click.native="wasClicked = true" :class="wasClicked ? 'clicked' : ''"> -->
   <div class="grid-item-tags kimera-text-filter-tags">
     <span v-if="project" v-for="(tag, index) in tags">{{tag}}{{index < project.tags.length -1 ? ', ': ''}} </span>
     <span v-else> ~</span>
@@ -31,6 +36,9 @@ export default {
     },
   },
   methods: {
+    handleClick() {
+      this.$refs.link.$el.classList.add("clicked")
+    },
     stringExists(arr, val) {
       const result = arr.findIndex(item => val.toUpperCase() === item.toUpperCase());
       if (result !== -1) {
@@ -68,6 +76,7 @@ export default {
     }
   },
   mounted() {
+    this.$refs.link.$el.classList.add(this.$refs.link.$el.dataset.originalWidth)
     // console.log(this.project);
   }
 }
@@ -152,12 +161,15 @@ export default {
 
         .grid-item-overlay {}
         .kimera-image img {
-            filter: grayscale(100%) contrast(0.6) brightness(1.6);
+            filter: grayscale(100%) contrast(0.6) brightness(1.4);
             mix-blend-mode: multiply;
-            opacity: 0.4;
+            opacity: 0.2;
+            // filter: grayscale(100%) contrast(0.6) brightness(1.6);
+            // mix-blend-mode: multiply;
+            // opacity: 0.4;
         }
     }
-    &:not(.is-transitioning).services:hover {
+    &:not(.is-transitioning):hover {
         .grid-item-overlay.overlay-background {
             background: #fff;
         }

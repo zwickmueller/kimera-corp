@@ -19,6 +19,7 @@ export default {}
     overflow: hidden;
     align-items: center;
     white-space: nowrap;
+    justify-content: flex-end;
 }
 .kimera-button.tag.subtag {
     background: var(--kimera-filter-color);

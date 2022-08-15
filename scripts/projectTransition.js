@@ -22,15 +22,38 @@ export default {
   },
   leave(el, done) {
     const clickedEl = el.querySelector('.grid-item.clicked')
+    console.log("clickedEl ", clickedEl);
+    // debugger
+    if (clickedEl && clickedEl.dataset.newWidth != 'null') {
+      // gsap.set(clickedEl, { opacity: 0 })
+      this.$helpers.removeClassByPrefix(clickedEl, 'project-width-')
+      clickedEl.classList.add(clickedEl.dataset.newWidth)
+    } else if (clickedEl) {
+      this.$helpers.removeClassByPrefix(clickedEl, 'project-width-')
+      clickedEl.classList.add(clickedEl.dataset.originalWidth)
+      // debugger
+    }
+    // gsap.delayedCall(0, () => {
     if (!clickedEl) {
       done()
       return
     }
+
+
+    // setTimeout(() => {
+
+
+
+
+
+
+    let batch = Flip.batch("id");
     const inner = clickedEl.querySelector('.grid-item-inner')
     const clone = inner.cloneNode(true)
-    const originalStyle = window.getComputedStyle(inner);
-    const innerRect = inner.getBoundingClientRect()
     clone.classList.add('clone')
+
+    const innerRect = inner.getBoundingClientRect()
+    console.log(innerRect);
     gsap.set(clone, {
       position: "absolute",
       width: innerRect.width,
@@ -40,7 +63,28 @@ export default {
       opacity: 1
     })
     clickedEl.before(clone)
-    const state = Flip.getState(clone);
+    let action = batch.add({
+      getState(self) {
+        // const originalStyle = window.getComputedStyle(inner);
+        return Flip.getState(clone);
+      },
+      animate(self) {
+        Flip.from(self.state, {
+          // duration: 5,
+          duration: 0.625,
+          ease: "power4.out",
+          onComplete: () => {
+            batch.kill()
+            done()
+          }
+        });
+      },
+      once: true // removes the action from its batch when animate() is called
+    });
+    console.log("BATCH ", batch);
+
+    // const state = Flip.getState(clone);
+    batch.getState();
     gsap.set(clone, {
       width: '100vw',
       height: inner.getAttribute("target-height"),
@@ -53,19 +97,28 @@ export default {
       borderRadius: 0,
       opacity: 1
     })
-    Flip.from(state, {
-      duration: 0.625,
-      ease: "power4.out",
-      onComplete: done
-    });
-    clone.classList.add('is-transitioning')
-    inner.style.opacity = 0
-    const overlay = document.querySelector('.page-overlay')
-    gsap.to(overlay, {
-      opacity: 1,
-      duration: 1,
+
+    this.$nextTick(() => {
+      // Flip.from(state, {
+      //   duration: 5,
+      //   // duration: 0.625,
+      //   ease: "power4.out",
+      //   onComplete: done
+      // });
+      batch.run(true)
+      clone.classList.add('is-transitioning')
+      inner.style.opacity = 0
+      const overlay = document.querySelector('.page-overlay')
+      gsap.to(overlay, {
+        opacity: 1,
+        duration: 1,
+
+      })
 
     })
+    // })
+
+    // }, 1)
     // console.log(clone);
   }
 }

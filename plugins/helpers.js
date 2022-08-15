@@ -13,6 +13,10 @@ export default ({ app, store }, inject) => {
       getRandomNumber(min, max) {
         return Math.random() * (max - min) + min;
       },
+      getRandomIntInRange(min, max, include = false) {
+        if (include) return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1) + min)
+        else return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min)) + min)
+      },
       clampNumber(value, lower, upper) {
         return Math.min(upper, Math.max(lower, value));
       },
@@ -55,6 +59,11 @@ export default ({ app, store }, inject) => {
           x: centerX,
           y: centerY
         }
+      },
+      removeClassByPrefix(node, prefix) {
+        var regx = new RegExp('\\b' + prefix + '[^ ]*[ ]?\\b', 'g');
+        node.className = node.className.replace(regx, '');
+        return node;
       },
       isMobile(breakpoint = 769) {
         if (navigator.userAgent.match(/Mobi/)) {
