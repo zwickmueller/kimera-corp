@@ -1,7 +1,8 @@
 <template>
 <div class="">
-  <test-component></test-component>
-  <page v-if="story.content.component" :key="story.content._uid" :blok="story.content" />
+  <!-- <kimera-slideshow></kimera-slideshow> -->
+  <!-- <page v-if="story.content.component" :key="story.content._uid" :blok="story.content" /> -->
+  <component v-for="blok in story.content.body" :key="blok._uid" :blok="blok" :is="blok.component" />
 </div>
 </template>
 

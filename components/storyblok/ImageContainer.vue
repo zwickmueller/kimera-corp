@@ -1,7 +1,7 @@
 <template>
-<div v-editable="blok" class="services-container" :style="{height: blok.height ? blok.height : '', background: blok.background ? blok.background : '', padding: blok.padding? '4em' : ''}" :class="blok.objectFit ? blok.objectFit : ''">
+<div v-editable="blok" class="image-container" :style="style" :class="blok.objectFit ? blok.objectFit : ''">
 
-  <component v-for="blok in blok.body" :key="blok._uid" :blok="blok" :is="blok.component" />
+  <component v-for="blok in blok.body" :key="blok._uid" :blok="blok" :is="blok.component" :height="style.height" />
 </div>
 </template>
 
@@ -13,12 +13,22 @@ export default {
       required: true
     }
 
+  },
+  computed: {
+    style() {
+      return {
+        height: this.blok.height ? this.blok.height : '100vh',
+        background: this.blok.background ? this.blok.background : '',
+        padding: this.blok.padding ? '4em' : '',
+        maxHeight: this.blok.height == 'auto' ? 'none' : ''
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss">
-.services-container {
+.image-container {
     max-height: 100vh;
     width: 100%;
     height: 100vh;

@@ -1,11 +1,11 @@
 <template >
-<div class="nav-wrapper fixed fixed-reset">
+<header class="nav-wrapper fixed fixed-reset">
   <!-- <nav> -->
   <!-- <transition-group tag="nav" @before-enter="onBeforeEnter" @enter="onEnter" @after-enter="onAfterEnter" @enter-cancelled="onEnterCancelled" @before-leave="onBeforeLeave" @leave="onLeave" @after-leave="onAfterLeave"
     @leave-cancelled="onLeaveCancelled"> -->
   <transition-group tag="nav" :css="false" @enter="onEnter" @leave="onLeave">
     <tag-button v-for="(tag,i) in visibleTags" :key="tag.name + tag.active" v-if="tag.show" ref="tags" @click.native="handleTagClick(tag, i)" class="tag" :data-index="i" :data-sub-index="!tag.isMainTag  ? i - activeTagsComputed.length : null"
-                :class="[!tag.isMainTag && !tag.active && !tag.isTitle ? 'subtag' : '', tag.active ? 'active' : '', tag.isTitle ? 'title': '']" :style="`order: ${tag.active && tag.subTags ? 0 : i}`">
+      :class="[!tag.isMainTag && !tag.active && !tag.isTitle ? 'subtag' : '', tag.active ? 'active' : '', tag.isTitle ? 'title': '']" :style="`order: ${tag.active && tag.subTags ? 0 : i}`">
       {{!tag.isTitle ? tag.name : ''}}
 
       <kimera-logo v-if="tag.isTitle"></kimera-logo>
@@ -15,9 +15,19 @@
       </span>
     </tag-button>
   </transition-group>
+  <!-- <kimera-outline></kimera-outline> -->
+  <transition name="fade" mode="out-in">
+    <kimera-outline v-if="shouldRenderOutline"></kimera-outline>
+    <div class="" v-else>
+
+    </div>
+  </transition>
+
+  <div class="spacer">
+  </div>
   <!-- </nav> -->
 
-</div>
+</header>
 </template>
 
 <script>
@@ -278,6 +288,12 @@ export default {
     activeTagsComputed() {
       return this.tags.filter(tag => tag.active)
     },
+    shouldRenderOutline() {
+      return this.$route.name !== 'index' && this.$route.name !== "products-all" && !this.isPageTransitioning
+    },
+    isPageTransitioning() {
+      return this.$store.state.isPageTransitioning
+    },
   },
   watch: {
     '$route': {
@@ -315,15 +331,6 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 1s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
 .tag.title {
     text-transform: lowercase;
 }
@@ -338,19 +345,25 @@ export default {
 }
 
 .nav-wrapper {
-    padding: 0.5rem 0.5rem 0.5rem 0;
+    padding: 0.5rem var(--kimera-side-padding);
     display: flex;
     width: 100%;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     z-index: 100;
 }
 nav {
-    padding-left: var(--kimera-side-padding);
+    flex-grow: 1;
+    flex-basis: 0;
+    // padding-left: var(--kimera-side-padding);
     list-style: none;
     margin: 0;
     // padding: 0;
     display: flex;
     grid-gap: 0.5rem;
+}
+.spacer {
+    flex-grow: 1;
+    flex-basis: 0;
 }
 </style>

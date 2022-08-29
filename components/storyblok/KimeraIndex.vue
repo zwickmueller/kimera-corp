@@ -278,51 +278,5 @@ export default {
 </script>
 
 <style lang="scss">
-// .list-enter-active {
-//     transition: 1s ease;
-// }
-//
-// .list-leave-active {
-//     transition: 1s ease;
-//     position: absolute;
-// }
-//
-// .list-enter,
-// .list-leave-to {
-//     opacity: 0;
-//     background-color: red;
-//     transform: translateY(10px);
-// }
-//
-// .list-move {
-//     transition: 2s ease;
-// }
 
-@for $i from 1 through 8 {
-    .project-width-#{$i} {
-        flex-basis: calc(100%/8*#{$i} - 8px);
-        width: 100%;
-    }
-}
-.kimera-flex-grid {
-    height: 100%;
-    column-gap: 8px;
-    row-gap: 16px;
-    padding-left: var(--kimera-side-padding);
-    padding-right: calc(var(--kimera-side-padding) - 8px);
-    // grid-template-columns: repeat(8, 1fr);
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    min-height: 65em;
-    align-content: flex-start;
-}
-// .is-currently-filtering {
-//     transition: all 1s ease;
-// }
-.test.item {
-    flex-basis: 100%;
-    background: red;
-}
 </style>

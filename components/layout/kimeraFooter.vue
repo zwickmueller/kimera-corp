@@ -1,5 +1,5 @@
 <template>
-<div class="kimera-footer">
+<footer class="kimera-footer">
   <div class="flex kimera-text-filter-tags">
     kimera Holzstraße 15a 80469 München +49 173 9032725 post@kimeracorp.eu ®All Rights reserved ©kimera2022
   </div>
@@ -7,7 +7,7 @@
     <a href="#">Imprint</a>
     <a href="#">Privacy</a>
   </div>
-</div>
+</footer>
 </template>
 
 <script>

@@ -4,7 +4,9 @@
 @import "./resets.scss";
 @import "./typography.scss";
 @import "./columns.scss";
+@import "./layout.scss";
 @import "./util.scss";
+@import url("node_modules/@egjs/vue-flicking/dist/flicking.css");
 
 :root {
   --white: #fff;
@@ -14,11 +16,23 @@
   --kimera-border-radius: 1em;
   --kimera-button-border-radius: 2em;
   --kimera-side-padding: 1.25em;
+  --kimera-grid-gap: 8px;
+  --kimera-grid-row-gap: 14px;
   --kimera-filter-color: rgba(150, 150, 150, 0.4);
 }
 
 a {
   text-decoration: none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 #app,

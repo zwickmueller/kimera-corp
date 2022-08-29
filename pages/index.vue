@@ -1,12 +1,12 @@
 <template>
-<div class="">
+<main class="">
   <kimera-index :story="story"></kimera-index>
   <!-- <landing-page-gallery></landing-page-gallery>
   <project-grid></project-grid>
   <div class="kimera-grid" style="margin-top: 2em">
     <component v-for="blok in story.content.body" :key="blok._uid" :blok="blok" :is="blok.component" />
   </div> -->
-</div>
+</main>
 </template>
 
 <script>

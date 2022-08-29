@@ -60,6 +60,9 @@ export default ({ app, store }, inject) => {
           y: centerY
         }
       },
+      normalizeString(string) {
+        return string.toLowerCase().trim().replace(' ', '-')
+      },
       removeClassByPrefix(node, prefix) {
         var regx = new RegExp('\\b' + prefix + '[^ ]*[ ]?\\b', 'g');
         node.className = node.className.replace(regx, '');

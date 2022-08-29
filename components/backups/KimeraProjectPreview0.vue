@@ -1,15 +1,25 @@
 <template>
-<nuxt-link :to="{ path: '/' + blok.project.full_slug,  params: { userId: 123 }}" ref="link" v-editable="blok" class="grid-item project-preview" @click.native="handleClick" :data-original-width="`project-width-${width}`" data-new-width="null">
+<!-- <div  class="project-preview"> -->
+
+<!-- <nuxt-link :to="'/' + blok.project.full_slug" v-editable="blok" class="grid-item project-preview" @click.native="wasClicked = true" :class="[wasClicked ? 'clicked' : '', `project-width-${width}`]" :data-original-width="`project-width-${width}`"
+  data-new-width="null"> -->
+<nuxt-link :to="'/' + blok.project.full_slug" ref="link" v-editable="blok" class="grid-item project-preview" @click.native="handleClick" :data-original-width="`project-width-${width}`" data-new-width="null">
+  <!-- <nuxt-link :to="'/' + blok.project.full_slug" v-editable="blok" class="grid-item project-preview" :style="`flex-basis: calc(100%/8*${width} - 8px);width: 100%`" @click.native="wasClicked = true" :class="wasClicked ? 'clicked' : ''"> -->
+  <!-- <nuxt-link :to="'/' + blok.project.full_slug" v-editable="blok" class="grid-item project-preview" :style="` width: calc(100%/8*${width} - 8px)`" @click.native="wasClicked = true" :class="wasClicked ? 'clicked' : ''"> -->
+  <!-- <nuxt-link :to="'/' + blok.project.full_slug" v-editable="blok" class="grid-item project-preview" :style="`grid-column: span ${width}`" @click.native="wasClicked = true" :class="wasClicked ? 'clicked' : ''"> -->
   <div class="grid-item-tags kimera-text-filter-tags">
     <span v-if="project" v-for="(tag, index) in tags">{{tag}}{{index < project.tags.length -1 ? ', ': ''}} </span>
     <span v-else> ~</span>
   </div>
   <div class="grid-item-inner center-all relative kimera-text-kacheln" :class="checkProjectType" :title="project ? project.name : '~storyblok bug, changes are visible after save~'" :target-height="checkTargetHeight">
+    <!-- project.name -->
     <div class="grid-item-overlay overlay-foreground h-w-100p fixed-reset absolute "></div>
     <kimera-image :blok="blok"></kimera-image>
     <div class="grid-item-overlay overlay-background h-w-100p fixed-reset absolute "> </div>
   </div>
 </nuxt-link>
+
+<!-- </div> -->
 </template>
 
 <script>
@@ -27,7 +37,6 @@ export default {
   },
   methods: {
     handleClick() {
-      this.$root.lastClickedImageId = this.blok.src.id
       this.$refs.link.$el.classList.add("clicked")
     },
     stringExists(arr, val) {

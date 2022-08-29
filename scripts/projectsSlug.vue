@@ -1,12 +1,15 @@
+
+
 <template>
-<div class="">
+<main class="">
   <!-- <landing-page-gallery></landing-page-gallery>
   <project-grid></project-grid>
  -->
   <!-- PROJECT -->
+
   <component v-if="story.content.component" :key="story.content._uid" :blok="story.content" :is="story.content.component" />
 
-</div>
+</main>
 </template>
 
 <script>
@@ -14,7 +17,7 @@ import {
   useStoryblokBridge,
   useStoryblokApi
 } from "@storyblok/nuxt";
-import projectTransition from '../../scripts/projectTransition'
+import projectTransition from './projectTransition'
 
 export default {
   data() {
@@ -58,7 +61,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-
-</style>

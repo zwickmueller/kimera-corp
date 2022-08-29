@@ -1,11 +1,11 @@
 <template lang="html">
-  <div v-editable="blok" class="kimera-container" :class="blok.bottomGradient ? 'bottom-gradient' : ''">
-    <h3 v-if="blok.heading" class="kimera-text-filter-tags">{{blok.heading}}</h3>
+  <section v-editable="blok" class="kimera-container" :class="blok.bottomGradient ? 'bottom-gradient' : ''">
+    <h3 :id="this.$helpers.normalizeString(blok.heading)" v-if="blok.heading" class="kimera-text-filter-tags">{{blok.heading}}</h3>
     <div class="kimera-container-inner" :class="blok.fullWidth ? '' : 'has-max-width'">
 
     <component v-for="blok in blok.body" :key="blok._uid" :blok="blok" :is="blok.component" />
   </div>
-  </div>
+</section>
 </template>
 
 <script>
@@ -29,9 +29,10 @@ export default {
         }
     }
     h3 {
-        padding: 1em 0 1.5em;
+        padding: calc(var(--kimera-grid-gap) / 2) 0 1.5em;
         text-align: center;
         text-transform: uppercase;
+        position: relative;
     }
     &.bottom-gradient {
         position: relative;

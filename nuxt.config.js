@@ -30,7 +30,7 @@ export default {
   css: ['@/assets/scss/main.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/helpers'],
+  plugins: ['@/plugins/helpers', '@/plugins/flicking'],
   styleResources: {
     sass: [
       // '~bulma/sass/utilities/mixins.sass'
@@ -80,5 +80,13 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ['gsap'],
+    loaders: {
+      vue: {
+        compilerOptions: {
+          // This option is highly recommended
+          preserveWhitespace: false
+        }
+      }
+    }
   }
 }

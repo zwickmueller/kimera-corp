@@ -1,6 +1,6 @@
 <template>
 <div class="layout-wrapper">
-  <navigation></navigation>
+  <kimera-navigation></kimera-navigation>
   <div class="page-overlay h-w-100 fixed fixed-reset">
 
   </div>

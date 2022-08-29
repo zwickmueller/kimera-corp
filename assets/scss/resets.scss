@@ -26,18 +26,18 @@
   }
 }
 
-button.reset {
+.button-reset {
   @extend %reset-Button;
 }
 // Below from https://piccalil.li/blog/a-modern-css-reset
 /* Box sizing rules */
-
 *,
 *::after,
 *::before {
   box-sizing: border-box;
 }
 /* Remove default margin */
+
 blockquote,
 body,
 dd,
@@ -51,6 +51,7 @@ p {
   margin: 0;
 }
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+
 ul[role='list'],
 ol[role='list'] {
   list-style: none;
@@ -58,7 +59,6 @@ ol[role='list'] {
   padding: 0;
 }
 /* Set core root defaults */
-
 html {
   font-size: 100%;
   font-family: sans-serif;
@@ -71,6 +71,7 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 /* Set core body defaults */
+
 body {
   //  min-height: 100vh;
   text-rendering: optimizeSpeed;
@@ -79,6 +80,7 @@ body {
   line-height: 1.5;
 }
 /* A elements that don't have a class get default styles */
+
 .link,
 a:not([class]) {
   text-decoration-skip-ink: auto;
@@ -88,6 +90,7 @@ a {
   color: inherit;
 }
 /* Make images easier to work with */
+
 img,
 picture {
   max-width: 100%;
@@ -99,6 +102,7 @@ iframe {
   border: 0;
 }
 /* Inherit fonts for inputs and buttons */
+
 button,
 input,
 select,

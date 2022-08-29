@@ -1,5 +1,5 @@
 <template>
-<button class="kimera-button kimera-text-filter reset">
+<button class="kimera-button kimera-text-filter button-reset">
   <slot></slot>
 </button>
 </template>
@@ -8,7 +8,7 @@
 export default {}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .kimera-button {
     background: var(--black);
     color: var(--kimera-white);

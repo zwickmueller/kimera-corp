@@ -11,19 +11,30 @@ export default {
   css: false,
   mode: 'out-in',
   enter(el, done) {
+    this.$store.commit('setIsPageTransitioning', true)
+    let that = this
+
     const overlay = document.querySelector('.page-overlay')
     gsap.fromTo(overlay, {
       opacity: 1
     }, {
       opacity: 0,
       duration: 1,
-      onComplete: done
+      onStart: () => {
+
+        that.$store.commit('setIsPageTransitioning', false)
+      },
+      onComplete: () => {
+        done()
+      }
     })
   },
   leave(el, done) {
     const clickedEl = el.querySelector('.grid-item.clicked')
-    console.log("clickedEl ", clickedEl);
+    // console.log("clickedEl ", clickedEl);
     // debugger
+    this.$store.commit('setIsPageTransitioning', true)
+
     if (clickedEl && clickedEl.dataset.newWidth != 'null') {
       // gsap.set(clickedEl, { opacity: 0 })
       this.$helpers.removeClassByPrefix(clickedEl, 'project-width-')
@@ -36,14 +47,16 @@ export default {
     // gsap.delayedCall(0, () => {
     if (!clickedEl) {
       done()
+      this.$store.commit('setIsPageTransitioning', false)
       return
     }
 
-
+    console.log(this.$root, "this.$root");
+    console.log(this.$store, "this.$store");
     // setTimeout(() => {
 
 
-
+    let that = this
 
 
 
@@ -53,7 +66,7 @@ export default {
     clone.classList.add('clone')
 
     const innerRect = inner.getBoundingClientRect()
-    console.log(innerRect);
+    // console.log(innerRect);
     gsap.set(clone, {
       position: "absolute",
       width: innerRect.width,
@@ -75,13 +88,15 @@ export default {
           ease: "power4.out",
           onComplete: () => {
             batch.kill()
+            that.$store.commit('setIsPageTransitioning', false)
+
             done()
           }
         });
       },
       once: true // removes the action from its batch when animate() is called
     });
-    console.log("BATCH ", batch);
+    // console.log("BATCH ", batch);
 
     // const state = Flip.getState(clone);
     batch.getState();

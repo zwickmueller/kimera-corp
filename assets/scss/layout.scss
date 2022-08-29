@@ -1,0 +1,25 @@
+@for $i from 1 through 8 {
+  .project-width-#{$i} {
+    flex-basis: calc(100%/8*#{$i} - 8px);
+    width: 100%;
+  }
+}
+
+.kimera-flex-grid {
+  height: 100%;
+  column-gap: var(--kimera-grid-gap);
+  row-gap: var(--kimera-grid-row-gap);
+  padding-left: var(--kimera-side-padding);
+  padding-right: calc(var(--kimera-side-padding) - var(--kimera-grid-gap));
+  // grid-template-columns: repeat(8, 1fr);
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 65em;
+  align-content: flex-start;
+}
+
+.products .kimera-flex-grid {
+  padding-right: calc(var(--kimera-side-padding) - 2em);
+}
