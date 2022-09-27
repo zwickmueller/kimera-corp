@@ -41,10 +41,12 @@ export default {
   },
   computed: {
     shouldRender() {
-      return this.$route.name !== 'index' && this.$route.name !== "products-all" && !this.isPageTransitioning
+      return this.shouldObserve && !this.isPageTransitioning
+      // return this.$route.name !== 'index' && this.$route.name !== "products-all" && this.$route.name !== "info" && !this.isPageTransitioning
     },
     shouldObserve() {
-      return this.$route.name !== 'index' && this.$route.name !== "products-all"
+      return this.$route.name == 'services-all' || this.$route.name == 'typefaces-all'
+      // return this.$route.name !== 'index' && this.$route.name !== "products-all" && this.$route.name !== "info"
     },
     isPageTransitioning() {
       return this.$store.state.isPageTransitioning

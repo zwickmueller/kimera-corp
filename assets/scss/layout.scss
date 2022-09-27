@@ -1,8 +1,13 @@
 @for $i from 1 through 8 {
-  .project-width-#{$i} {
+  .grid-width-#{$i} {
     flex-basis: calc(100%/8*#{$i} - 8px);
     width: 100%;
   }
+}
+
+.flex-spacer {
+  flex-grow: 1;
+  flex-basis: 0;
 }
 
 .kimera-flex-grid {

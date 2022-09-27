@@ -6,33 +6,12 @@
 @import "./columns.scss";
 @import "./layout.scss";
 @import "./util.scss";
+@import "./animations.scss";
+@import "./typetester.scss";
 @import url("node_modules/@egjs/vue-flicking/dist/flicking.css");
-
-:root {
-  --white: #fff;
-  --black: #000;
-  --kimera-white: #eaeaea;
-  --kimera-grey: #D6D6D6;
-  --kimera-border-radius: 1em;
-  --kimera-button-border-radius: 2em;
-  --kimera-side-padding: 1.25em;
-  --kimera-grid-gap: 8px;
-  --kimera-grid-row-gap: 14px;
-  --kimera-filter-color: rgba(150, 150, 150, 0.4);
-}
 
 a {
   text-decoration: none;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 
 #app,
@@ -44,15 +23,36 @@ html {
   // max-width: 100vw;
 }
 
+:root {
+  --white: #fff;
+  --black: #000;
+  --kimera-white: #eaeaea;
+  --kimera-grey: #D6D6D6;
+  --kimera-border-radius: 1em;
+  --kimera-button-border-radius: 2em;
+  --kimera-small-gap: clamp(4px, 0.333em, 8px);
+  --kimera-side-padding: 1.25em;
+  --kimera-grid-gap: 8px;
+  --kimera-grid-row-gap: 14px;
+  --kimera-filter-color: rgba(150, 150, 150, 0.4);
+}
+
+::selection {
+  color: var(--kimera-white);
+  background: var(--black);
+}
+
 html {
+  overflow-x: hidden;
   // scroll-behavior: smooth;
   color: var(--black);
   background: var(--white);
   font-size: unquote("clamp(12px, 1.05vw, 16px)");
   font-family: 'Waldenburg', Arial, sans-serif;
+  font-weight: 500;
   // font-variation-settings: 'wght' 370;
   font-synthesis: none;
   @include until($tablet) {
-    font-size: unquote("clamp(13px, 1.05vw, 24px)");
+    font-size: unquote("clamp(12px, 1.0vw, 24px)");
   }
 }

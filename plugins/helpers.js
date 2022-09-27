@@ -60,6 +60,9 @@ export default ({ app, store }, inject) => {
           y: centerY
         }
       },
+      getEmValue() {
+        return parseFloat(getComputedStyle(document.querySelector('html')).fontSize)
+      },
       normalizeString(string) {
         return string.toLowerCase().trim().replace(' ', '-')
       },

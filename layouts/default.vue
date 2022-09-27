@@ -7,7 +7,7 @@
 
   <Nuxt class="layout-inner" />
   <!-- <Nuxt class="layout-inner" keep-alive :keep-alive-props="{ include: ['index'] }" /> -->
-  <kimera-footer></kimera-footer>
+  <kimera-footer :key="this.$route.name"></kimera-footer>
 </div>
 </template>
 

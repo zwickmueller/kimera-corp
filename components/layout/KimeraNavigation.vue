@@ -23,7 +23,7 @@
     </div>
   </transition>
 
-  <div class="spacer">
+  <div class="flex-spacer">
   </div>
   <!-- </nav> -->
 
@@ -336,7 +336,7 @@ export default {
 }
 .close-icon-wrapper {
 
-    margin-left: 4px;
+    margin-right: 4px;
     width: 8px;
     display: block;
 }
@@ -345,7 +345,8 @@ export default {
 }
 
 .nav-wrapper {
-    padding: 0.5rem var(--kimera-side-padding);
+    padding: var(--kimera-small-gap) var(--kimera-side-padding);
+    // padding: 0.5rem var(--kimera-side-padding);
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -361,9 +362,5 @@ nav {
     // padding: 0;
     display: flex;
     grid-gap: 0.5rem;
-}
-.spacer {
-    flex-grow: 1;
-    flex-basis: 0;
 }
 </style>

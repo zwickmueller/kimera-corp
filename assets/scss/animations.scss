@@ -1,0 +1,52 @@
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+@keyframes wiggle {
+  10%,
+  90% {
+    transform: rotateZ(2deg);
+  }
+
+  20%,
+  80% {
+    transform: rotateZ(5deg);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: rotateZ(-8deg);
+  }
+
+  40%,
+  60% {
+    transform: rotateZ(8deg);
+  }
+}
+@keyframes wiggle2 {
+  // 10%,
+  // 90% {
+  //   transform: rotateZ(2deg);
+  // }
+  //
+  // 20%,
+  // 80% {
+  //   transform: rotateZ(5deg);
+  // }
+  30%,
+  50%,
+  70% {
+    transform: rotateZ(-8deg);
+  }
+
+  40%,
+  60% {
+    transform: rotateZ(8deg);
+  }
+}

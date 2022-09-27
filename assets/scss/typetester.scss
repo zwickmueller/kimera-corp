@@ -1,0 +1,117 @@
+.kimera-typetester.is-inverted {
+  background: var(--black)!important;
+  color: var(--kimera-white)!important;
+
+  &:hover {
+    background: var(--black) !important;
+  }
+
+  .typetester-inner {
+    ::selection {
+      color: var(--black);
+      background: var(--kimera-white);
+    }
+  }
+}
+
+.kimera-typetester {
+  &.is-preview {
+    min-height: max(30em, 33vh);
+    max-height: 100vh;
+    // height: 33vh;
+    position: relative;
+
+    .typetester-inner {
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      white-space: pre;
+      // transition: transform 0.2s ease;
+    }
+  }
+  transition: $typetester-invert-transition;
+  background: var(--white);
+  border-radius: var(--kimera-border-radius);
+  cursor: pointer;
+
+  &.is-preview:hover {
+    background: var(--kimera-grey);
+
+    .typetester-inner {
+      // transform: translateY(.75rem);
+    }
+  }
+
+  .typetester-inner {
+    padding: 1rem;
+    height: 100%;
+    transition: opacity 0.1s ease;
+    // pointer-events: none;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .typetester-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: var(--kimera-small-gap);
+    pointer-events: none;
+
+    .close,
+    .toggle {
+      pointer-events: all;
+    }
+
+    .top {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .current-fonttype {
+        display: flex;
+        grid-column-gap: calc(var(--kimera-grid-gap)/ 2);
+      }
+    }
+
+    .close {
+      opacity: 0;
+      transition: 0.3s ease opacity;
+
+      &.show-close-button {
+        opacity: 1;
+        // transition: none;
+      }
+      // &:hover {
+      //     transition: none;
+      //     opacity: 1;
+      // }
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+
+      .timestamp {
+        line-height: 1;
+        flex-grow: 1;
+        flex-basis: 0;
+        display: flex;
+        align-items: flex-end;
+      }
+
+      .toggle {
+        flex-grow: 1;
+      }
+
+      .spacer {
+        flex-basis: 0;
+      }
+    }
+  }
+}

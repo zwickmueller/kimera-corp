@@ -1,9 +1,10 @@
+// FONT WEIGHT KEY KEY NEED TO BE A NUMBER/INT (NOT A STRING)
 $font-families: (
-  '375': 'Buch/Waldenburg-Buch',
-  '500': 'Halbfett/Waldenburg-Halbfett',
-  '700': 'Fett/Waldenburg-Fett',
+  375: 'Buch/Waldenburg-Buch',
+  500: 'Halbfett/Waldenburg-Halbfett',
+  700: 'Fett/Waldenburg-Fett'
 );
-$fontsDir: '~@/assets/fonts/Waldenburg/';
+$fontsDir: '~@/static/fonts/Waldenburg/';
 $fontFamily: 'Waldenburg';
 @each $fontWeight, $fontName in $font-families {
   @font-face {
@@ -12,6 +13,7 @@ $fontFamily: 'Waldenburg';
     src: url("#{$fontsDir}#{$fontName}.eot?#iefix") format('embedded-opentype'), url("#{$fontsDir}#{$fontName}.woff") format('woff'), url("#{$fontsDir}#{$fontName}.woff2") format('woff2');
     font-weight: $fontWeight;
     font-style: normal;
-    font-display: swap;
+    font-display: fallback;
+    // font-display: swap;
   }
 }

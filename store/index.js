@@ -1,3 +1,11 @@
+// import VuexPersistence from 'vuex-persist'
+
+// const vuexLocal = new VuexPersistence({
+//   storage: window.localStorage
+// })
+//
+// export const plugins = [vuexLocal.plugin]
+
 export const state = () => ({
   isPageTransitioning: false
 })

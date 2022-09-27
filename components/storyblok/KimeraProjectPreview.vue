@@ -1,5 +1,5 @@
 <template>
-<nuxt-link :to="{ path: '/' + blok.project.full_slug,  params: { userId: 123 }}" ref="link" v-editable="blok" class="grid-item project-preview" @click.native="handleClick" :data-original-width="`project-width-${width}`" data-new-width="null">
+<nuxt-link :to="{ path: '/' + blok.project.full_slug,  params: { userId: 123 }}" ref="link" v-editable="blok" class="grid-item project-preview" @click.native="handleClick" :data-original-width="`grid-width-${width}`" data-new-width="null">
   <div class="grid-item-tags kimera-text-filter-tags">
     <span v-if="project" v-for="(tag, index) in tags">{{tag}}{{index < project.tags.length -1 ? ', ': ''}} </span>
     <span v-else> ~</span>

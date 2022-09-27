@@ -20,6 +20,10 @@ export default {
     script: [{
       charset: "utf-8",
       src: "/js/patch.js",
+    }, {
+      charset: "utf-8",
+      src: "/js/content-editable.js",
+      type: 'module'
     }],
   },
   server: {
@@ -30,7 +34,7 @@ export default {
   css: ['@/assets/scss/main.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/helpers', '@/plugins/flicking'],
+  plugins: ['@/plugins/helpers', '@/plugins/flicking', { src: '@/plugins/vuex-persist.js', mode: 'client' }],
   styleResources: {
     sass: [
       // '~bulma/sass/utilities/mixins.sass'
