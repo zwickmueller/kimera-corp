@@ -12,6 +12,17 @@
 </template>
 
 
+<script>
+  export default {
+    fetchKey: 'kimera-font-data',
+    async fetch() {
+      let fontData = await this.$axios.$get('https://zwickmueller.github.io/kimera-corp-json-store/fontData.json')
+
+      this.$store.commit('fontData/initiateFontData', fontData)
+    },
+  }
+</script>
+
 <style lang="scss">
 .page-overlay {
     background: var(--white);

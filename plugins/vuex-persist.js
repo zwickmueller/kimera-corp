@@ -4,7 +4,7 @@ export default ({ store }) => {
   new VuexPersistence({
     /* your options */
     key: 'Kimera',
-    modules: ['typetester', 'fontData']
+    modules: ['typetester']
     // modules: ['typetester', 'fontData']
   }).plugin(store);
 }

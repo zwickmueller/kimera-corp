@@ -4,7 +4,7 @@
     <div class="top">
       <div class="current-fonttype">
         <tag-button :isDiv="true" :isInverted="typetester.invertColors">{{typetester.style.fontFamily}}</tag-button>
-        <tag-button :isDiv="true" :isInverted="typetester.invertColors">{{getReadableFontWeight(typetester.style.fontFamily, typetester.style.fontWeight)}}</tag-button>
+        <tag-button :isDiv="true" :isInverted="typetester.invertColors">{{getReadableFontWeight(typetester.style)}}</tag-button>
       </div>
       <div class="close close-button" v-if="typetester.isUserCreated" :class="showCloseButton ? 'show-close-button' : ''">
         <span class="close-button" @click="deleteCustomTypetest">
@@ -16,9 +16,10 @@
     <div class="bottom">
       <div class="timestamp">
         {{typetester.timestamp}}
+        <!-- {{this.typetester.invertColors}} -->
       </div>
       <div class="toggle">
-        <dark-mode-toggle @click.native="handleInvertColors" :invert="typetester.invertColors"></dark-mode-toggle>
+        <dark-mode-toggle @click.native="handleInvertColors2" :invert="typetester.invertColors"></dark-mode-toggle>
 
         <!-- <input type="checkbox"  :checked="typetester.invertColors"> -->
       </div>
@@ -47,9 +48,37 @@ import TypetesterMixin from './TypetesterMixins.js'
 export default {
   mixins: [TypetesterMixin],
   props: {
-    typetester: {
+    typetesterData: {
       type: Object,
-      default: () => ({
+      // default: () => ({
+      //   invertColors: false,
+      //   isUserCreated: false,
+      //   text: 'Kimera',
+      //   timestamp: '15:35',
+      //   style: {
+      //     fontFamily: 'Waldenburg',
+      //     fontSize: '350px',
+      //     textAlign: 'center',
+      //     letterSpacing: '0em',
+      //     lineHeight: '100%',
+      //     // fontFamily: 'inherit',
+      //     fontWeight: 375,
+      //   }
+      // })
+    }
+  },
+  data() {
+    return {
+      isPreview: true,
+      localInvertColors: false,
+      dom: {
+        innerText: null,
+        timestamp: null,
+        currenFontType: null
+      },
+      typetester: {},
+      defaults: {
+        // width: 8,
         invertColors: false,
         isUserCreated: false,
         text: 'Kimera',
@@ -60,27 +89,27 @@ export default {
           textAlign: 'center',
           letterSpacing: '0em',
           lineHeight: '100%',
+          fontStretch: 'normal',
+          fontStyle: 'normal',
+          fontFeatureSettings: 'normal',
           // fontFamily: 'inherit',
           fontWeight: 375,
         }
-      })
-    }
-  },
-  data() {
-    return {
-      width: 8,
-      isPreview: true,
-      dom: {
-        innerText: null,
-        timestamp: null,
-        currenFontType: null
       }
     }
   },
   computed: {
     ...mapGetters({
       getFontDataByName: 'fontData/getFontDataByName',
-    })
+    }),
+    // typetester() {
+    //   let b = this.typetesterData
+    //   let c = this.defaults
+    //   let a = {}
+    //   // Object.assign(a, this.defaults, b)
+    //   return Object.assign({}, this.defaults, this.typetesterData)
+    //
+    // }
   },
   methods: {
     ...mapMutations({
@@ -97,7 +126,14 @@ export default {
     deleteCustomTypetest() {
       this.removeCustomTypetest(this.typetester)
     },
+    handleInvertColors2() {
+      // console.log("asd");
+      this.typetester.invertColors = !this.typetester.invertColors
+      // Object.assign({}, this.defaults, this.typetesterData)
+      // this.localInvertColors = !this.localInvertColors
+      // this.$set(this.typetester, )
 
+    },
     // onInput(e) {
     //   console.log(e.target.innerText, e);
     // },
@@ -116,9 +152,9 @@ export default {
         ease: "elastic.out(0.45, 0.3)"
       })
       gsap.fromTo(this.dom.innerText, {
-        y: '0',
+        y: '-1rem',
       }, {
-        y: '1rem',
+        y: '0',
         duration: 0.5,
         ease: "elastic.out(0.45, 0.3)"
       })
@@ -137,9 +173,9 @@ export default {
         ease: "elastic.out(0.45, 0.3)"
       })
       gsap.fromTo(this.dom.innerText, {
-        y: '1rem',
-      }, {
         y: '0',
+      }, {
+        y: '-1rem',
         duration: 0.5,
         ease: "elastic.out(0.45, 0.3)"
       })
@@ -147,13 +183,16 @@ export default {
       this.$el.removeEventListener('mousemove', this.handleMouseMove)
     },
   },
+  created() {
+    this.typetester = Object.assign({}, this.defaults, this.typetesterData)
+
+  },
   mounted() {
     // this.$nextTick(() => {
-
     const fontData = this.getFontDataByName(this.getStyle.fontFamily)
     // console.log("fontDatafrom created", fontData);
 
-    const fontFamily = fontData.fontFamilies.find(font => font.weight == this.getStyle.fontWeight)
+    const fontFamily = fontData.fontFamilies.find(font => font.weight == this.getStyle.fontWeight && font.fontStyle == this.getStyle.fontStyle && font.fontStretch == this.getStyle.fontStretch)
     // console.log("here ", fontFamily, fontData, this.getStyle.fontWeight);
     // return
     this.loadFont(fontFamily, fontData.name, fontData.fontDir)

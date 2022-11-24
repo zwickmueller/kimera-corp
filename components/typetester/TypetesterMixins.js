@@ -29,7 +29,7 @@ const TypetesterMixin = {
 
     getClasses() {
       return [
-        `grid-width-${this.width}`,
+        // `grid-width-${this.typetester.width}`,
         {
           'is-inverted': this.typetester.invertColors
         },
@@ -43,11 +43,11 @@ const TypetesterMixin = {
       setCurrentTypetesterOptions: 'typetester/setCurrentTypetesterOptions',
       updateCustomTypetestValue: 'typetester/updateCustomTypetestValue',
     }),
-    getReadableFontWeight(name, weight) {
-      return this.getFontWeightAsReadable(name, weight)
+    getReadableFontWeight(style) {
+      return this.getFontWeightAsReadable(style)
     },
     handleInvertColors(e) {
-      console.log("a");
+      // console.log("a");
       if (this.typetester.isUserCreated && this.isPreview) {
         // let a = this.getCustomTypetestByTimestamp(this.$route.fullPath, this.typetester.timestamp)
         // console.log(a);
@@ -61,29 +61,42 @@ const TypetesterMixin = {
         })
         return
       }
+      // const a = !this.typetester.invertColors
+      // this.typetester = Object.assign({}, this.typetester, { invertColors: a })
+      // Object.assign({}, this.typetesterData, { invertColors: a })
+      //
       this.typetester.invertColors = !this.typetester.invertColors
+      // this.typetesterData.invertColors = !this.typetesterData.invertColors
+      //
+      //
+      // console.log(this.typetesterData);
+      // console.log(this.$el);
+      // this.$el.classList.toggle('is-inverted')
     },
     async loadFont(fontData, name, fontDir) {
       const {
         weight,
-        path
+        path,
+        fontStretch,
+        fontStyle
       } = fontData
-      //'url(fonts/junction-regular.woff)'
+      // console.log(fontDir);
       const fontToLoad = new FontFace(name, `url(${fontDir + path + '.woff'})`, {
         weight: String(weight),
+        stretch: String(fontStretch),
+        style: String(fontStyle),
         display: 'block'
       });
 
-      console.log(fontToLoad);
       for (var fontFace of document.fonts.values()) {
-        if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.loaded) {
+        if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.style == fontStyle && fontFace.stretch == fontStretch && fontFace.loaded) {
           console.log(`FONT ${name} with weight ${weight} was already loaded`);
           return
         }
       }
       let el = this.$el.querySelector('.typetester-inner')
       el.style.opacity = 0
-      console.log(el);
+      // console.log(el);
       await fontToLoad.load()
         .then(function(loadedFont) {
           el.style.opacity = 1

@@ -2,22 +2,27 @@
 <div class="">
   <!-- <kimera-slideshow></kimera-slideshow> -->
   <!-- <page v-if="story.content.component" :key="story.content._uid" :blok="story.content" /> -->
-  <!-- <component v-for="blok in story.content.body" :key="blok._uid" :blok="blok" :is="blok.component" />
- -->
+
   <div class="" style="height: 10vh">
 
   </div>
-  <kimera-typetester-preview></kimera-typetester-preview>
+
+  <div class="">
+    <kimera-glyph-wrapper></kimera-glyph-wrapper>
+  </div>
+  <!-- <kimera-typetester-preview></kimera-typetester-preview> -->
 
   <!-- <transition name="fade"> -->
-  <client-only>
-    <kimera-typetester v-if="isTypetesterOpen"></kimera-typetester>
-  </client-only>
+  <!-- <client-only> -->
+
+  <!-- </client-only> -->
   <!-- </transition> -->
-  <div class="">
+  <!-- <div class="">
 
     <kimera-typetester-preview v-for="typetest in customTypetests" :typetester="typetest" :key="String(typetest.timestamp)"></kimera-typetester-preview>
   </div>
+
+  <component v-for="blok in story.content.body" :key="blok._uid" :blok="blok" :is="blok.component" /> -->
   <!-- <button type="button" name="button" @click="test">test </button> -->
   <!-- <div class="" contenteditable="true">
 
@@ -69,9 +74,7 @@ export default {
       getCustomTypetestsByPath: 'typetester/getCustomTypetestsByPath',
       // ...
     }),
-    isTypetesterOpen() {
-      return this.$store.state.typetester.isTypetesterOpen
-    },
+
     typetests() {
       return this.$store.state.typetester.customTypetests
     },

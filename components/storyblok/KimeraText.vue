@@ -22,7 +22,8 @@ export default {
   },
   computed: {
     richtext() {
-      return useStoryblokApi().richTextResolver.render(this.blok.text)
+      return useStoryblokApi()
+        .richTextResolver.render(this.blok.text)
     }
   },
   mounted() {}

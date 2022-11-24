@@ -14,7 +14,16 @@
   }
 }
 
+content-editable {
+  white-space: pre;
+  min-width: 250px;
+  cursor: auto;
+  outline: none;
+}
+
 .kimera-typetester {
+  position: relative;
+
   &.is-preview {
     min-height: max(30em, 33vh);
     max-height: 100vh;
@@ -29,13 +38,14 @@
       // transition: transform 0.2s ease;
     }
   }
+  overflow: hidden;
   transition: $typetester-invert-transition;
   background: var(--white);
   border-radius: var(--kimera-border-radius);
   cursor: pointer;
 
   &.is-preview:hover {
-    background: var(--kimera-grey);
+    background: var(--kimera-white);
 
     .typetester-inner {
       // transform: translateY(.75rem);
@@ -96,6 +106,7 @@
     .bottom {
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       .timestamp {
         line-height: 1;

@@ -2,6 +2,7 @@
 <div class="kimera-slider" :class="isInverted ? 'is-inverted': ''">
 
   <label :for="name"> {{name}} {{Number(sliderData.value).toFixed(target == 'letterSpacing' ? 2 : 0 )}}{{unit}}</label>
+  <!-- <input class="styled-slider" type="range" :name="target" :min="sliderData.min" :max="sliderData.max" :data-unit="unit" @input="handleSliders" :v-model="sliderData.value" step="any"> -->
   <input class="styled-slider" type="range" :name="target" :min="sliderData.min" :max="sliderData.max" :data-unit="unit" @input="handleSliders" :value="sliderData.value" step="any">
 </div>
 </template>
@@ -30,6 +31,7 @@ export default {
   methods: {
     handleSliders(event) {
       // console.log("EVENT FROM COMPONENT", event);
+      this.$emit("input", event)
       this.$emit("handleSliders", event)
     }
   }

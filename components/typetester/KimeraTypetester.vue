@@ -1,5 +1,5 @@
-<template>
-<div class="kimera-typetester-background-wrapper">
+transparent<template>
+<div class="kimera-typetester-background-wrapper" @click.stop="clickOutside">
 
   <div class="kimera-typetester" :class="getClasses">
     <!--  @mouseenter="mouseEntered" @mouseleave="mouseLeaved" -->
@@ -17,13 +17,16 @@
                 {{font.name}}</tag-button>
             </div>
           </div>
-
+<!--  -->
           <div class="button-wrapper" @mouseenter="animateWeightSelection()" @mouseleave="animateWeightSelection(false)" style="order: 1">
             <div class="button-wrapper-inner current-weight" data-flip-id="current-weight" :key="'abc2'">
               <tag-button>{{currentWeightReadable}}</tag-button>
             </div>
             <div class="button-wrapper-inner weight-selection" data-flip-id="current-weight" :key="'abc'">
-              <tag-button @click.native="setWeight(weights.weight)" v-for="weights in getCurrentFontData.fontFamilies" :isInverted="typetester.invertColors" :key="weights.weightReadable">{{weights.weightReadable}}</tag-button>
+              <tag-button @click.native="setFontData(data)" v-for="data in getCurrentFontData.fontFamilies" :isInverted="typetester.invertColors" :key="data.weightReadable" :class="currentWeightReadable == data.weightReadable ? 'active': ''">{{data.weightReadable}}</tag-button>
+            </div>
+            <div class="gradient-indicator">
+
             </div>
           </div>
 
@@ -94,7 +97,7 @@ export default {
   mixins: [TypetesterMixin],
   data() {
     return {
-      width: 8,
+      // width: 8,
       isPreview: false,
       showSubmit: false,
       oldText: '',
@@ -108,9 +111,11 @@ export default {
           fontSize: '350px',
           letterSpacing: '0em',
           lineHeight: '100%',
-          fontFamily: 'inherit',
+          // fontFamily: 'inherit',
           textAlign: 'center',
           fontWeight: 375,
+          fontStretch: 'normal',
+          fontStyle: 'normal'
         },
         sliders: {
           fontSize: {
@@ -145,7 +150,7 @@ export default {
       return this.getFontDataByName(this.typetester.style.fontFamily)
     },
     currentWeightReadable() {
-      return this.getFontWeightAsReadable(this.typetester.style.fontFamily, this.typetester.style.fontWeight)
+      return this.getFontWeightAsReadable(this.typetester.style)
     }
   },
   // watch: {
@@ -157,32 +162,38 @@ export default {
   //   }
   // },
   methods: {
+    clickOutside(e) {
+      if (e.target.classList.contains('kimera-typetester-background-wrapper')) this.setIsTypetesterOpen(false)
+      // console.log(e.target.classList.contains('kimera-typetester-background-wrapper'), e.target, e.target.classList);
+      // console.log("ASD", e.target);
+    },
     ...mapMutations({
       addCustomTypetest: 'typetester/addCustomTypetest',
       updateCustomTypetest: 'typetester/updateCustomTypetest'
     }),
     setFontFamily(fontData) {
-      console.log(fontData);
+      // console.log(fontData);
       this.loadFont(fontData.fontFamilies[0], fontData.name, fontData.fontDir)
 
       this.typetester.style.fontFamily = fontData.name
-      this.typetester.style.fontWeight = fontData.fontFamilies[0].weight
+      // this.typetester.style.fontWeight = fontData.fontFamilies[0].weight
+      this.updateCurrentTypetest(fontData.fontFamilies[0])
       this.animateFontSelection()
     },
-    async setWeight(weight) {
+    updateCurrentTypetest(fontData) {
+      // this.typetester.style.fontFamily = fontData.name
+      this.typetester.style.fontWeight = fontData.weight
+      this.typetester.style.fontStyle = fontData.fontStyle
+      this.typetester.style.fontStretch = fontData.fontStretch
+    },
+    async setFontData(fontData) {
+      // console.log("HEREE ", fontData);
       // return
-      const fontData = this.getCurrentFontData.fontFamilies.find(font => font.weight == weight)
-      // console.log("here ", fontData);
+      // return
+      // const fontData2 = this.getCurrentFontData.fontFamilies.find(font => font.path == fontData.path)
+      // console.log("here ", fontData2);
       await this.loadFont(fontData, this.getCurrentFontData.name, this.getCurrentFontData.fontDir)
-      // this.$nextTick(() => {
-
-      // this.animateWeightSelection(false)
-
-      this.typetester.style.fontWeight = weight
-      // })
-      // setTimeout(() => {
-      //
-      // }, 100)
+      this.updateCurrentTypetest(fontData)
 
       this.animateWeightSelection(true, true)
 
@@ -197,8 +208,6 @@ export default {
         this.typetester.timestamp = String(new Date())
         this.typetester.isUserCreated = true
         this.addCustomTypetest({
-          // TODO: DYNAMIC FONT MATCHING (by path params?)
-          // font: this.typetester.path,
           options: this.typetester
         })
       }
@@ -260,7 +269,6 @@ export default {
         currenWeightDom.classList.add("active");
         weightSelectionDom.classList.add("active");
       } else {
-        console.log("LEFT");
         currenWeightDom.classList.remove("active");
         weightSelectionDom.classList.remove("active");
       }
@@ -285,10 +293,18 @@ export default {
 
         });
       })
+    },
+    unload() {
+      this.setIsTypetesterOpen(false)
     }
 
   },
+  beforeDestroy() {
+    // console.log("ASDASDD");
+    this.unload()
+  },
   created() {
+    window.addEventListener("beforeunload", this.unload)
     this.typetesterDefault = this.typetester
     // // TODO: check if currentTypetesterOptions exists? needed?
     this.typetester = cloneDeep(Object.assign({}, this.typetester, this.currentTypetesterOptions))
@@ -308,7 +324,14 @@ export default {
       deep: true
     })
   },
+  // beforeMount() {
+  // },
+
   mounted() {
+    // this.setIsTypetesterOpen(false)
+
+
+    // this.animateWeightSelection()
     // document.addEventListener("click", this.animateFontSelection)
 
     // console.log(this.getFontDataByName("waldenburg"));
@@ -321,13 +344,22 @@ export default {
 }
 </script>
 
-<style media="screen">
+<style lang="scss">
 .kimera-typetester .button-wrapper button {
-  justify-content: flex-start;
-  align-items: baseline;
+    justify-content: flex-start;
+    align-items: baseline;
+    overflow: unset;
+    transition: none;
+    border: 1px solid black;
 }
-</style>
-<style lang="scss" scoped>
+
+.kimera-typetester .button-wrapper button.active,
+.kimera-typetester .button-wrapper button:hover {
+    background: var(--kimera-white);
+    color: var(--black);
+}
+//</style>
+//<style lang="scss" scoped>
 $typetester-margin: var(--kimera-side-padding);
 .font-selection,
 .weight-selection {
@@ -338,10 +370,71 @@ $typetester-margin: var(--kimera-side-padding);
     display: flex;
     flex-direction: column;
 }
-.font-selection,
-.weight-selection {
+
+.font-selection {
     overflow: hidden;
 
+}
+.button-wrapper:hover .gradient-indicator {
+    border-radius: 0 0 0.75em 0.75em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1em;
+    width: 100%;
+    background: linear-gradient(0deg, black, transparent);
+    z-index: 100;
+}
+.weight-selection.active {
+    padding-bottom: 1em;
+    border: 1px solid black;
+}
+.button-wrapper {
+    position: relative;
+}
+
+.weight-selection {
+    pointer-events: all;
+    z-index: 100;
+    overflow-y: auto;
+    max-height: 50vh;
+    overscroll-behavior: contain;
+    /* Firefox */
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--black) transparent;
+
+    /* Chrome, Edge and Safari */
+    &::-webkit-scrollbar {
+        width: 4px;
+        width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 4px;
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track:hover {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track:active {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: var(--kimera-filter-color);
+
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: var(--kimera-filter-color);
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+        background-color: var(--kimera-filter-color);
+    }
 }
 .current-font {
     // min-height: 2em;
@@ -407,12 +500,8 @@ $typetester-margin: var(--kimera-side-padding);
 }
 .kimera-typetester {
     position: relative;
-    // height: 100vh;
-    // width: 100%;
-    background: var(--kimera-grey);
-    cursor: default;
-    // height: calc(100vh - ($typetester-margin * 2));
-    // width: calc(100vw - ($typetester-margin * 2));
+    // background: var(--kimera-white);
+    // cursor: default;
     height: 100%;
     width: 100%;
     .top .close-button,
@@ -421,14 +510,9 @@ $typetester-margin: var(--kimera-side-padding);
     .top input {
         pointer-events: all;
     }
-    .top div {
+    .top div:not(.button-wrapper-inner) {
         pointer-events: none;
     }
-}
-content-editable {
-    white-space: pre;
-    min-width: 250px;
-    cursor: auto;
 }
 
 .middle {
@@ -444,5 +528,11 @@ content-editable {
             animation: wiggle 0.82s cubic-bezier(.36,.07,.19,.97) forwards;
         }
     }
+}
+</style>
+<style lang="scss" scoped>
+.kimera-typetester {
+    background: var(--kimera-white);
+    cursor: default;
 }
 </style>

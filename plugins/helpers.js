@@ -86,7 +86,67 @@ export default ({ app, store }, inject) => {
           return true
         }
         return false;
-      }
+      },
+      getOpenTypeFeatures(object) {
+        let openTypeFeatures = object.selectedOpenTypeFeatures
+        // console.log(openTypeFeatures);
+        if (openTypeFeatures && openTypeFeatures.length > 0) {
+          let values = openTypeFeatures.map(el => el.value)
+          openTypeFeatures = "'" + values.join("', '") + "'"
+          // console.log(b);
+        } else {
+          openTypeFeatures = 'normal'
+        }
+        return openTypeFeatures
+      },
+      async loadVariableFont(name, path) {
+        const fontToLoad = new FontFace(name + ' Variable', `url('${path}.woff2')`, {
+          display: 'block'
+        });
+        await fontToLoad.load()
+          .then(function(loadedFont) {
+            document.fonts.add(loadedFont);
+            console.log(name, path, " Was loaded");
+            // document.body.style.fontFamily = '"Junction Regular", Arial';
+          })
+          .catch(function(error) {
+            console.error(error);
+            // error occurred
+          });
+      },
+      async loadFont(fontData, name) {
+        const {
+          weight,
+          path,
+          fontStretch,
+          fontStyle,
+          fontDir
+        } = fontData
+        // console.log(name + '/' + path);
+        const fontToLoad = new FontFace(name, `url(/fonts/${name + '/' + path + '.woff'})`, {
+          weight: String(weight),
+          stretch: String(fontStretch),
+          style: String(fontStyle),
+          display: 'block'
+        });
+
+        for (var fontFace of document.fonts.values()) {
+          if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.style == fontStyle && fontFace.stretch == fontStretch && fontFace.loaded) {
+            console.log(`FONT ${name} with weight ${weight} was already loaded`);
+            return
+          }
+        }
+
+        await fontToLoad.load()
+          .then(function(loadedFont) {
+            document.fonts.add(loadedFont);
+            // document.body.style.fontFamily = '"Junction Regular", Arial';
+          })
+          .catch(function(error) {
+            console.error(error);
+            // error occurred
+          });
+      },
     },
 
   }))

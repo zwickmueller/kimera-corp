@@ -6,7 +6,7 @@
   <project-grid></project-grid>
  -->
   <!-- PROJECT -->
-
+  <kimera-typetester v-if="$route.fullPath.includes('typefaces') && isTypetesterOpen"></kimera-typetester>
   <component v-if="story.content.component" :key="story.content._uid" :blok="story.content" :is="story.content.component" />
 
 </main>
@@ -50,6 +50,11 @@ export default {
     return {
       story: data.story
     }
+  },
+  computed: {
+    isTypetesterOpen() {
+      return this.$store.state.typetester.isTypetesterOpen
+    },
   },
   mounted() {
     window.scrollTo({

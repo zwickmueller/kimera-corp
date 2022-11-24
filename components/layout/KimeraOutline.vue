@@ -170,7 +170,7 @@ export default {
         domId: null,
         text: this.getTitle
       }]
-      let headlines = document.querySelectorAll('h3')
+      let headlines = document.querySelectorAll('h3[id]')
       for (var i = 0; i < headlines.length; i++) {
         let text = headlines[i].innerText
         tempHeadlines.push({
@@ -207,6 +207,7 @@ export default {
       }
 
       const shouldUpdate = (entry) => {
+        // return true
         if (this.scrollDirection === 'down' && !entry.isIntersecting) {
           return true
         }
@@ -277,7 +278,7 @@ export default {
 }
 </script>
 <style >
-.observed h3 {
+.observed h3[id] {
   /* background: red */
   opacity: 0
 }

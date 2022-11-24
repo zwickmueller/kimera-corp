@@ -130,11 +130,12 @@ tags.sort((a, b) => Number('subTags' in b) - Number('subTags' in a));
 export default {
   data() {
     return {
-      tags,
+      tags: [],
       activeTagsIncreased: false,
       navAnimDuration: 0.55,
       navAnimDurationIn: 0.3,
-      navAnimHoldDuration: .115
+      navAnimHoldDuration: .115,
+      test: null
     }
   },
   methods: {
@@ -283,9 +284,13 @@ export default {
   },
   computed: {
     visibleTags() {
+      if (!this.tags) return
+
       return this.tags.filter(tag => tag.show)
     },
     activeTagsComputed() {
+      if (!this.tags) return
+
       return this.tags.filter(tag => tag.active)
     },
     shouldRenderOutline() {
@@ -299,6 +304,7 @@ export default {
     '$route': {
       immediate: true,
       handler: function(old, _new) {
+        if (!this.tags) return
         if (old.name == 'index') {
           this.tags.forEach(el => el.show = el.isMainTag)
         } else if (old.name !== 'index') {
@@ -311,7 +317,31 @@ export default {
       this.activeTagsIncreased = a.length - b.length > 0 ? true : false
     }
   },
-  mounted() {}
+  fetchKey: 'kimera-tags',
+  async fetch() {
+    let tags = await this.$axios.$get('https://zwickmueller.github.io/kimera-corp-json-store/tags.json')
+
+    // this.tags = await fetch(
+    //     'https://zwickmueller.github.io/kimera-corp-json-store/tags.json'
+    //   )
+    //   .then(res => res.json())
+    // console.log(tags);
+    for (var i = 0; i < tags.length; i++) {
+      tags[i].active = false
+      if (!tags[i].show) tags[i].show = false
+    }
+    tags.sort((a, b) => Number('subTags' in b) - Number('subTags' in a));
+    //
+    this.tags = tags
+    // this.tags = Object.assign([], tags)
+    // console.log("FETCHED TAGS");
+  },
+  mounted() {
+    if (this.$route.name !== "index") {
+      this.tags.forEach(el => el.show = el.isTitle)
+      this.tags.forEach(el => el.active = false)
+    }
+  }
 
 }
 </script>

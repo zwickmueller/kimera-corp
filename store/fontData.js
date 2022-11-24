@@ -1,9 +1,11 @@
 import Vue from "vue";
-import Waldenburg from '../scripts/fontData/waldenburg.js'
-import Melange from '../scripts/fontData/melange.js'
+// import Waldenburg from '../scripts/fontData/waldenburg.js'
+// import Melange from '../scripts/fontData/melange.js'
 
 export const state = () => ({
-  fontData: [Waldenburg, Melange]
+  // fontData: [Waldenburg, Melange],
+  fontData: [],
+  // test: {}
 })
 
 export const getters = {
@@ -11,24 +13,28 @@ export const getters = {
     return state.fontData
   },
   getFontDataByName: (state) => (name) => {
-    // console.log("asdafadasd", name, state);
     return state.fontData.find(el => el.name.toLowerCase() == name.toLowerCase())
   },
-  getFontWeightAsReadable: (state) => (name, weight) => {
-    const fontData = getters.getFontDataByName(state)(name)
+  getFontWeightAsReadable: (state) => (style) => {
+    // console.log(style);
+    const { fontWeight, fontStretch, fontStyle, fontFamily } = style
+    const fontData = getters.getFontDataByName(state)(fontFamily)
     if (!fontData) {
-      console.error("No Font Data Found: ", name, weight);
+      console.error("No Font Data Found: ", fontFamily, fontWeight);
       return
     }
-    const family = fontData.fontFamilies.find(el => el.weight == weight)
-    // console.log("FROM FONTDATA ", family, weight, fontData);
+    const family = fontData.fontFamilies.find(el => el.weight == fontWeight && el.fontStyle == fontStyle && el.fontStretch == fontStretch)
+    if (!family) {
+      console.error("No Font Properties Found: ", fontFamily, fontWeight, fontStretch, fontStyle, fontFamily);
+      return
+    }
     return family.weightReadable
   }
 }
 
 export const mutations = {
-  // setIsTypetesterOpen(state, bool) {
-  //   state.isTypetesterOpen = bool
-  // },
+  initiateFontData(state, fontData) {
+    state.fontData = fontData
+  },
 
 }
