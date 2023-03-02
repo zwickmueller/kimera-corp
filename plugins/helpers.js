@@ -89,7 +89,7 @@ export default ({ app, store }, inject) => {
       },
       getOpenTypeFeatures(object) {
         let openTypeFeatures = object.selectedOpenTypeFeatures
-        // console.log(openTypeFeatures);
+        // console.log(openTypeFeatures, object);
         if (openTypeFeatures && openTypeFeatures.length > 0) {
           let values = openTypeFeatures.map(el => el.value)
           openTypeFeatures = "'" + values.join("', '") + "'"
@@ -114,6 +114,35 @@ export default ({ app, store }, inject) => {
             // error occurred
           });
       },
+      fitText(el) {
+      this.element = el;
+      this.parent = el.parentElement;
+      this.clientHeight = -1;
+      this.clientWidth = -1;
+
+      this.fit = function (shouldRecalc) {
+        this.parent.style.fontSize = "100px";
+        if (shouldRecalc || this.clientWidth < 0) {
+          this.recalc();
+        }
+
+        this.parent.style.fontSize =
+          Math.max(
+            10,
+            Math.min(
+              this.clientHeight,
+              Math.floor((this.clientWidth / this.element.clientWidth) * 100)
+            )
+          ) + "px";
+      };
+
+      //cache parent width, height
+      this.recalc = function () {
+        this.clientWidth = this.parent.clientWidth;
+        this.clientHeight = this.parent.clientHeight;
+      };
+    
+      },
       async loadFont(fontData, name) {
         const {
           weight,
@@ -130,13 +159,18 @@ export default ({ app, store }, inject) => {
           display: 'block'
         });
 
-        for (var fontFace of document.fonts.values()) {
-          if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.style == fontStyle && fontFace.stretch == fontStretch && fontFace.loaded) {
-            console.log(`FONT ${name} with weight ${weight} was already loaded`);
-            return
-          }
-        }
-
+        // for (var fontFace of document.fonts.values()) {
+        //   if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.style == fontStyle && fontFace.stretch == fontStretch && fontFace.loaded) {
+        //     console.log(`FONT ${name} with weight ${weight} was already loaded`);
+        //     return
+        //   }
+        // }
+for (var fontFace of Array.from(document.fonts)) {
+  if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.style == fontStyle && fontFace.stretch == fontStretch && fontFace.loaded) {
+    console.log(`FONT ${name} with weight ${weight} was already loaded`);
+    return
+  }
+}
         await fontToLoad.load()
           .then(function(loadedFont) {
             document.fonts.add(loadedFont);

@@ -7,6 +7,23 @@
 .fade-leave-to {
   opacity: 0;
 }
+
+.landing-title-enter-active,
+.landing-title-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+}
+
+.landing-title-enter {
+  transform: translateX(1em);
+}
+.landing-title-leave-to {
+  transform: translateX(-1em);
+}
+.landing-title-enter,
+.landing-title-leave-to {
+  opacity: 0;
+}
+
 @keyframes wiggle {
   10%,
   90% {

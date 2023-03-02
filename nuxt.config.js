@@ -17,10 +17,16 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
-    script: [{
+    script: [
+    //   {
+    //   charset: "utf-8",
+    //   src: "/js/patch.js",
+    // },
+      {
       charset: "utf-8",
-      src: "/js/patch.js",
-    }, {
+      src: "https://cdn.jsdelivr.net/npm/container-query-polyfill@1/dist/container-query-polyfill.modern.js",
+    },
+     {
       charset: "utf-8",
       src: "/js/content-editable.js",
       type: 'module'
@@ -34,7 +40,9 @@ export default {
   css: ['@/assets/scss/main.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/helpers', '@/plugins/flicking', { src: '@/plugins/vuex-persist.js', mode: 'client' }],
+  plugins: ['@/plugins/helpers', 
+  {src: '@/plugins/flicking', mode: 'client' }, 
+  { src: '@/plugins/vuex-persist.js', mode: 'client' }],
   styleResources: {
     sass: [
       // '~bulma/sass/utilities/mixins.sass'
@@ -83,7 +91,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: ['gsap'],
+    transpile: ['gsap', 'fitty'],
     loaders: {
       vue: {
         compilerOptions: {

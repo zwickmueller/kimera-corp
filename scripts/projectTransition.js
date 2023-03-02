@@ -51,8 +51,8 @@ export default {
       return
     }
 
-    console.log(this.$root, "this.$root");
-    console.log(this.$store, "this.$store");
+    // console.log(this.$root, "this.$root");
+    // console.log(this.$store, "this.$store");
     // setTimeout(() => {
 
 
@@ -102,7 +102,7 @@ export default {
     batch.getState();
     gsap.set(clone, {
       width: '100vw',
-      height: inner.getAttribute("target-height"),
+      height: window.innerWidth < 769 ? '50vh' :  inner.getAttribute("target-height"),
       top: 0,
       left: 0,
       x: 0,

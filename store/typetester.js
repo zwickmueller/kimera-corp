@@ -60,6 +60,8 @@ export const mutations = {
     // }
   },
   removeCustomTypetest(state, typetester) {
-    state.customTypetests[typetester.path].splice(state.customTypetests[typetester.path].indexOf(typetester), 1)
+    const customTypetests = state.customTypetests[typetester.path]
+    const customTypetest = customTypetests.find(el => el.timestamp == typetester.timestamp)
+    customTypetests.splice(customTypetests.indexOf(customTypetest), 1)
   },
 }

@@ -27,15 +27,19 @@ html {
   --white: #fff;
   --black: #000;
   --kimera-white: #eaeaea;
-  --kimera-grey: #D6D6D6;
+  --kimera-grey: #d6d6d6;
   --kimera-dark-grey: rgb(75, 75, 75);
-  --kimera-border-radius: 1rem;
+  --kimera-border-radius: 0.7rem;
+  // --kimera-border-radius: 1rem;
   --kimera-button-border-radius: 2em;
   --kimera-small-gap: clamp(4px, 0.333em, 8px);
   --kimera-side-padding: 1.25em;
   --kimera-grid-gap: 8px;
   --kimera-grid-row-gap: 14px;
   --kimera-filter-color: rgba(150, 150, 150, 0.4);
+  @include until($tablet) {
+    --kimera-grid-row-gap: 2px;
+  }
 }
 
 ::selection {
@@ -49,7 +53,7 @@ html {
   color: var(--black);
   background: var(--white);
   font-size: unquote("clamp(12px, 1.05vw, 16px)");
-  font-family: 'Waldenburg', Arial, sans-serif;
+  font-family: "Waldenburg", Arial, sans-serif;
   font-weight: 600;
   // font-variation-settings: 'wght' 370;
   font-synthesis: none;

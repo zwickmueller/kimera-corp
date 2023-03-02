@@ -1,6 +1,6 @@
 .kimera-typetester.is-inverted {
-  background: var(--black)!important;
-  color: var(--kimera-white)!important;
+  background: var(--black) !important;
+  color: var(--kimera-white) !important;
 
   &:hover {
     background: var(--black) !important;
@@ -51,15 +51,27 @@ content-editable {
       // transform: translateY(.75rem);
     }
   }
-
+  container-type: inline-size;
   .typetester-inner {
     padding: 1rem;
     height: 100%;
     transition: opacity 0.1s ease;
+
     // pointer-events: none;
     &:focus {
       outline: none;
     }
+    .editable-text {
+    }
+    // .editable-text-initial-fontsize {
+    //   font-size: min(12cqw, 30cqh) !important;
+    // }
+  }
+  &:not(.is-user-created) .typetester-inner {
+    font-size: min(12cqw, 30cqh) !important;
+  }
+  &:not(.is-user-created) .typetester-inner .editable-text-initial-fontsize {
+    font-size: min(12cqw, 30cqh) !important;
   }
 
   .typetester-overlay {
@@ -85,23 +97,23 @@ content-editable {
 
       .current-fonttype {
         display: flex;
-        grid-column-gap: calc(var(--kimera-grid-gap)/ 2);
+        grid-column-gap: calc(var(--kimera-grid-gap) / 2);
       }
     }
 
-    .close {
-      opacity: 0;
-      transition: 0.3s ease opacity;
+    // .close {
+    //   opacity: 0;
+    //   transition: 0.3s ease opacity;
 
-      &.show-close-button {
-        opacity: 1;
-        // transition: none;
-      }
-      // &:hover {
-      //     transition: none;
-      //     opacity: 1;
-      // }
-    }
+    //   &.show-close-button {
+    //     opacity: 1;
+    //     // transition: none;
+    //   }
+    //   // &:hover {
+    //   //     transition: none;
+    //   //     opacity: 1;
+    //   // }
+    // }
 
     .bottom {
       display: flex;
@@ -109,19 +121,32 @@ content-editable {
       align-items: center;
 
       .timestamp {
-        line-height: 1;
-        flex-grow: 1;
-        flex-basis: 0;
-        display: flex;
-        align-items: flex-end;
+        flex: 1;
+        // line-height: 1;
+        // flex-grow: 1;
+        // flex-basis: 0;
+        // display: flex;
+        // align-items: flex-end;
+        padding-left: 0.25em;
       }
 
       .toggle {
-        flex-grow: 1;
+        // flex-grow: 1;
+        margin-left: -0.5em;
+        margin-bottom: -4px;
       }
 
       .spacer {
-        flex-basis: 0;
+        // flex-basis: 0;
+        justify-content: flex-end;
+        flex: 1;
+      }
+
+      .open-type-features {
+        display: flex;
+        grid-gap: var(--kimera-grid-gap);
+        // z-index: 1;
+        pointer-events: all;
       }
     }
   }

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="kimera-custom-typetests">
-    <kimera-typetester-preview v-for="typetest in customTypetests" :typetesterData="typetest" :key="String(typetest.timestamp)"></kimera-typetester-preview>
+    <kimera-typetester-preview :data-timestamp="String(typetest.timestamp)" v-for="typetest in customTypetests" :typetesterData="typetest" :key="String(typetest.timestamp)"></kimera-typetester-preview>
   </div>
 </template>
 

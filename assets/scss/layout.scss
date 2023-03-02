@@ -1,11 +1,23 @@
 @for $i from 1 through 8 {
+  .project-width-#{$i},
   .grid-width-#{$i} {
-    flex-basis: calc(100%/8*#{$i} - 8px);
     width: 100%;
-    max-width: calc(100%/8*#{$i} - 8px);
+    flex-basis: calc(100% / 8 *#{$i} - var(--kimera-grid-gap) / 2);
+    max-width: calc(100% / 8 *#{$i} - var(--kimera-grid-gap) / 2);
+    //was 8px
+    @include until($tablet) {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
   }
 }
 
+.grid-width-half-mobile {
+  @include until($tablet) {
+    flex-basis: calc(100% / 2 - var(--kimera-grid-gap) / 4);
+    max-width: calc(100% / 2 - var(--kimera-grid-gap) / 4);
+  }
+}
 .flex-spacer {
   flex-grow: 1;
   flex-basis: 0;
@@ -13,10 +25,17 @@
 
 .kimera-flex-grid {
   height: 100%;
-  column-gap: var(--kimera-grid-gap);
+  column-gap: calc(var(--kimera-grid-gap) / 2);
   row-gap: var(--kimera-grid-row-gap);
+  // column-gap: var(--kimera-grid-gap);
+  // row-gap: var(--kimera-grid-row-gap);
   padding-left: var(--kimera-side-padding);
-  padding-right: calc(var(--kimera-side-padding) - var(--kimera-grid-gap));
+  padding-right: calc(
+    var(--kimera-side-padding) - (var(--kimera-grid-gap) / 2)
+  );
+  @include until($tablet) {
+    padding-right: var(--kimera-side-padding);
+  }
   // grid-template-columns: repeat(8, 1fr);
   position: relative;
   display: flex;
@@ -28,4 +47,14 @@
 
 .products .kimera-flex-grid {
   padding-right: calc(var(--kimera-side-padding) - 2em);
+  @include until($tablet) {
+    padding-right: var(--kimera-side-padding);
+  }
+}
+.project .kimera-flex-grid {
+  gap: calc(var(--kimera-grid-gap) / 2);
+  @include until($tablet) {
+    padding-right: var(--kimera-side-padding);
+  }
+  // grid-row-gap: var(--kimera-grid-gap);
 }

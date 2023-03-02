@@ -1,29 +1,35 @@
 <template>
-<div v-editable="story" class="page">
-  <landing-page-gallery :elements="story.content.slideShow"></landing-page-gallery>
-  <!-- <project-grid></project-grid> -->
-  <div class="kimera-flex-grid">
-    <!-- <single-grid> -->
-    <!-- <transition-group name="list" tag="div" class="kimera-flex-grid" @before-leave="beforeLeave"> -->
-    <component ref="projects" v-for="blok in projects" :key="blok._uid" :blok="blok" :is="blok.component" v-show="blok.show" :class="currentActiveTags.length > 0 ? 'is-currently-filtering' : ''" />
-    <!-- </transition-group> -->
-    <!-- </single-grid> -->
+  <div v-editable="story" class="page">
+    <landing-page-gallery
+      :elements="story.content.slideShow"
+    ></landing-page-gallery>
+    <!-- <project-grid></project-grid> -->
+    <div class="kimera-flex-grid">
+      <!-- <single-grid> -->
+      <!-- <transition-group name="list" tag="div" class="kimera-flex-grid" @before-leave="beforeLeave"> -->
+      <component
+        ref="projects"
+        v-for="blok in projects"
+        :key="blok._uid"
+        :blok="blok"
+        :is="blok.component"
+        v-show="blok.show"
+        :class="currentActiveTags.length > 0 ? 'is-currently-filtering' : ''"
+      />
+      <!-- </transition-group> -->
+      <!-- </single-grid> -->
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 // import cloneDeep from 'lodash.cloneDeep'
-import {
-  gsap,
-  Flip
-} from "gsap/all";
+import { gsap, Flip } from "gsap/all";
 if (process.client) {
   gsap.registerPlugin(Flip);
 }
 
-const shuffledArr = array => array.sort(() => 0.5 - Math.random());
-
+const shuffledArr = (array) => array.sort(() => 0.5 - Math.random());
 
 export default {
   data() {
@@ -32,23 +38,15 @@ export default {
       states: null,
       group: null,
       batch: null,
-      orderPositions: [
-        [3, 3, 2],
-        [2, 2, 4],
-        [4, 4],
-        [5, 3],
-        [2, 6],
-        [8]
-      ]
+      orderPositions: [[3, 3, 2], [2, 2, 4], [4, 4], [5, 3], [2, 6], [8]],
       // clonedProjects: []
-    }
+    };
   },
   props: {
     story: {
       type: Object,
-      required: true
-    }
-
+      required: true,
+    },
   },
   methods: {
     // beforeLeave(el) {
@@ -64,26 +62,24 @@ export default {
     //   el.style.height = height
     // },
     compareTagArrays(arr1, arr2) {
-      return arr1.every(item => arr2.includes(item))
+      return arr1.every((item) => arr2.includes(item));
     },
     removeClassByPrefix(node, prefix) {
-      var regx = new RegExp('\\b' + prefix + '[^ ]*[ ]?\\b', 'g');
-      node.className = node.className.replace(regx, '');
+      var regx = new RegExp("\\b" + prefix + "[^ ]*[ ]?\\b", "g");
+      node.className = node.className.replace(regx, "");
       return node;
     },
     animateFilter() {
-
-      var projects = document.querySelectorAll('.grid-item');
+      var projects = document.querySelectorAll(".grid-item");
       var grid = document.querySelectorAll(".kimera-flex-grid");
       // var _state = Flip.getState(grid);
       var startHeight = gsap.getProperty(".kimera-flex-grid", "height");
       // var state = Flip.getState(projects);
       // this.$root.lastState = state
 
-
       let action = this.batch.add({
         getState(self) {
-          return Flip.getState('.grid-item');
+          return Flip.getState(".grid-item");
         },
         animate(self) {
           Flip.from(self.state, {
@@ -92,63 +88,88 @@ export default {
             stagger: 0.075,
             absolute: true,
             nested: true,
-            onEnter: elements => gsap.fromTo(elements, {
-              opacity: 0,
-              scale: 0.8,
-            }, {
-              opacity: 1,
-              scale: 1,
-              stagger: 0.1,
-              duration: .375,
-            }),
-            onLeave: elements => gsap.fromTo(elements, {
-              opacity: 1,
-              scale: 1
-            }, {
-              opacity: 0,
-              scale: 0.8,
-              stagger: 0.1,
-              duration: .375
-            })
-          })
+            onEnter: (elements) =>
+              gsap.fromTo(
+                elements,
+                {
+                  opacity: 0,
+                  scale: 0.8,
+                },
+                {
+                  opacity: 1,
+                  scale: 1,
+                  stagger: 0.1,
+                  duration: 0.375,
+                }
+              ),
+            onLeave: (elements) =>
+              gsap.fromTo(
+                elements,
+                {
+                  opacity: 1,
+                  scale: 1,
+                },
+                {
+                  opacity: 0,
+                  scale: 0.8,
+                  stagger: 0.1,
+                  duration: 0.375,
+                }
+              ),
+          });
         },
-        once: true // removes the action from its batch when animate() is called
+        once: true, // removes the action from its batch when animate() is called
       });
       this.batch.getState();
       this.$nextTick(() => {
         if (this.currentActiveTags.length == 0) {
-          projects.forEach(el => {
-            this.removeClassByPrefix(el, 'project-width-')
-            el.dataset.newWidth = null
-            el.classList.add(el.dataset.originalWidth)
-          })
-
+          projects.forEach((el) => {
+            this.removeClassByPrefix(el, "project-width-");
+            el.dataset.newWidth = null;
+            el.classList.add(el.dataset.originalWidth);
+          });
         } else {
           // console.log(this.visibleProjects.length, projects.length);
-          let visibleProjectsLength = this.visibleProjects.length
-          let positions = this.orderPositions[5]
-          if (visibleProjectsLength >= 3) positions = this.orderPositions[this.$helpers.getRandomIntInRange(0, 1, true)]
-          if (visibleProjectsLength == 2) positions = this.orderPositions[this.$helpers.getRandomIntInRange(2, 4, true)]
+          let visibleProjectsLength = this.visibleProjects.length;
+          let positions = this.orderPositions[5];
+          console.log(projects);
+          if (visibleProjectsLength >= 3)
+            positions =
+              this.orderPositions[
+                this.$helpers.getRandomIntInRange(0, 1, true)
+              ];
+          if (visibleProjectsLength == 2)
+            positions =
+              this.orderPositions[
+                this.$helpers.getRandomIntInRange(2, 4, true)
+              ];
           // if(visibleProjectsLength <= 1) positions = this.orderPositions[5]
-          positions = shuffledArr(positions)
+          positions = shuffledArr(positions);
           console.log("positions ", positions, visibleProjectsLength);
           projects.forEach((el, i) => {
             // console.log(i);
-            this.removeClassByPrefix(el, 'project-width-')
-            let className = "project-width-" + positions[i % visibleProjectsLength]
-            el.classList.add(className)
-            el.dataset.newWidth = className
+            this.removeClassByPrefix(el, "project-width-");
+            let className =
+              "project-width-" + positions[i % visibleProjectsLength];
+            if (
+              el
+                .querySelector(".grid-item-tags")
+                .innerHTML.toLowerCase()
+                .includes("typefaces")
+            ) {
+              className = "project-width-8";
+              console.log(className);
+            }
+
+            el.classList.add(className);
+            el.dataset.newWidth = className;
             // el.classList.add("project-width-" + this.$helpers.getRandomIntInRange(2, 8, true))
-
-          })
-        };
-
+          });
+        }
 
         console.log(this.batch);
         this.batch.run(true);
         var endHeight = gsap.getProperty(".kimera-flex-grid", "height");
-
-
 
         // var flip = Flip.from(state, {
         //   duration: 0.375 * 2,
@@ -189,13 +210,18 @@ export default {
         //   clearProps: "height",
         //   duration: 1
         // }, 0);
-      })
-
+      });
     },
     changeFilter(payload) {
-      this.currentActiveTags = payload.map(el => el.name)
-      this.projects.forEach(project => project.show = this.compareTagArrays(this.currentActiveTags, project.project.content.tags))
-      this.animateFilter()
+      this.currentActiveTags = payload.map((el) => el.name);
+      this.projects.forEach(
+        (project) =>
+          (project.show = this.compareTagArrays(
+            this.currentActiveTags,
+            project.project.content.tags
+          ))
+      );
+      this.animateFilter();
       // const state = Flip.getState(this.group);
       // // this.$nextTick(() => {
       // // this.group = document.querySelectorAll(".item");
@@ -231,7 +257,7 @@ export default {
       //       });
       //     })
       //   })
-    }
+    },
   },
   computed: {
     // sortedProjects() {
@@ -244,19 +270,19 @@ export default {
     visibleProjects: {
       cache: false,
       get() {
-        return this.projects.filter(el => el.show)
-      }
+        return this.projects.filter((el) => el.show);
+      },
     },
     projects() {
-      return this.story.content.projectPreviews
-    }
+      return this.story.content.projectPreviews;
+    },
     // computedProjects() {
     //   return this.currentActiveTags.length == 0 ? this.story.content.projectPreviews :
     // },
   },
   created() {
-    this.projects.forEach(el => el.show = true)
-    this.projects.forEach(el => el.originalWidth = el.width)
+    this.projects.forEach((el) => (el.show = true));
+    this.projects.forEach((el) => (el.originalWidth = el.width));
     // this.clonedProjects = cloneDeep(this.story.content.projectPreviews)
   },
   beforeDestroy() {
@@ -271,12 +297,10 @@ export default {
     // this.group = document.querySelectorAll(".item")
     // this.states = Flip.getState('.project-preview');
     // this.clonedProjects.forEach(el => el.width = 8)
-    this.$root.$on('activeTags', this.changeFilter)
+    this.$root.$on("activeTags", this.changeFilter);
     // this.animateFilter()
-  }
-}
+  },
+};
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

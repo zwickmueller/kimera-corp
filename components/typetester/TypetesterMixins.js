@@ -33,7 +33,8 @@ const TypetesterMixin = {
         {
           'is-inverted': this.typetester.invertColors
         },
-        { 'is-preview': this.isPreview }
+        { 'is-preview': this.isPreview },
+        { 'is-user-created': this.typetester.isUserCreated },
       ]
     }
   },
@@ -88,12 +89,18 @@ const TypetesterMixin = {
         display: 'block'
       });
 
-      for (var fontFace of document.fonts.values()) {
-        if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.style == fontStyle && fontFace.stretch == fontStretch && fontFace.loaded) {
-          console.log(`FONT ${name} with weight ${weight} was already loaded`);
-          return
-        }
-      }
+      // for (var fontFace of document.fonts.values()) {
+      //   if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.style == fontStyle && fontFace.stretch == fontStretch && fontFace.loaded) {
+      //     console.log(`FONT ${name} with weight ${weight} was already loaded`);
+      //     return
+      //   }
+      // }
+      for (var fontFace of Array.from(document.fonts)) {
+  if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.style == fontStyle && fontFace.stretch == fontStretch && fontFace.loaded) {
+    console.log(`FONT ${name} with weight ${weight} was already loaded`);
+    return
+  }
+}
       let el = this.$el.querySelector('.typetester-inner')
       el.style.opacity = 0
       // console.log(el);
@@ -113,7 +120,7 @@ const TypetesterMixin = {
       var rect = e.target.getBoundingClientRect();
       var x = (e.clientX - rect.left) / rect.width;
       var y = (e.clientY - rect.top) / rect.height;
-      this.showCloseButton = (e.toElement.classList.contains("close-button") || (x > 0.8 && y < 0.4))
+      this.showCloseButton = (e.target.classList.contains("close-button") || (x > 0.8 && y < 0.4))
     }, 100)
   }
 }

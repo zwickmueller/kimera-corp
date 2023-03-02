@@ -1,8 +1,8 @@
 <template lang="html">
 <!-- <div class="" > -->
   <svg class="dark-mode-toggle" role="checkbox" width="24" height="14" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="24" height="14" rx="7" :fill="invert ? '#EAEAEA': 'black'"/>
-  <circle :cx="invert ? 17: 7" cy="7" r="5" :fill="invert ? 'black': '#EAEAEA'"/>
+  <rect width="24" height="14" rx="7" :fill="invert ? 'var(--kimera-white)': 'black'"/>
+  <circle :cx="invert ? 17: 7" cy="7" r="5" :fill="invert ? 'black': 'var(--kimera-white)'"/>
   </svg>
 <!-- </div> -->
 
@@ -21,6 +21,8 @@ export default {
 
 <style lang="scss" scoped>
 svg {
+    height: 16px;
+    width: 2em;
     cursor: pointer;
     pointer-events: all;
 }
