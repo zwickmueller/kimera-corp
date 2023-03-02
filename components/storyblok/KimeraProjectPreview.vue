@@ -52,10 +52,12 @@ export default {
   methods: {
     handleClick($event) {
       // $event.preventDefault();
-      this.$nextTick(() => {
-        this.$root.lastClickedImageId = this.blok.src.id;
-        this.$refs.link.$el.classList.add("clicked");
-      });
+      // this.$nextTick(() => {
+      this.$root.lastClickedImageId = this.blok.src.id;
+      $event.target.parentNode.parentNode.classList.add("clicked");
+      // this.$refs.link.$el.classList.add("clicked");
+      // });
+      console.log($event.target.parentNode.parentNode);
       // const url = $event.target.pathname;
 
       // setTimeout(() => {
