@@ -50,7 +50,9 @@
           <!-- </div> -->
         </div>
         <!-- <transition name="fade" mode="out-in"> -->
-        <span :style="style" :key="currentGlyph">{{ currentGlyph }}</span>
+        <span class="type-test" :style="style" :key="currentGlyph">{{
+          currentGlyph
+        }}</span>
         <!-- </transition> -->
       </div>
     </div>
@@ -165,6 +167,9 @@ export default {
   .kimera-glyph-set + .kimera-glyph-set {
     padding-top: calc(var(--kimera-grid-gap));
   }
+}
+.type-test {
+  // @include text-crop;
 }
 .kimera-glyph-set-wrapper {
   // flex: 1;

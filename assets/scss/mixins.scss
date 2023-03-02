@@ -54,3 +54,48 @@ $widescreen: 1152px + (2 * $gap);
     @content;
   }
 }
+
+@mixin text-crop(
+  $line-height: 1.3,
+  $top-adjustment: 0px,
+  $bottom-adjustment: 0px
+) {
+  // Configured in Step 1
+  $top-crop: 9;
+  $bottom-crop: 8;
+  $crop-font-size: 31;
+  $crop-line-height: 1.2;
+
+  // Apply values to calculate em-based margins that work with any font size
+  $dynamic-top-crop: max(
+      ($top-crop + ($line-height - $crop-line-height) * ($crop-font-size / 2)),
+      0
+    ) / $crop-font-size;
+  $dynamic-bottom-crop: max(
+      (
+        $bottom-crop + ($line-height - $crop-line-height) *
+          ($crop-font-size / 2)
+      ),
+      0
+    ) / $crop-font-size;
+
+  // Mixin output
+  line-height: $line-height;
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+  }
+
+  &::before {
+    margin-bottom: calc(-#{$dynamic-top-crop}em + #{$top-adjustment});
+  }
+
+  &::after {
+    margin-top: calc(-#{$dynamic-bottom-crop}em + #{$bottom-adjustment});
+  }
+}
+// Mixin generated at: http://text-crop.eightshapes.com/?typeface-selection=custom-font&typeface=Lato&custom-typeface-name=Waldenbur&custom-typeface-url=https%3A%2F%2F6400d769825f56006f6c026b--stellular-sawine-e707f8.netlify.app%2Ffonts%2FWaldenburg%2FWaldenburgVariable.woff2&custom-typeface-weight=600&custom-typeface-style=normal&weight-and-style=100&size=31&line-height=1.2&top-crop=9&bottom-crop=9

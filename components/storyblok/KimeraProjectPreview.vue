@@ -1,6 +1,6 @@
 <template>
   <nuxt-link
-    :to="{ path: '/' + blok.project.full_slug, params: { userId: 123 } }"
+    :to="{ path: '/' + blok.project.full_slug }"
     ref="link"
     v-editable="blok"
     class="grid-item project-preview"
@@ -8,6 +8,7 @@
     :data-original-width="`grid-width-${width}`"
     data-new-width="null"
   >
+    <!-- event="disabled" -->
     <div class="grid-item-tags kimera-text-filter-tags">
       <span v-if="project" v-for="(tag, index) in tags"
         >{{ tag }}{{ index < project.tags.length - 1 ? ", " : "" }}
@@ -49,9 +50,16 @@ export default {
     },
   },
   methods: {
-    handleClick() {
+    handleClick($event) {
+      // $event.preventDefault();
+
       this.$root.lastClickedImageId = this.blok.src.id;
       this.$refs.link.$el.classList.add("clicked");
+      // const url = $event.target.pathname;
+
+      // setTimeout(() => {
+      //   this.$router.push(url);
+      // }, 5000); // Delay of 1 second
     },
     stringExists(arr, val) {
       const result = arr.findIndex(

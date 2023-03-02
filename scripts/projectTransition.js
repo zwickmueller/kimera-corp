@@ -7,6 +7,11 @@ if (process.client) {
 }
 
 export default {
+  data() {
+    return {
+      clickedEl : ''
+    }
+  },
   name: "test",
   css: false,
   mode: 'out-in',
@@ -29,8 +34,14 @@ export default {
       }
     })
   },
+  beforeLeave(el) {
+    console.log("ASDASD ASD ASD ASD A", el);
+    this.clickedEl = el.querySelector('.grid-item.clicked')
+  },
   leave(el, done) {
-    const clickedEl = el.querySelector('.grid-item.clicked')
+    // const clickedEl = el.querySelector('.grid-item.clicked')
+    const clickedEl = this.clickedEl
+    console.log( this.clickedEl);
     // console.log("clickedEl ", clickedEl);
     // debugger
     this.$store.commit('setIsPageTransitioning', true)
