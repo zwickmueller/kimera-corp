@@ -220,7 +220,9 @@ export default {
     display: flex;
     transition: $typetester-invert-transition;
     z-index: 1;
-    margin-right: calc(var(--kimera-side-padding) * -1 - 0.25em);
+
+    margin-right: calc(#{var(-–kimera-side-padding)} * -1 - 0.25em);
+    // margin-right: calc(var(--kimera-side-padding) * -1 - 0.25em);
     justify-content: center;
     &.is-inverted {
       color: var(--kimera-white);
