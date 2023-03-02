@@ -52,9 +52,10 @@ export default {
   methods: {
     handleClick($event) {
       // $event.preventDefault();
-
-      this.$root.lastClickedImageId = this.blok.src.id;
-      this.$refs.link.$el.classList.add("clicked");
+      this.$nextTick(() => {
+        this.$root.lastClickedImageId = this.blok.src.id;
+        this.$refs.link.$el.classList.add("clicked");
+      });
       // const url = $event.target.pathname;
 
       // setTimeout(() => {
