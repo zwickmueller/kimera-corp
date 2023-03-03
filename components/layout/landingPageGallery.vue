@@ -1,6 +1,6 @@
 <template>
-  <client-only>
-    <div class="kimera-landing slider">
+  <div class="kimera-landing slider">
+    <client-only>
       <div ref="stickyElement" class="landing-title fixed-reset">
         <div :style="`height: ${stickyHeight}px`">
           <p
@@ -47,8 +47,8 @@
         <!-- </div> -->
       </flicking>
       <!-- <canvas id="glcanvas" width="100vw" height="100%" tabindex="1"></canvas> -->
-    </div>
-  </client-only>
+    </client-only>
+  </div>
 </template>
 
 <script>
