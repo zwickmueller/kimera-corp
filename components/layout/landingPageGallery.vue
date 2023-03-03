@@ -126,6 +126,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@egjs/vue-flicking/dist/flicking.css";
+
 .kimera-landing {
   * {
     /* disable on touch highlights of html elements, especially on mobile! */
