@@ -1,52 +1,54 @@
 <template>
-  <div class="kimera-landing slider">
-    <div ref="stickyElement" class="landing-title fixed-reset">
-      <div :style="`height: ${stickyHeight}px`">
-        <p
-          :class="[
-            stickyHeight < 150 ? 'fade-title' : '',
-            this.elements[this.currentIndex].blackType
-              ? ''
-              : 'text-kimera-white',
-          ]"
-          class="kimera-text-kacheln"
-        >
-          <transition name="landing-title" mode="out-in">
-            <span style="display: block" :key="slideShowTitle">
-              {{ slideShowTitle }}</span
-            >
-          </transition>
-        </p>
+  <client-only>
+    <div class="kimera-landing slider">
+      <div ref="stickyElement" class="landing-title fixed-reset">
+        <div :style="`height: ${stickyHeight}px`">
+          <p
+            :class="[
+              stickyHeight < 150 ? 'fade-title' : '',
+              this.elements[this.currentIndex].blackType
+                ? ''
+                : 'text-kimera-white',
+            ]"
+            class="kimera-text-kacheln"
+          >
+            <transition name="landing-title" mode="out-in">
+              <span style="display: block" :key="slideShowTitle">
+                {{ slideShowTitle }}</span
+              >
+            </transition>
+          </p>
+        </div>
       </div>
-    </div>
-    <flicking
-      ref="flicking"
-      :options="options"
-      :viewportTag="'div'"
-      :cameraTag="'div'"
-      @will-change="onChange"
-      :plugins="plugins"
-    >
-      <div
-        class="slide"
-        :class="index == currentIndex ? 'active-slide' : ''"
-        v-for="(_blok, index) in elements"
-        :style="{ maxHeight: '100%', width: '100vw' }"
+      <flicking
+        ref="flicking"
+        :options="options"
+        :viewportTag="'div'"
+        :cameraTag="'div'"
+        @will-change="onChange"
+        :plugins="plugins"
       >
-        <!-- <kimera-image :blok="_blok"></kimera-image> -->
-        <component
-          :height="'100%'"
-          :key="_blok.body[0]._uid"
-          :blok="_blok.body[0]"
-          :is="_blok.body[0].component"
-        />
-      </div>
-      <!-- </div> -->
+        <div
+          class="slide"
+          :class="index == currentIndex ? 'active-slide' : ''"
+          v-for="(_blok, index) in elements"
+          :style="{ maxHeight: '100%', width: '100vw' }"
+        >
+          <!-- <kimera-image :blok="_blok"></kimera-image> -->
+          <component
+            :height="'100%'"
+            :key="_blok.body[0]._uid"
+            :blok="_blok.body[0]"
+            :is="_blok.body[0].component"
+          />
+        </div>
+        <!-- </div> -->
 
-      <!-- </div> -->
-    </flicking>
-    <!-- <canvas id="glcanvas" width="100vw" height="100%" tabindex="1"></canvas> -->
-  </div>
+        <!-- </div> -->
+      </flicking>
+      <!-- <canvas id="glcanvas" width="100vw" height="100%" tabindex="1"></canvas> -->
+    </div>
+  </client-only>
 </template>
 
 <script>
@@ -113,9 +115,11 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
   mounted() {
-    window.addEventListener("scroll", this.handleScroll);
-    this.handleScroll();
-    this.$refs.flicking.resize();
+    this.$nextTick(() => {
+      window.addEventListener("scroll", this.handleScroll);
+      this.handleScroll();
+      this.$refs.flicking.resize();
+    });
   },
 };
 </script>

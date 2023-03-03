@@ -178,6 +178,7 @@ export default {
     z-index: 3;
     display: flex;
     align-items: center;
+    pointer-events: none;
     transform: translateX(-100%);
     transition: transform 0.37s cubic-bezier(0, 1.65, 0.475, 1.005);
     @include until($tablet) {
