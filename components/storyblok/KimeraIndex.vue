@@ -1,8 +1,8 @@
 <template>
   <div v-editable="story" class="page">
-    <landing-page-gallery
+    <!-- <landing-page-gallery
       :elements="story.content.slideShow"
-    ></landing-page-gallery>
+    ></landing-page-gallery> -->
     <!-- <project-grid></project-grid> -->
     <div class="kimera-flex-grid">
       <!-- <single-grid> -->
