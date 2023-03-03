@@ -286,11 +286,11 @@ export default {
     // this.clonedProjects = cloneDeep(this.story.content.projectPreviews)
   },
   beforeDestroy() {
-    console.log("DESTROYAED");
+    // console.log("DESTROYAED");
     // this.batch.kill()
   },
   mounted() {
-    console.log("BATCH ", Flip.batch("id"));
+    // console.log("BATCH ", Flip.batch("id"));
     this.batch = Flip.batch("id");
 
     // this.group = document.querySelector(".kimera-flex-grid");

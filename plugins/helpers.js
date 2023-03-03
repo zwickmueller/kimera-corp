@@ -167,7 +167,7 @@ export default ({ app, store }, inject) => {
         // }
 for (var fontFace of Array.from(document.fonts)) {
   if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.style == fontStyle && fontFace.stretch == fontStretch && fontFace.loaded) {
-    console.log(`FONT ${name} with weight ${weight} was already loaded`);
+    // console.log(`FONT ${name} with weight ${weight} was already loaded`);
     return
   }
 }
