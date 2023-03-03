@@ -3,6 +3,7 @@
     :to="{ path: '/' + blok.project.full_slug }"
     ref="link"
     v-editable="blok"
+    event="disabled"
     class="grid-item project-preview"
     @click.native="handleClick"
     :data-original-width="`grid-width-${width}`"
@@ -49,6 +50,11 @@ export default {
       required: true,
     },
   },
+  onBeforeRouteLeave(to, from, next) {
+    console.log("ASDASD ASODJIKOA SIjd");
+    // Add a delay before allowing the navigation to proceed
+    setTimeout(() => next(), 1000);
+  },
   methods: {
     handleClick($event) {
       // $event.preventDefault();
@@ -58,11 +64,11 @@ export default {
       // this.$refs.link.$el.classList.add("clicked");
       // });
       console.log($event.target.parentNode.parentNode);
-      // const url = $event.target.pathname;
-
-      // setTimeout(() => {
-      //   this.$router.push(url);
-      // }, 5000); // Delay of 1 second
+      const url = $event.target.parentNode.parentNode.pathname;
+      console.log($event.target.parentNode.parentNode.pathname);
+      setTimeout(() => {
+        this.$router.push(url);
+      }, 100); // Delay of 1 second
     },
     stringExists(arr, val) {
       const result = arr.findIndex(
