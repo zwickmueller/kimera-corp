@@ -58,3 +58,47 @@
   }
   // grid-row-gap: var(--kimera-grid-gap);
 }
+
+.slider .slide {
+  pointer-events: none;
+}
+
+.stop-anim picture {
+  transition: none !important;
+}
+.slider {
+  .a {
+    height: 100%;
+    width: 100%;
+  }
+  height: 100%;
+  width: 100%;
+  .slide {
+    * {
+      pointer-events: none;
+      // pointer-events: none;
+      user-select: none;
+    }
+
+    picture {
+      transition: all 0.5s ease;
+      transform: scale(1.3);
+    }
+    overflow: hidden;
+    &.active-slide picture {
+      transform: scale(1);
+    }
+    // height: 100%;
+    background: var(--kimera-grey);
+    // height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100vw;
+    pointer-events: all;
+  }
+  .flicking-viewport {
+    height: 100% !important;
+  }
+}
