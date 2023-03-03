@@ -76,7 +76,8 @@ export default {
         defaultIndex: this.defaultIndex,
         preventClickOnDrag: true,
         noPanelStyleOverride: false,
-
+        hideBeforeInit: true,
+        firstPanelSize: "100vw",
         panelsPerView: 1,
         adaptive: true,
         deceleration: 0.03,
