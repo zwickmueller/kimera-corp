@@ -26,6 +26,7 @@
 
 <script>
 // import Flickity from "vue-flickity";
+import imagesLoaded from "imagesloaded";
 
 export default {
   // components: {
@@ -46,11 +47,23 @@ export default {
         cellAlign: "left",
 
         pageDots: false,
+        on: {
+          ready: () => {
+            imagesLoaded(this.$refs.flickity, this.loadComplete);
+          },
+        },
         // wrapAround: "fill",
         // setGallerySize: false,
         // any options from Flickity can be used
       },
     };
+  },
+  methods: {
+    loadComplete() {
+      if (this.$refs.flickity) {
+        this.$refs.flickity.reloadCells();
+      }
+    },
   },
   mounted() {
     // console.log(this.$refs.flickity);
@@ -82,8 +95,13 @@ export default {
     // min-height: 40vh;
     img {
       //   height: %;
-      height: max(65vh, 30rem);
+      width: calc(100% - 2rem);
+      max-height: max(65vh, 30rem);
       border-radius: var(--kimera-border-radius);
+      @include until($tablet) {
+        margin-right: calc(var(--kimera-grid-gap));
+        width: calc(100%) !important;
+      }
     }
   }
   .flickity-slide:first-child {
@@ -95,7 +113,11 @@ export default {
   .flickity-slide {
     display: flex;
     padding-right: calc(var(--kimera-grid-gap) / 2);
-    flex-direction: column;
+    flex-direction: row;
+    @include until($tablet) {
+      padding-right: 0;
+      max-width: calc(100% - 1rem);
+    }
     // div {
     // }
     // height: 100%;

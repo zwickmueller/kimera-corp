@@ -7,7 +7,19 @@
     <div v-if="blok.title" class="feature-title kimera-text-filter-tags">
       {{ blok.title }}
     </div>
-    <div class="feature-after feature" :style="featureStyle">
+    <div
+      v-if="mobileToggle"
+      :style="'right: 0; left: auto'"
+      class="feature-title kimera-text-filter-tags"
+    >
+      ✓
+    </div>
+    <div
+      @touchstart="mobileToggle = !mobileToggle"
+      class="feature-after feature"
+      :style="featureStyle"
+      :class="mobileToggle ? 'mobile-toggle' : ''"
+    >
       <div class="feature-inner" ref="after" v-html="blok.textAfter"></div>
     </div>
     <div class="feature-before feature">
@@ -27,6 +39,7 @@ export default {
   },
   data() {
     return {
+      mobileToggle: false,
       selectedFontData: null,
     };
   },
@@ -76,8 +89,15 @@ export default {
   padding: 1rem;
   overflow: hidden;
   text-align: center;
-  &:hover {
-    .feature-after {
+  @include from($tablet) {
+    &:hover {
+      .feature-after {
+        opacity: 1;
+      }
+    }
+  }
+  @include until($tablet) {
+    .feature-after.mobile-toggle {
       opacity: 1;
     }
   }

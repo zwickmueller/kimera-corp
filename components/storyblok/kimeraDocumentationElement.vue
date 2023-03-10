@@ -35,5 +35,8 @@ export default {
 }
 .slider-element {
   transform: translateX(var(--kimera-side-padding));
+  @include until($tablet) {
+    transform: none;
+  }
 }
 </style>
