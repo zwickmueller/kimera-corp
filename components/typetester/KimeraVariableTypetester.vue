@@ -1,6 +1,6 @@
 <template>
   <div
-    class="kimera-variable-typetester kimera-typetester"
+    class="kimera-variable-typetester kimera-typetester container-full-width-mobile"
     :class="invertColors ? 'is-inverted' : ''"
   >
     <div class="typetester-overlay">
@@ -39,20 +39,22 @@
       </div>
     </div>
 
-    <div class="typetester-inner center-all">
-      <content-editable
-        @click="stopAnim"
-        ref="editableContent"
-        multiline
-        spellcheck="false"
-        class="editable-text anim"
-        :style="getStyle"
-        @input="onInput"
-        v-on:edit="onEdit"
-        contenteditable="true"
-        v-html="blok.text"
-      >
-      </content-editable>
+    <div style="padding: 5rem; height: 100%">
+      <div class="typetester-inner center-all variable-typetester-inner">
+        <content-editable
+          @click="stopAnim"
+          ref="editableContent"
+          multiline
+          spellcheck="false"
+          class="editable-text anim"
+          :style="getStyle"
+          @input="onInput"
+          v-on:edit="onEdit"
+          contenteditable="true"
+          v-html="blok.text"
+        >
+        </content-editable>
+      </div>
       <!-- {{getStyle}} -->
     </div>
   </div>
@@ -60,6 +62,8 @@
 
 <script>
 // import BigText from 'big-text.js';
+// import fitty from "fitty";
+import fitty from "../../static/js/fitty";
 
 export default {
   data() {
@@ -69,8 +73,9 @@ export default {
       hasChanged: false,
       originalFontSize: this.blok.fontSize + "px",
       newFontSize: this.blok.fontSize + "px",
-      invertColors: false,
+      invertColors: true,
       animInterval: null,
+      fitter: null,
     };
   },
   props: {
@@ -116,12 +121,18 @@ export default {
       // console.log(e.target.innerHTML.length);
       // this.newFontSize = this.$helpers.clampNumber(1 / e.target.innerHTML.length * 1000, 150, 350) + 'px'
       // BigText(this.$refs.editableContent);
-      this.newFontSize =
-        this.$helpers.clampNumber(
-          (1 / (e.target.innerHTML.trim().length + 1)) * 100,
-          7,
-          25
-        ) + "vw";
+      // this.newFontSize =
+      //   this.$helpers.clampNumber(
+      //     (1 / (e.target.innerHTML.trim().length + 1)) * 100,
+      //     7,
+      //     25
+      //   ) + "vw";
+      this.$nextTick(() => {
+        // const fitter = new this.$helpers.fitText(this.$refs.editableContent);
+        // fitter.recalc();
+        // console.log(fitter);
+      });
+      this.fitter.fit();
     },
     test(e) {
       this.sliders[e.target.name].value = e.target.value;
@@ -138,6 +149,7 @@ export default {
       const target = e.target.name;
       const value = e.target.value;
       this.variableData[target] = value;
+      fitty.fitAll();
       // console.log(e.target.value);
       // console.log(e.target.name);
       // console.log(this.variableData);
@@ -153,6 +165,7 @@ export default {
     },
   },
   mounted() {
+    // console.log(this.fitter);
     for (var i = 0; i < this.blok.sliders.length; i++) {
       // this.variableData[this.blok.sliders[i].target] = this.blok.sliders[i].value
       this.$set(
@@ -186,15 +199,26 @@ export default {
     const randomizeText = () => {
       let randomWeight = this.$helpers.getRandomNumber(100, 900);
       let randomWidth = this.$helpers.getRandomNumber(50, 200);
-      // myText.style.fontVariationSettings = "\"wght\" " + randomWeight + ", \"wdth\" " + randomWidth;
-      // console.log(this.sliders);
+
       this.sliders.wdth.value = randomWidth;
       this.sliders.wght.value = randomWeight;
       this.variableData.wdth = randomWidth;
       this.variableData.wght = randomWeight;
+      fitty.fitAll();
     };
 
     this.animInterval = setInterval(randomizeText, 2000);
+    setTimeout(() => {
+      const editableContent = this.$refs.editableContent;
+      let max = window.getComputedStyle(
+        this.$refs.editableContent.parentNode
+      ).fontSize;
+      console.log(parseFloat(max));
+      this.fitter = fitty(editableContent, {
+        maxSize: parseFloat(max),
+      });
+      this.fitter.fit();
+    }, 0);
   },
 };
 </script>
@@ -202,9 +226,6 @@ export default {
 <style lang="scss">
 .kimera-variable-typetester {
   overflow: auto !important;
-  .anim {
-    transition: font-variation-settings 1.5s cubic-bezier(0.87, 0, 0.13, 1);
-  }
   background: var(--kimera-white);
   margin: 0; // var(--kimera-side-padding);
   // margin: -1.65em 0 0; // var(--kimera-side-padding);
@@ -213,6 +234,13 @@ export default {
   max-width: 100vw;
   // z-index: -1;
   border-radius: 0;
+  // @include until($tablet) {
+  //   margin-left: calc(var(--kimera-grid-gap) * -1 / 2);
+  //   margin-right: calc(var(--kimera-grid-gap) * -1 / 2);
+  // }
+  .anim {
+    transition: font-variation-settings 1.5s cubic-bezier(0.87, 0, 0.13, 1);
+  }
   .heading {
     position: absolute;
     align-self: center;
@@ -243,13 +271,18 @@ export default {
     max-width: 100vw;
     min-height: inherit;
     max-height: 75vh;
+    // padding: 3rem;
+    padding: 0rem;
     content-editable {
-      display: inline;
+      // display: inline;
       // min-height: inherit;
       // max-height: 75vh;
       // width: 100%;
       // max-width: 100vw;
-      width: 100vw;
+      // width: 100vw;
+      // width: 100%;
+      display: inline-block;
+      white-space: nowrap;
       text-align: center;
       //
       // height: 100%;

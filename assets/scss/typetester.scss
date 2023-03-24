@@ -19,13 +19,26 @@ content-editable {
   min-width: 250px;
   cursor: auto;
   outline: none;
+  div,
+  span {
+    font-family: inherit !important;
+    font-size: inherit !important;
+    letter-spacing: inherit !important;
+    line-height: inherit !important;
+    font-weight: inherit !important;
+    font-stretch: inherit !important;
+    font-style: inherit !important;
+    font-feature-settings: inherit !important;
+  }
 }
 
 .kimera-typetester {
   position: relative;
 
   &.is-preview {
-    min-height: max(30em, 33vh);
+    min-height: 25rem;
+    // min-height: min(25rem, 45vh);
+    // min-height: max(30em, 33vh);
     max-height: 100vh;
     // height: 33vh;
     position: relative;

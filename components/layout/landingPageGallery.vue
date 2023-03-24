@@ -116,6 +116,7 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
   mounted() {
+    if (!process.client) return;
     this.$nextTick(() => {
       window.addEventListener("scroll", this.handleScroll);
       this.handleScroll();

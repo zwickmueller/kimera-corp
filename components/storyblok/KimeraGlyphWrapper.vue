@@ -1,7 +1,10 @@
 <template>
   <div
-    class="kimera-glyph-wrapper hide-on-mobile"
-    :class="invertColors ? 'invert-colors' : ''"
+    class="kimera-glyph-wrapper"
+    :class="[
+      invertColors ? 'invert-colors' : '',
+      expandMobile ? 'expand-mobile' : '',
+    ]"
   >
     <div
       class="glyph-map-container"
@@ -65,6 +68,13 @@
         :blok="blok"
         :is="blok.component"
       />
+      <tag-button
+        @click.native="expandMobile = true"
+        :isBig="true"
+        :isDiv="true"
+        class="hide-on-desktop expand-mobile-button"
+        >Expand</tag-button
+      >
     </div>
   </div>
 </template>
@@ -73,6 +83,7 @@
 export default {
   data() {
     return {
+      expandMobile: false,
       currentGlyph: "A",
       selectedFontData: null,
       invertColors: false,
@@ -110,6 +121,7 @@ export default {
         fontWeight: this.selectedFontData.weight,
         fontStretch: this.selectedFontData.fontStretch,
         fontStyle: this.selectedFontData.fontStyle,
+        fontFeatureSettings: this.$helpers.getOpenTypeFeatures(this.blok.font),
       };
     },
   },
@@ -148,6 +160,8 @@ export default {
       this.selectedFontData,
       this.blok.font.selectedFontFamily
     );
+
+    // console.log(this.selectedFontData, this.blok.font.selectedFontFamily);
     this.$root.$on("setGlyphMobileStyle", (payload) =>
       this.setMobileStyle(payload)
     );
@@ -167,6 +181,40 @@ export default {
   .kimera-glyph-set + .kimera-glyph-set {
     padding-top: calc(var(--kimera-grid-gap));
   }
+  @include until($tablet) {
+    padding: 0;
+    &:not(.expand-mobile) {
+      max-height: 120vh;
+      overflow: hidden;
+      position: relative;
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 5rem;
+        background: linear-gradient(
+          360deg,
+          var(--kimera-white) 50%,
+          transparent
+        );
+        border-radius: var(--kimera-border-radius);
+      }
+    }
+    &.expand-mobile .expand-mobile-button {
+      display: none;
+    }
+  }
+}
+.expand-mobile-button {
+  position: absolute;
+  bottom: 1rem;
+  z-index: 2;
+  left: 50%;
+  transform: translateX(-50%);
+  @include from($tablet) {
+    display: none;
+  }
 }
 .type-test {
   // @include text-crop;
@@ -179,7 +227,7 @@ export default {
   flex-grow: 1;
   background: var(--kimera-white);
   padding: var(--kimera-grid-row-gap);
-  border-radius: calc(var(--kimera-border-radius) / 2);
+  border-radius: calc(var(--kimera-border-radius));
 }
 .invert-colors {
   .glyph-map-container .glyph-map {
@@ -246,7 +294,7 @@ export default {
     align-items: center;
     background: var(--kimera-white);
     position: sticky;
-    border-radius: calc(var(--kimera-border-radius) / 2);
+    border-radius: calc(var(--kimera-border-radius));
     .glyph-map-inner {
       position: absolute;
       height: 100%;

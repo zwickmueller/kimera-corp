@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import { renderRichText } from "@storyblok/nuxt";
-import { useStoryblokBridge, useStoryblokApi } from "@storyblok/nuxt";
+// import { renderRichText } from "@storyblok/nuxt-2";
+import { useStoryblokApi } from "@storyblok/nuxt-2";
 // const storyblokApi = useStoryblokApi();
 export default {
   props: {
@@ -27,10 +27,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .kimera-text {
   @include until($tablet) {
+    padding: 0 calc(var(--kimera-grid-gap));
     columns: 1 !important;
+    h4:not(:first-child) {
+      padding-top: 1rem;
+    }
   }
 }
 </style>

@@ -1,16 +1,9 @@
 <template>
-  <div
-    v-if="isDiv"
-    class="kimera-button kimera-text-filter"
-    :class="getClasses"
-  >
+  <div v-if="isDiv" class="kimera-button" :class="getClasses">
     <slot></slot>
   </div>
-  <button
-    v-else
-    class="kimera-button kimera-text-filter button-reset"
-    :class="getClasses"
-  >
+
+  <button v-else class="kimera-button button-reset" :class="getClasses">
     <slot></slot>
   </button>
 </template>
@@ -19,6 +12,9 @@
 export default {
   props: {
     isDiv: {
+      default: false,
+    },
+    isBig: {
       default: false,
     },
     isInverted: {
@@ -37,6 +33,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    isBuyButton: {
+      default: false,
+      type: Boolean,
+    },
   },
   computed: {
     getClasses() {
@@ -45,6 +45,9 @@ export default {
         "is-small": this.isSmall,
         "is-secondary": this.isSecondary,
         "is-active": this.isActive,
+        "is-big kimera-text-bigger": this.isBig,
+        "kimera-text-filter": !this.isBig,
+        "is-buy-button": this.isBuyButton,
       };
     },
   },
@@ -91,6 +94,21 @@ export default {
       background: var(--kimera-white);
     }
   }
+  &.is-big {
+    border-radius: 2rem;
+    padding: 0.5rem 0.9rem;
+  }
+  &.is-buy-button {
+    background: var(--kimera-green);
+    color: var(--black);
+    transition: $typetester-invert-transition, filter 0.375s ease,
+      transform 0.75s cubic-bezier(0, 0.55, 0.45, 1);
+
+    &:hover {
+      // background: var(--black);
+      color: var(--kimera-white);
+    }
+  }
 }
 .kimera-button {
   background: var(--black);
@@ -103,6 +121,7 @@ export default {
   align-items: center;
   white-space: nowrap;
   justify-content: flex-end;
+  position: relative;
   &.is-small {
     padding: 0.625em 0.675em;
   }

@@ -4,7 +4,7 @@ $font-families: (
   500: "Halbfett/Waldenburg-Halbfett",
   600: "Fett/Waldenburg-Fett",
 );
-$fontsDir: "~@/static/fonts/Waldenburg/";
+$fontsDir: "~@/static/fonts/KMR-Waldenburg/";
 $fontFamily: "Waldenburg";
 @each $fontWeight, $fontName in $font-families {
   @font-face {

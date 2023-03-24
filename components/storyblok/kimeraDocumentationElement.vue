@@ -33,10 +33,10 @@ export default {
 .documentation-title {
   padding-top: 0.5rem;
 }
-.slider-element {
-  transform: translateX(var(--kimera-side-padding));
-  @include until($tablet) {
-    transform: none;
-  }
-}
+// .slider-element {
+//   transform: translateX(var(--kimera-side-padding));
+//   @include until($tablet) {
+//     transform: none;
+//   }
+// }
 </style>

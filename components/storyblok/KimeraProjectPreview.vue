@@ -10,11 +10,20 @@
     data-new-width="null"
   >
     <!-- event="disabled" -->
-    <div class="grid-item-tags kimera-text-filter-tags">
-      <span v-if="project" v-for="(tag, index) in tags"
-        >{{ tag }}{{ index < project.tags.length - 1 ? ", " : "" }}
-      </span>
-      <span v-else> ~</span>
+    <div class="grid-item-tags">
+      <div class="hide-on-desktop mobile-project-name kimera-text-mobile">
+        {{
+          project
+            ? project.name
+            : "~storyblok bug, changes are visible after save~"
+        }}
+      </div>
+      <div class="tags kimera-text-filter-tags">
+        <span v-if="project" v-for="(tag, index) in tags"
+          >{{ tag }}{{ index < project.tags.length - 1 ? ", " : "" }}
+        </span>
+        <span v-else> ~</span>
+      </div>
     </div>
     <div
       class="grid-item-inner center-all relative kimera-text-kacheln"
@@ -137,9 +146,10 @@ export default {
   height: 33vh;
   position: relative;
   @include until($tablet) {
-    min-height: auto;
+    min-height: unset;
     height: auto;
-    aspect-ratio: 1;
+    padding-top: 1rem;
+    // aspect-ratio: 1;
   }
   .kimera-image {
     z-index: 1;
@@ -147,6 +157,14 @@ export default {
 }
 .grid-item-tags {
   padding: 2px 0;
+  @include until($tablet) {
+    .tags {
+      color: var(--kimera-grey);
+    }
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
 }
 .grid-item-overlay.overlay-background {
   z-index: 0;
@@ -168,6 +186,9 @@ export default {
   border-radius: var(--kimera-border-radius);
   background: var(--kimera-white);
   height: 100%;
+  @include until($tablet) {
+    height: auto;
+  }
   &:not(.is-transitioning):before {
     content: attr(title);
     // width: 100%;
@@ -182,11 +203,12 @@ export default {
     transform: translateX(-100%);
     transition: transform 0.37s cubic-bezier(0, 1.65, 0.475, 1.005);
     @include until($tablet) {
-      transform: translateX(0%);
-      align-items: flex-end;
-      padding: 1rem;
-      width: 100%;
-      background: linear-gradient(0deg, var(--kimera-grey), transparent 4rem);
+      content: "";
+      // transform: translateX(0%);
+      // align-items: flex-end;
+      // padding: 1rem;
+      // width: 100%;
+      // background: linear-gradient(0deg, var(--kimera-grey), transparent 4rem);
     }
   }
   &:not(.is-transitioning):hover {

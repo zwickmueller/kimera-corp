@@ -3,12 +3,17 @@
     :style="blok.background ? 'background:' + blok.background : ''"
     v-editable="blok"
     class="kimera-container"
-    :class="blok.bottomGradient ? 'bottom-gradient' : ''"
+    :class="[
+      blok.bottomGradient ? 'bottom-gradient' : '',
+      blok.paddingTop ? blok.paddingTop : '',
+      blok.paddingBottom ? blok.paddingBottom : '',
+    ]"
   >
     <h3
       :id="this.$helpers.normalizeString(blok.heading)"
       v-if="blok.heading"
       class="kimera-text-filter-tags"
+      :class="blok.headingInside ? 'heading-inside' : ''"
     >
       {{ blok.heading }}
     </h3>
@@ -50,9 +55,13 @@ export default {
     text-align: center;
     text-transform: uppercase;
     position: relative;
+    &.heading-inside {
+      position: absolute;
+      width: 100%;
+    }
   }
   @include until($tablet) {
-    padding: calc(var(--kimera-grid-gap));
+    padding: var(--kimera-grid-gap) calc(var(--kimera-grid-gap) / 2);
   }
 }
 .bottom-gradient-mobile {

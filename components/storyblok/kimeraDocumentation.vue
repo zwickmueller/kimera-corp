@@ -1,126 +1,129 @@
 <template>
-  <div class="kimera-documentation-slider">
-    <!-- <flicking
+  <div class="slider-documentation">
+    <!-- <client-only> -->
+    <flicking
       ref="flicking"
       :options="options"
       :viewportTag="'div'"
       :cameraTag="'div'"
     >
-      <div class="docu-slide" v-for="_blok in blok.body"> -->
-    <!-- <client-only> -->
-    <flickity ref="flickity" :options="flickityOptions">
-      <component
-        class="flickity-slide"
-        v-for="_blok in blok.body"
-        :key="_blok._uid"
-        :blok="_blok"
-        :is="_blok.component"
-      />
-    </flickity>
+      <!-- :plugins="plugins" -->
+      <div class="slide" v-for="(_blok, index) in blok.body">
+        <component :key="_blok._uid" :blok="_blok" :is="_blok.component" />
+      </div>
+    </flicking>
     <!-- </client-only> -->
-
-    <!-- </div> -->
-    <!-- </flicking> -->
   </div>
 </template>
 
 <script>
-// import Flickity from "vue-flickity";
-import imagesLoaded from "imagesloaded";
+// import {
+//   Flicking
+// } from "@egjs/vue-flicking";
+//
+
+import { AutoPlay } from "@egjs/flicking-plugins";
+
+const plugins = [
+  new AutoPlay({
+    animationDuration: 1000,
+    duration: 4000,
+    direction: "NEXT",
+    stopOnHover: false,
+  }),
+];
 
 export default {
-  // components: {
-  //   Flickity,
-  // },
+  data() {
+    return {
+      plugins,
+      currentIndex: 0,
+      initAnim: false,
+      options: {
+        // circularFallback: "linear",
+
+        circular: true,
+        moveType: "snap",
+        align: "prev",
+        defaultIndex: 0,
+        preventClickOnDrag: true,
+        // noPanelStyleOverride: true,
+
+        panelsPerView: -1,
+        adaptive: true,
+        deceleration: 0.03,
+        interruptable: true,
+        bounce: "3%",
+        // resizeOnContentsReady: true,
+        // overflow: true,
+        inputType: ["touch", "mouse"],
+        // autoInit: true
+      },
+    };
+  },
   props: {
     blok: {
       type: Object,
       required: true,
     },
   },
-  data() {
-    return {
-      flickityOptions: {
-        initialIndex: 0,
-        prevNextButtons: false,
-        // groupCells: 2,
-        cellAlign: "left",
-
-        pageDots: false,
-        on: {
-          ready: () => {
-            imagesLoaded(this.$refs.flickity, this.loadComplete);
-          },
-        },
-        // wrapAround: "fill",
-        // setGallerySize: false,
-        // any options from Flickity can be used
-      },
-    };
-  },
-  methods: {
-    loadComplete() {
-      if (this.$refs.flickity) {
-        this.$refs.flickity.reloadCells();
-      }
+  computed: {
+    // currentIndex() {
+    //   return this.$refs.flicking.currentPanel
+    // },
+    defaultIndex() {
+      let lastClickedImageId = this.$root.lastClickedImageId;
+      if (!lastClickedImageId) return 0;
+      else
+        return this.blok.body.findIndex(
+          (el) => el.src && el.src.id == lastClickedImageId
+        );
     },
   },
+  methods: {},
   mounted() {
-    // console.log(this.$refs.flickity);
-    // this.$refs.flickity.resize();
+    this.currentIndex = this.defaultIndex;
+    this.$nextTick(() => {
+      this.initAnim = true;
+      // const a = document.querySelectorAll('.stop-anim')
+      // console.log(a);
+      // a.forEach(el => el.classList.remove('stop-anim'))
+    });
+    console.log(this.$refs.flicking);
   },
 };
 </script>
+
 <style lang="scss">
-.kimera-documentation-slider {
-  //   .flicking-camera {
-  //     gap: calc(var(--kimera-grid-gap) / 2);
-  //   }
-  //   .flicking-camera > div {
-  //     height: fit-content;
-  //     font-size: 0;
-  //   }
-  //   .docu-slide {
-  //     height: 50vh;
-  //     // max-height: 50vw;
-  //     display: flex;
-  //     * {
-  //       pointer-events: none;
-  //       // pointer-events: none;
-  //       user-select: none;
-  //     }
-  //   }
-  .flickity-viewport {
-    // height: 100%;
-    // min-height: 40vh;
+.slider-documentation {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // padding: 0 var(--kimera-side-padding);
+  .slide {
+    * {
+      pointer-events: none;
+      // pointer-events: none;
+      user-select: none;
+    }
     img {
-      //   height: %;
-      width: calc(100% - 2rem);
-      max-height: max(65vh, 30rem);
+      height: min(55vh, 45rem);
+      width: 100%;
+      object-fit: cover;
       border-radius: var(--kimera-border-radius);
+      overflow: hidden;
       @include until($tablet) {
-        margin-right: calc(var(--kimera-grid-gap));
-        width: calc(100%) !important;
+        max-width: 95vw;
       }
     }
+    margin-right: calc(var(--kimera-grid-gap) / 2);
+    flex-shrink: 0;
+    transform: translate(var(--kimera-side-padding), 0px);
   }
-  .flickity-slide:first-child {
-    // padding-left: var(--kimera-side-padding);
-  }
-  .flickity-slide:last-child {
-    // padding-right: var(--kimera-side-padding);
-  }
-  .flickity-slide {
-    display: flex;
-    padding-right: calc(var(--kimera-grid-gap) / 2);
-    flex-direction: row;
-    @include until($tablet) {
-      padding-right: 0;
-      max-width: calc(100% - 1rem);
-    }
-    // div {
-    // }
-    // height: 100%;
+  .flicking-viewport {
+    height: 100% !important;
   }
 }
 </style>

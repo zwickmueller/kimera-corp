@@ -49,9 +49,13 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+  @include until($tablet) {
+    padding: calc(var(--kimera-side-padding) * 2);
+  }
 }
 .glyph-set-spacer h3 {
   padding-bottom: calc(var(--kimera-grid-gap) / 2);
+  text-align: left;
   // padding-top: calc(var(--kimera-small-gap)/2);
 }
 .kimera-glyph-grid {
@@ -62,14 +66,16 @@ export default {
   // flex-wrap: wrap;
   grid-gap: calc(var(--kimera-small-gap) / 2);
   @include until($tablet) {
+    // padding: var(--kimera-side-padding);
+    grid-template-columns: repeat(auto-fill, minmax(min(4.5rem, 100%), 1fr));
     // height: 6rem;
     // overflow: hidden;
-    user-select: none;
-    position: relative;
-    width: 100%;
-    height: 5rem;
-    overflow: scroll;
-    display: flex;
+    // user-select: none;
+    // position: relative;
+    // width: 100%;
+    // height: 5rem;
+    // overflow: scroll;
+    // display: flex;
   }
 }
 </style>

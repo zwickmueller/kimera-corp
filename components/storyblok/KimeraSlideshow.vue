@@ -7,6 +7,7 @@
       :viewportTag="'div'"
       :cameraTag="'div'"
       @will-change="test"
+      :plugins="plugins"
       @need-panel="
         (e) => {
           // ADD PANELS
@@ -42,9 +43,22 @@
 //   Flicking
 // } from "@egjs/vue-flicking";
 //
+
+import { AutoPlay } from "@egjs/flicking-plugins";
+
+const plugins = [
+  new AutoPlay({
+    animationDuration: 1000,
+    duration: 4000,
+    direction: "NEXT",
+    stopOnHover: false,
+  }),
+];
+
 export default {
   data() {
     return {
+      plugins,
       currentIndex: 0,
       initAnim: false,
       // options: {
@@ -89,7 +103,7 @@ export default {
     },
     options() {
       return {
-        circular: false,
+        circular: true,
         moveType: "snap",
         align: "prev",
         defaultIndex: this.defaultIndex,

@@ -72,22 +72,67 @@ export default {
     animateFilter() {
       var projects = document.querySelectorAll(".grid-item");
       var grid = document.querySelectorAll(".kimera-flex-grid");
-      // var _state = Flip.getState(grid);
+      var _state = Flip.getState(grid);
       var startHeight = gsap.getProperty(".kimera-flex-grid", "height");
+      console.log(startHeight);
+      var endHeight;
+      let landingHeight =
+        document.querySelectorAll(".kimera-landing")[0].getBoundingClientRect()
+          .height - 200;
       // var state = Flip.getState(projects);
       // this.$root.lastState = state
-
+      const footer = document.querySelector("footer");
+      // const container = document.querySelector('.container');
+      const that = this;
       let action = this.batch.add({
         getState(self) {
           return Flip.getState(".grid-item");
         },
         animate(self) {
+          console.log("startHeight ", startHeight);
           Flip.from(self.state, {
             duration: 0.375 * 2,
             ease: "power3.inOut",
             stagger: 0.075,
             absolute: true,
             nested: true,
+            onStart: () => {
+              // console.log("asdasdasdasdasd");
+
+              gsap.set(footer, { opacity: 0 });
+              // that.$nextTick(() => {
+              // var test = gsap.getProperty(grid[0], "height");
+              // gsap.to(grid[0], { height: test, duration: 1 });
+              // console.log("test ", test);
+              // });
+            },
+            onUpdate: () => {
+              // that.$nextTick(() => {
+              //   console.log(window.getComputedStyle(grid[0]).height);
+              // });
+              // grid[0].style.height = `${grid[0].scrollHeight}px`;
+              // gsap.set(grid[0], { height: grid[0].scrollHeight });
+            },
+            onComplete: () => {
+              gsap.fromTo(
+                footer,
+                { opacity: 0 },
+                { opacity: 1, duration: 0.2 }
+              );
+              // that.$nextTick(() => {
+              // gsap.to(grid[0], { height: "auto", duration: 1 });
+              // });
+              // gsap.to(grid[0], { height: startHeight });
+              // that.$nextTick(() => {
+              //   var test = gsap.getProperty(grid[0], "height");
+              //   gsap.to(grid[0], {
+              //     height: test,
+              //     duration: 1,
+              //     // clearProps: "height",
+              //   });
+              //   console.log("test ", test);
+              // });
+            },
             onEnter: (elements) =>
               gsap.fromTo(
                 elements,
@@ -158,7 +203,7 @@ export default {
                 .includes("typefaces")
             ) {
               className = "project-width-8";
-              console.log(className);
+              // console.log(className);
             }
 
             el.classList.add(className);
@@ -167,10 +212,16 @@ export default {
           });
         }
 
-        console.log(this.batch);
+        // console.log(this.batch);
         this.batch.run(true);
-        var endHeight = gsap.getProperty(".kimera-flex-grid", "height");
-
+        // console.log(grid[0].scrollHeight);
+        // window.scrollTo({
+        //   top: landingHeight,
+        //   left: 0,
+        //   behavior: "smooth",
+        // });
+        // var endHeight = gsap.getProperty(".kimera-flex-grid", "height");
+        // console.log(startHeight, endHeight);
         // var flip = Flip.from(state, {
         //   duration: 0.375 * 2,
         //   ease: "power3.inOut",
@@ -203,14 +254,25 @@ export default {
 
         // console.log(_state);
         //
-        // Flip.fromTo(_state, {
-        //   height: startHeight
-        // }, {
-        //   height: endHeight,
-        //   clearProps: "height",
-        //   duration: 1
-        // }, 0);
+        // setTimeout(() => {
+        //   Flip.fromTo(
+        //     _state,
+        //     {
+        //       height: startHeight,
+        //     },
+        //     {
+        //       height: endHeight,
+        //       clearProps: "height",
+        //       duration: 1,
+        //     },
+        //     0
+        //   );
+        // }, 100);
       });
+      // this.$nextTick(() => {
+      //   var endHeight = gsap.getProperty(".kimera-flex-grid", "height");
+      //   console.log(startHeight, endHeight);
+      // });
     },
     changeFilter(payload) {
       this.currentActiveTags = payload.map((el) => el.name);

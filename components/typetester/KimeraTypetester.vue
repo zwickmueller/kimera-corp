@@ -17,8 +17,9 @@
                 data-flip-id="current-font"
               >
                 <tag-button :isInverted="typetester.invertColors">{{
-                  typetester.style.fontFamily
+                  getCurrentFontData.nameReadable
                 }}</tag-button>
+                <!-- // typetester.style.fontFamily -->
               </div>
               <div
                 class="button-wrapper-inner font-selection"
@@ -37,7 +38,7 @@
                       : 'order: 1'
                   "
                 >
-                  {{ font.name }}</tag-button
+                  {{ font.nameReadable }}</tag-button
                 >
               </div>
             </div>
@@ -96,7 +97,7 @@
               :isInverted="typetester.invertColors"
               :slider-data="typetester.sliders.letterSpacing"
               :target="'letterSpacing'"
-              :name="'Leading'"
+              :name="'Spacing'"
               :unit="'em'"
               @handleSliders="handleSliders"
             ></kimera-slider>
@@ -105,7 +106,7 @@
               :isInverted="typetester.invertColors"
               :slider-data="typetester.sliders.lineHeight"
               :target="'lineHeight'"
-              :name="'Spacing'"
+              :name="'Leading'"
               :unit="'%'"
               @handleSliders="handleSliders"
             ></kimera-slider>
@@ -168,10 +169,11 @@
               @click.native="addOpenTypeFeatures(feature)"
               isSecondary
               :isActive="isActiveOpenTypeFeature(feature)"
-              v-for="feature in getCurrentFontData.openTypeFeatures"
+              v-for="feature in getFilteredOpenTypeFeatures"
               :isInverted="typetester.invertColors"
               :key="feature.label"
             >
+              <!-- v-for="feature in getCurrentFontData.openTypeFeatures" -->
               {{ feature.label }}</tag-button
             >
           </div>
@@ -264,6 +266,13 @@ export default {
     }),
     currentTypetesterOptions() {
       return this.$store.state.typetester.currentTypetesterOptions;
+    },
+    getFilteredOpenTypeFeatures() {
+      if (!this.getCurrentFontData.openTypeFeaturesFiltered) return [];
+      return this.getCurrentFontData.openTypeFeatures.filter((feature) =>
+        this.getCurrentFontData.openTypeFeaturesFiltered.includes(feature.value)
+      );
+      // return this.getCurrentFontData.openTypeFeatures.filter(el => el.label)
     },
     getCurrentFontData() {
       return this.getFontDataByName(this.typetester.style.fontFamily);
@@ -398,6 +407,9 @@ export default {
         );
       });
     },
+    closeKeyup(e) {
+      if (e.key === "Escape") this.close();
+    },
     close() {
       gsap.fromTo(
         this.$el,
@@ -408,7 +420,8 @@ export default {
           opacity: 0,
           duration: 0.3,
           onComplete: () => {
-            this.setIsTypetesterOpen(false);
+            // this.setIsTypetesterOpen(false);
+            this.unload();
           },
         }
       );
@@ -472,10 +485,12 @@ export default {
     },
   },
   beforeDestroy() {
+    document.removeEventListener("keyup", this.closeKeyup);
     this.unload();
   },
   created() {
     window.addEventListener("beforeunload", this.unload);
+
     this.typetesterDefault = this.typetester;
 
     this.typetester = cloneDeep(
@@ -512,6 +527,8 @@ export default {
   // },
 
   mounted() {
+    document.addEventListener("keyup", this.closeKeyup);
+
     if (this.typetester.isUserCreated) return;
     // this.$nextTick(() => {
     setTimeout(() => {
@@ -692,10 +709,15 @@ $typetester-margin: var(--kimera-side-padding);
   // flex-direction: column;
   height: fit-content;
   background: var(--black);
-  border-radius: 0.7em;
+  // border-radius: 0.7rem;
+  border-radius: var(--kimera-button-border-radius);
+  transition: border-radius 1s linear;
   &.is-inverted {
     background: var(--kimera-white);
     color: var(--black);
+  }
+  &.active {
+    border-radius: 0.825rem;
   }
 }
 .current-fonttype {
@@ -726,6 +748,11 @@ $typetester-margin: var(--kimera-side-padding);
   }
   .top div:not(.button-wrapper-inner) {
     pointer-events: none;
+  }
+  @include until($tablet) {
+    margin: 1rem;
+    height: calc(100% - 2rem);
+    width: calc(100% - 2rem);
   }
 }
 

@@ -17,7 +17,7 @@
     "@marvr/storyblok-rich-text-vue-renderer": "^2.0.1",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/composition-api": "^0.32.0",
-    "@storyblok/nuxt": "^3.0.2",
+    "@storyblok/nuxt-2": "^1.1.0",
     "big-text.js": "^1.0.1",
     "content-editable": "^2.0.1",
     "core-js": "^3.19.3",

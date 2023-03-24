@@ -29,16 +29,18 @@ html {
   --kimera-white: #eaeaea;
   --kimera-grey: #d6d6d6;
   --kimera-dark-grey: rgb(75, 75, 75);
+  --kimera-green: rgb(72, 236, 108);
   --kimera-border-radius: 0.7rem;
   // --kimera-border-radius: 1rem;
   --kimera-button-border-radius: 2em;
   --kimera-small-gap: clamp(4px, 0.333em, 8px);
-  --kimera-side-padding: 1.25em;
+  --kimera-side-padding: 1.25rem;
   --kimera-grid-gap: 8px;
   --kimera-grid-row-gap: 14px;
   --kimera-filter-color: rgba(150, 150, 150, 0.4);
   @include until($tablet) {
     --kimera-grid-row-gap: 2px;
+    --kimera-side-padding: 0.25rem;
   }
 }
 

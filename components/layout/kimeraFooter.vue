@@ -4,8 +4,10 @@
     :class="this.$route.name == 'info' ? 'is-info' : ''"
   >
     <div class="flex adress kimera-text-filter-tags">
-      <nuxt-link to="/home">kimera</nuxt-link> Holzstraße 15a 80469 München +49
-      173 9032725 post@kimeracorp.eu ®All Rights reserved ©kimera2022
+      kimera Holzstraße 15a 80469 München +49 173 9032725
+      <br class="hide-on-desktop" />
+      post@kimeracorp.eu <br class="hide-on-desktop" />®All Rights reserved
+      ©kimera2022
     </div>
     <div class="">
       <div class="foot flex kimera-text-filter-tags">

@@ -13,8 +13,11 @@
             :isDiv="true"
             :isSmall="true"
             :isInverted="typetester.invertColors"
-            >{{ typetester.style.fontFamily }}</tag-button
+            >{{
+              getFontDataByName(typetester.style.fontFamily).nameReadable
+            }}</tag-button
           >
+          <!-- typetester.style.fontFamily  -->
           <tag-button
             :isDiv="true"
             :isSmall="true"
@@ -39,7 +42,8 @@
       </div>
       <div class="bottom">
         <div class="timestamp">
-          {{ typetester.timestamp }}
+          {{ getTimestampFormatted() }}
+          <!-- {{ typetester.timestamp }} -->
           <!-- {{this.typetester.invertColors}} -->
         </div>
         <div class="toggle">
@@ -134,6 +138,7 @@ export default {
   computed: {
     ...mapGetters({
       getFontDataByName: "fontData/getFontDataByName",
+      isMobile: "isMobile",
     }),
     // typetester() {
     //   let b = this.typetesterData
@@ -148,6 +153,13 @@ export default {
     ...mapMutations({
       removeCustomTypetest: "typetester/removeCustomTypetest",
     }),
+    getTimestampFormatted() {
+      if (this.typetester.timestamp == "") {
+        return "12:35";
+      } else {
+        return this.$helpers.formatTimeWithUTCOffset(this.typetester.timestamp);
+      }
+    },
     async handleTypetester(e) {
       function disableScroll() {
         // Get the current page scroll position
@@ -255,6 +267,8 @@ export default {
     // },
 
     mouseEntered() {
+      if (this.isMobile) return;
+
       gsap.fromTo(
         [this.dom.timestamp, this.dom.currenFontType],
         {
@@ -284,6 +298,7 @@ export default {
       this.$el.addEventListener("mousemove", this.handleMouseMove);
     },
     mouseLeaved() {
+      if (this.isMobile) return;
       gsap.fromTo(
         [this.dom.timestamp, this.dom.currenFontType],
         {
@@ -337,34 +352,34 @@ export default {
     // const fitter = new this.$helpers.fitText(this.$refs.typetesterInner);
     // fitter.fit();
 
-    function fitTextToContainer(container) {
-      let offset = 0;
-      const containerWidth = container.parentElement.offsetWidth - offset;
-      console.log(container.parentElement.scrollWidth - offset);
-      let fontSize = parseInt(getComputedStyle(container).fontSize);
-      let minFontSize = 16;
-      let maxFontSize = 400;
+    // function fitTextToContainer(container) {
+    //   let offset = 0;
+    //   const containerWidth = container.parentElement.offsetWidth - offset;
+    //   console.log(container.parentElement.scrollWidth - offset);
+    //   let fontSize = parseInt(getComputedStyle(container).fontSize);
+    //   let minFontSize = 16;
+    //   let maxFontSize = 400;
 
-      const calc = function (min, max) {
-        fontSize = Math.floor((min + max) / 2);
-        container.style.fontSize = fontSize + "px";
-        if (container.parentElement.scrollWidth - offset > containerWidth) {
-          if (min === fontSize) {
-            return fontSize;
-          }
-          return calc(min, fontSize - 1);
-        } else {
-          if (max === fontSize) {
-            return fontSize;
-          }
-          return calc(fontSize + 1, max);
-        }
-      };
+    //   const calc = function (min, max) {
+    //     fontSize = Math.floor((min + max) / 2);
+    //     container.style.fontSize = fontSize + "px";
+    //     if (container.parentElement.scrollWidth - offset > containerWidth) {
+    //       if (min === fontSize) {
+    //         return fontSize;
+    //       }
+    //       return calc(min, fontSize - 1);
+    //     } else {
+    //       if (max === fontSize) {
+    //         return fontSize;
+    //       }
+    //       return calc(fontSize + 1, max);
+    //     }
+    //   };
 
-      return calc(minFontSize, maxFontSize);
-    }
-    // console.log(fitTextToContainer(this.dom.innerText));
-    this.$nextTick(() => {});
+    //   return calc(minFontSize, maxFontSize);
+    // }
+    // // console.log(fitTextToContainer(this.dom.innerText));
+    // this.$nextTick(() => {});
   },
 };
 </script>
@@ -382,12 +397,20 @@ export default {
   //     transform: translateX(-50%) scale(0.2);
   //
   // }
-  &:hover {
-    // .current-fonttype {
-    //     transform: translateX(0%) scale(1);
-    // }
+  @include until($tablet) {
     .typetester-overlay {
       opacity: 1;
+    }
+    background: var(--kimera-white);
+  }
+  @include from($tablet) {
+    &:hover {
+      // .current-fonttype {
+      //     transform: translateX(0%) scale(1);
+      // }
+      .typetester-overlay {
+        opacity: 1;
+      }
     }
   }
 }

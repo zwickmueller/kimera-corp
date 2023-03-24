@@ -91,7 +91,7 @@ export default {
   justify-content: center;
   display: flex;
   border-radius: calc(
-    var(--kimera-border-radius) / 2
+    var(--kimera-border-radius)
   ); // var(--kimera-border-radius/2);
   transition: background 0.1s ease;
   font-size: 1.5em;
