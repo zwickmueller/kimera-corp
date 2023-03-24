@@ -31,10 +31,11 @@
   padding-bottom: 2rem;
 }
 
+// WEIRD: calc(var(--kimera-grid-gap) * -1 / 2) throws an error on npm run generate. Order of operations seem to be the issue.
 .container-full-width-mobile {
   @include until($tablet) {
-    margin-left: calc(var(--kimera-grid-gap) * -1 / 2) !important;
-    margin-right: calc(var(--kimera-grid-gap) * -1 / 2) !important;
+    margin-left: calc(-1 * var(--kimera-grid-gap) / 2) !important;
+    margin-right: calc(-1 * var(--kimera-grid-gap) / 2) !important;
     width: 100vw !important;
   }
 }
