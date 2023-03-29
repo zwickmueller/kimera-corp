@@ -47,6 +47,8 @@ content-editable {
       pointer-events: none;
       display: flex;
       flex-direction: column;
+      align-items: unset !important;
+      max-width: 100%;
       white-space: pre;
       // transition: transform 0.2s ease;
     }

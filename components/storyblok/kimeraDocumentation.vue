@@ -36,13 +36,13 @@ const plugins = [
 export default {
   data() {
     return {
-      plugins,
+      // plugins,
       currentIndex: 0,
       initAnim: false,
       options: {
         // circularFallback: "linear",
 
-        circular: true,
+        // circular: true,
         moveType: "snap",
         align: "prev",
         defaultIndex: 0,
@@ -71,25 +71,25 @@ export default {
     // currentIndex() {
     //   return this.$refs.flicking.currentPanel
     // },
-    defaultIndex() {
-      let lastClickedImageId = this.$root.lastClickedImageId;
-      if (!lastClickedImageId) return 0;
-      else
-        return this.blok.body.findIndex(
-          (el) => el.src && el.src.id == lastClickedImageId
-        );
-    },
+    // defaultIndex() {
+    //   let lastClickedImageId = this.$root.lastClickedImageId;
+    //   if (!lastClickedImageId) return 0;
+    //   else
+    //     return this.blok.body.findIndex(
+    //       (el) => el.src && el.src.id == lastClickedImageId
+    //     );
+    // },
   },
   methods: {},
   mounted() {
-    this.currentIndex = this.defaultIndex;
-    this.$nextTick(() => {
-      this.initAnim = true;
-      // const a = document.querySelectorAll('.stop-anim')
-      // console.log(a);
-      // a.forEach(el => el.classList.remove('stop-anim'))
-    });
-    console.log(this.$refs.flicking);
+    // this.currentIndex = this.defaultIndex;
+    // this.$nextTick(() => {
+    //   this.initAnim = true;
+    //   // const a = document.querySelectorAll('.stop-anim')
+    //   // console.log(a);
+    //   // a.forEach(el => el.classList.remove('stop-anim'))
+    // });
+    // console.log(this.$refs.flicking);
   },
 };
 </script>

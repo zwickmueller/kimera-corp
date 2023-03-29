@@ -258,12 +258,15 @@ export default {
   }
   .font-sliders {
     display: flex;
+    padding-right: var(--kimera-side-padding);
   }
   .typetester-overlay {
     padding-top: 0;
     .top {
+      position: relative;
       justify-content: flex-end;
-      padding-right: var(--kimera-side-padding);
+
+      // padding-right: var(--kimera-side-padding);
     }
   }
   .typetester-inner {

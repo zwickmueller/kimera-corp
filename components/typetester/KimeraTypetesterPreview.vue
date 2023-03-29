@@ -161,6 +161,7 @@ export default {
       }
     },
     async handleTypetester(e) {
+      if (!e.target.classList.contains("kimera-typetester")) return;
       function disableScroll() {
         // Get the current page scroll position
         let scrollTop =
@@ -250,6 +251,7 @@ export default {
       // cloned.classList.add('fixed-reset')
     },
     deleteCustomTypetest() {
+      // return;
       this.removeCustomTypetest(this.typetester);
     },
     handleInvertColors2() {
