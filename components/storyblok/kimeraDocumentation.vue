@@ -54,10 +54,10 @@ export default {
         deceleration: 0.03,
         interruptable: true,
         bounce: "3%",
-        // resizeOnContentsReady: true,
+        resizeOnContentsReady: true,
         // overflow: true,
         inputType: ["touch", "mouse"],
-        // autoInit: true
+        autoInit: true,
       },
     };
   },

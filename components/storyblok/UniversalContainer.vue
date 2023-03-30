@@ -7,6 +7,7 @@
       blok.bottomGradient ? 'bottom-gradient' : '',
       blok.paddingTop ? blok.paddingTop : '',
       blok.paddingBottom ? blok.paddingBottom : '',
+      blok.fullWidthMobile ? 'container-full-width-mobile' : '',
     ]"
   >
     <h3
@@ -90,7 +91,7 @@ export default {
       rgba(234, 234, 234, 0.75) 0%,
       rgba(234, 234, 234, 0) 100%
     );
-    background-blend-mode: multiply;
+    // background-blend-mode: multiply;
   }
 }
 </style>

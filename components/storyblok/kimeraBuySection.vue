@@ -1,5 +1,5 @@
 <template>
-  <div class="kimera-buy-section-wrapper container-full-width-mobile">
+  <div class="kimera-buy-section-wrapper">
     <div class="kimera-buy-section">
       <!-- <div class="buy-cta buy-cta-small kimera-text-bigger">
         {{ blok.title }}

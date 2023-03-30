@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="kimera-custom-typetests">
     <kimera-typetester-preview
       :data-timestamp="String(typetest.timestamp)"
@@ -26,6 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .kimera-custom-typetests {
+  padding-top: calc(var(--kimera-grid-gap) / 2);
   padding-left: var(--kimera-side-padding);
   padding-right: calc(var(--kimera-side-padding));
   .kimera-typetester.is-user-created {

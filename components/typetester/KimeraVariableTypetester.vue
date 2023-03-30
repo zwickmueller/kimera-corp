@@ -1,6 +1,6 @@
 <template>
   <div
-    class="kimera-variable-typetester kimera-typetester container-full-width-mobile"
+    class="kimera-variable-typetester kimera-typetester"
     :class="invertColors ? 'is-inverted' : ''"
   >
     <div class="typetester-overlay">
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <div style="padding: 5rem; height: 100%">
+    <div class="typetester-outer">
       <div class="typetester-inner center-all variable-typetester-inner">
         <content-editable
           @click="stopAnim"
@@ -258,15 +258,36 @@ export default {
   }
   .font-sliders {
     display: flex;
+    margin-top: calc(var(--kimera-grid-gap) / 2);
+    gap: 2rem;
     padding-right: var(--kimera-side-padding);
+    @include until($tablet) {
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 2rem;
+      .kimera-slider {
+        width: 90%;
+      }
+    }
   }
   .typetester-overlay {
     padding-top: 0;
     .top {
       position: relative;
       justify-content: flex-end;
-
+      @include until($tablet) {
+        display: block;
+      }
       // padding-right: var(--kimera-side-padding);
+    }
+  }
+  .typetester-outer {
+    padding: 5rem;
+    height: 100%;
+    @include until($tablet) {
+      padding: 2rem;
     }
   }
   .typetester-inner {

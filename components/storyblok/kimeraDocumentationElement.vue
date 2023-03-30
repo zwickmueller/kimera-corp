@@ -30,8 +30,8 @@ export default {
 };
 </script>
 <style lang="scss">
-.documentation-title {
-  padding-top: 0.5rem;
+.slider-element .documentation-title.kimera-text {
+  padding: 0.5rem 0 0;
 }
 // .slider-element {
 //   transform: translateX(var(--kimera-side-padding));

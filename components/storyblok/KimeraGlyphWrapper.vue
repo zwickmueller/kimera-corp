@@ -177,7 +177,7 @@ export default {
 .kimera-glyph-wrapper {
   display: flex;
   grid-gap: calc(var(--kimera-grid-gap) / 2);
-  padding: var(--kimera-side-padding);
+  padding: 0 var(--kimera-side-padding);
   .kimera-glyph-set + .kimera-glyph-set {
     padding-top: calc(var(--kimera-grid-gap));
   }

@@ -1,9 +1,11 @@
 <template>
   <div class="kimera-slider" :class="isInverted ? 'is-inverted' : ''">
     <label :for="name">
-      {{ name }}
-      {{ Number(sliderData.value).toFixed(target == "letterSpacing" ? 2 : 0)
-      }}{{ unit }}</label
+      <span class="label-name">{{ name }} </span>
+      <span class="label-unit"
+        >{{ Number(sliderData.value).toFixed(target == "letterSpacing" ? 2 : 0)
+        }}{{ unit }}</span
+      ></label
     >
     <!-- <input class="styled-slider" type="range" :name="target" :min="sliderData.min" :max="sliderData.max" :data-unit="unit" @input="handleSliders" :v-model="sliderData.value" step="any"> -->
     <input
@@ -54,11 +56,34 @@ export default {
 
 <style lang="scss" scoped>
 label {
-  min-width: 10em;
+  // min-width: 10em;
+  display: flex;
+  width: 100%;
+  span.label-name {
+    text-align: left;
+    width: 100%;
+    flex: 1;
+    // flex-direction: row;
+  }
+  span.label-unit {
+    text-align: right;
+    width: 100%;
+    padding-left: 0.5rem;
+    flex: 1;
+    // min-width: 3rem;
+    // display: flex;
+    // padding: 0.1rem;
+    // flex-direction: row;
+  }
+  @include until($tablet) {
+    padding-top: var(--kimera-small-gap);
+  }
 }
 .kimera-slider {
   display: flex;
   align-items: center;
+  flex-direction: column-reverse;
+  min-width: 16rem;
 }
 input {
   pointer-events: all;
@@ -68,16 +93,24 @@ input {
 /*generated with Input range slider CSS style generator (version 20211225)
 https://toughengineer.github.io/demo/slider-styler*/
 input[type="range"].styled-slider {
-  height: 2.2em;
+  // height: 2.2em;
+  height: 1rem;
+  margin-bottom: 0.2rem;
   -webkit-appearance: none;
+  width: 100%;
+
   background: transparent;
+
+  @include until($tablet) {
+    height: 1rem;
+  }
 }
 
 /*progress support*/
 input[type="range"].styled-slider.slider-progress {
   --range: calc(var(--max) - var(--min));
   --ratio: calc((var(--value) - var(--min)) / var(--range));
-  --sx: calc(0.5 * 1.5em + var(--ratio) * (100% - 1.5em));
+  --sx: calc(0.5 * 1.5rem + var(--ratio) * (100% - 1.5rem));
 }
 
 input[type="range"].styled-slider:focus {
@@ -87,12 +120,19 @@ input[type="range"].styled-slider:focus {
 /*webkit*/
 input[type="range"].styled-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 1em;
-  height: 1em;
-  border-radius: 2em;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 2rem;
   border: none;
   box-shadow: none;
-  margin-top: calc(max((1.5em - 0.1875em - 0.1875em) * 0.5, 0px) - 1em * 0.5);
+  // margin-top: calc(
+  //   max((1.5rem - 0.1875rem - 0.1875rem) * 0.5, 0px) - 1rem * 0.5
+  // );
+  margin-top: calc(calc(max(0.425rem, 0px) - 0.5rem));
+  cursor: drag;
+  z-index: 1;
+  pointer-events: all;
+  // margin-top: 0;
   background: var(--kimera-white);
   transition: background $typetester-invert-duration ease;
 }
@@ -106,24 +146,26 @@ input[type="range"].styled-slider::-webkit-slider-thumb {
   background: var(--black);
 }
 .is-inverted input[type="range"].styled-slider::-moz-range-track {
-  border: 0.1875em solid var(--kimera-white);
+  border: 0.1875rem solid var(--kimera-white);
   background: var(--kimera-white);
 }
 .is-inverted input[type="range"].styled-slider::-ms-track {
-  border: 0.1875em solid var(--kimera-white);
+  border: 0.1875rem solid var(--kimera-white);
   background: var(--kimera-white);
 }
 .is-inverted input[type="range"].styled-slider::-webkit-slider-runnable-track {
-  border: 0.1875em solid var(--kimera-white);
+  border: 0.1875rem solid var(--kimera-white);
   background: var(--kimera-white);
 }
 
 input[type="range"].styled-slider::-webkit-slider-runnable-track {
-  height: 1.5em;
-  border-radius: 1em;
+  cursor: pointer;
+
+  height: 0.9rem;
+  border-radius: 1rem;
   background: var(--black);
   box-shadow: none;
-  border: 0.1875em solid var(--black);
+  border: 0.1875rem solid var(--black);
   transition: background $typetester-invert-duration ease,
     border $typetester-invert-duration ease;
 }
@@ -135,9 +177,9 @@ input[type="range"].styled-slider.slider-progress::-webkit-slider-runnable-track
 
 /*mozilla*/
 input[type="range"].styled-slider::-moz-range-thumb {
-  width: 1em;
-  height: 1em;
-  border-radius: 2em;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 2rem;
   background: var(--kimera-white);
   transition: background $typetester-invert-duration ease;
   border: none;
@@ -145,12 +187,12 @@ input[type="range"].styled-slider::-moz-range-thumb {
 }
 
 input[type="range"].styled-slider::-moz-range-track {
-  height: max(calc(1.5em - 0.1875em - 0.1875em), 0px);
+  height: max(calc(1.5rem - 0.1875rem - 0.1875rem), 0px);
   // border: 0.1875em solid #000000;
-  border-radius: 1em;
-  // background: #000000;
+  border-radius: 1rem;
+  background: #000000;
   box-shadow: none;
-  border: 0.1875em solid var(--black);
+  border: 0.1875rem solid var(--black);
   transition: background $typetester-invert-duration ease,
     border $typetester-invert-duration ease;
 }
@@ -172,9 +214,9 @@ input[type="range"].styled-slider::-ms-fill-lower {
 }
 
 input[type="range"].styled-slider::-ms-thumb {
-  width: 1em;
-  height: 1em;
-  border-radius: 2em;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 2rem;
   background: var(--kimera-white);
   transition: background $typetester-invert-duration ease;
   border: none;
@@ -184,23 +226,23 @@ input[type="range"].styled-slider::-ms-thumb {
 }
 
 input[type="range"].styled-slider::-ms-track {
-  height: 1.5em;
-  border-radius: 1em;
+  height: 1.5rem;
+  border-radius: 1rem;
   // background: #000000;
   // border: 0.1875em solid #000000;
   box-shadow: none;
   box-sizing: border-box;
-  border: 0.1875em solid var(--black);
+  border: 0.1875rem solid var(--black);
   transition: background $typetester-invert-duration ease,
     border $typetester-invert-duration ease;
 }
 
 input[type="range"].styled-slider.slider-progress::-ms-fill-lower {
-  height: max(calc(1.5em - 0.1875em - 0.1875em), 0px);
-  border-radius: 1em 0 0 1em;
-  margin: -0.1875em 0 -0.1875em -0.1875em;
+  height: max(calc(1.5rem - 0.1875rem - 0.1875rem), 0px);
+  border-radius: 1rem 0 0 1rem;
+  margin: -0.1875rem 0 -0.1875rem -0.1875rem;
   background: #000000;
-  border: 0.1875em solid #000000;
+  border: 0.1875rem solid #000000;
   border-right-width: 0;
 }
 </style>

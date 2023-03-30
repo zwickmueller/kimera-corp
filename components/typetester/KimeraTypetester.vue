@@ -725,7 +725,7 @@ $typetester-margin: var(--kimera-side-padding);
   flex-basis: 0;
 }
 .font-sliders {
-  column-gap: 2em;
+  column-gap: 2rem;
   display: flex;
   flex-grow: 1;
   align-items: flex-start;
