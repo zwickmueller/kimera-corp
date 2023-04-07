@@ -4,7 +4,7 @@
       :data-timestamp="String(typetest.timestamp)"
       v-for="typetest in customTypetests"
       :typetesterData="typetest"
-      :key="String(typetest.timestamp)"
+      :key="String(typetest.timestamp) + typetest.text"
     ></kimera-typetester-preview>
   </div>
 </template>

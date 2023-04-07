@@ -16,9 +16,11 @@
                 :class="typetester.invertColors ? 'is-inverted' : ''"
                 data-flip-id="current-font"
               >
-                <tag-button :isInverted="typetester.invertColors">{{
-                  getCurrentFontData.nameReadable
-                }}</tag-button>
+                <tag-button
+                  :isSmall="isMobile"
+                  :isInverted="typetester.invertColors"
+                  >{{ getCurrentFontData.nameReadable }}</tag-button
+                >
                 <!-- // typetester.style.fontFamily -->
               </div>
               <div
@@ -30,6 +32,7 @@
                   v-for="font in getFontData"
                   :isInverted="typetester.invertColors"
                   :key="font.name"
+                  :isSmall="isMobile"
                   @click.native="setFontFamily(font)"
                   :style="
                     typetester.style.fontFamily.toLowerCase() ==
@@ -55,9 +58,11 @@
                 data-flip-id="current-weight"
                 :key="'abc2'"
               >
-                <tag-button :isInverted="typetester.invertColors">{{
-                  currentWeightReadable
-                }}</tag-button>
+                <tag-button
+                  :isSmall="isMobile"
+                  :isInverted="typetester.invertColors"
+                  >{{ currentWeightReadable }}</tag-button
+                >
               </div>
               <div
                 class="button-wrapper-inner weight-selection"
@@ -70,6 +75,7 @@
                   v-for="data in getCurrentFontData.fontFamilies"
                   :isInverted="typetester.invertColors"
                   :key="data.weightReadable"
+                  :isSmall="isMobile"
                   :class="
                     currentWeightReadable == data.weightReadable ? 'active' : ''
                   "
@@ -83,7 +89,7 @@
               ></div>
             </div>
           </div>
-          <div class="font-sliders kimera-text-filter">
+          <!-- <div v-if="!isMobile" class="font-sliders kimera-text-filter">
             <kimera-slider
               :isInverted="typetester.invertColors"
               :slider-data="typetester.sliders.fontSize"
@@ -110,7 +116,12 @@
               :unit="'%'"
               @handleSliders="handleSliders"
             ></kimera-slider>
-          </div>
+          </div> -->
+          <kimera-typetester-sliders
+            v-if="!isMobile"
+            @handleSliders="handleSliders"
+            :typetester="typetester"
+          ></kimera-typetester-sliders>
           <div class="close close-button show-close-button">
             <!-- <div class="close close-button" :class="showCloseButton ? 'show-close-button' : ''"> -->
             <!-- <span class="close-button" @click="close"> close </span> -->
@@ -129,7 +140,7 @@
             ></close-button>
           </div>
         </div>
-        <div class="middle">
+        <div class="middle" v-if="!isMobile">
           <!-- <button
             v-if="showSubmit"
             class="submit-button button-reset"
@@ -153,7 +164,7 @@
             </div>
           </div>
         </div>
-        <div class="bottom">
+        <div class="bottom" v-if="!isMobile">
           <div class="timestamp">
             <span>{{ typetester.timestamp }}</span>
           </div>
@@ -178,6 +189,23 @@
             >
           </div>
         </div>
+      </div>
+      <div class="mobile-ui" v-if="isMobile">
+        <kimera-typetester-sliders
+          @handleSliders="handleSliders"
+          :typetester="typetester"
+        ></kimera-typetester-sliders>
+        <!-- :class="[showSubmit ? 'submit-button' : '']" -->
+        <tag-button
+          isSecondary
+          @click.native="submit"
+          class="submit-mobile"
+          :isDiv="false"
+          :isBig="true"
+          :isInverted="typetester.invertColors"
+        >
+          {{ typetester.isUserCreated ? "update" : "submit" }}
+        </tag-button>
       </div>
       <div class="typetester-inner center-all">
         <content-editable
@@ -211,6 +239,7 @@ if (process.client) {
 function flushQueue() {
   return new Promise((resolve) => setTimeout(resolve, 0));
 }
+
 export default {
   mixins: [TypetesterMixin],
   data() {
@@ -263,7 +292,9 @@ export default {
     ...mapGetters({
       getFontDataByName: "fontData/getFontDataByName",
       getFontData: "fontData/getFontData",
+      isMobile: "isMobile",
     }),
+
     currentTypetesterOptions() {
       return this.$store.state.typetester.currentTypetesterOptions;
     },
@@ -283,6 +314,9 @@ export default {
   },
 
   methods: {
+    stripHtmlTags(str) {
+      return str.replace(/<[^>]*>/g, "");
+    },
     clickOutside(e) {
       if (e.target.classList.contains("kimera-typetester-background-wrapper"))
         this.setIsTypetesterOpen(false);
@@ -290,6 +324,7 @@ export default {
     ...mapMutations({
       addCustomTypetest: "typetester/addCustomTypetest",
       updateCustomTypetest: "typetester/updateCustomTypetest",
+      removeCustomTypetest: "typetester/removeCustomTypetest",
     }),
     setFontFamily(fontData) {
       this.loadFont(fontData.fontFamilies[0], fontData.name, fontData.fontDir);
@@ -335,7 +370,21 @@ export default {
     async submit() {
       this.isSubmitting = true;
       this.typetester.path = this.$route.fullPath;
+      // console.log(
+      //   this.stripHtmlTags(this.typetester.text),
+      //   this.typetester.text
+      // );
+      this.animateFontSelection(false);
+      this.animateWeightSelection(false);
       if (this.typetester.isUserCreated) {
+        if (this.stripHtmlTags(this.typetester.text).trim() == "") {
+          // this.typetester.text = "Kimera";
+          console.log(this.typetester);
+          this.removeCustomTypetest(this.typetester);
+          this.setIsTypetesterOpen(false);
+          return;
+        } else {
+        }
         this.updateCustomTypetest(this.typetester);
         this.setIsTypetesterOpen(false);
         return;
@@ -362,13 +411,17 @@ export default {
         const previewDom = document.querySelector(
           `[data-timestamp="${this.typetester.timestamp}"]`
         );
-        const height = window.getComputedStyle(previewDom).height;
+        let height = window.getComputedStyle(previewDom).height;
+        console.log(height);
         const tl = gsap.timeline();
         // console.log(
         //   window.innerHeight / 2 - parseFloat(height) / 2,
         //   height,
         //   "!aqwsdasdasd"
         // );
+        // if (this.isMobile) {
+        //   let mobileHeight = `calc(${window.getComputedStyle(previewDom).height} + 2rem)`;
+        // }
         gsap.to(window, {
           duration: 2,
           scrollTo: {
@@ -396,6 +449,21 @@ export default {
             delay: -1,
           })
         );
+        const mobileUi = cloned.querySelector(".mobile-ui");
+        if (mobileUi) {
+          tl.add(
+            gsap.to(mobileUi, {
+              opacity: 0,
+              delay: -2,
+            })
+          );
+          tl.add(
+            gsap.to(cloned.querySelector(".kimera-typetester"), {
+              height: "100%",
+              delay: -1.5,
+            })
+          );
+        }
         tl.add(
           gsap.to(cloned, {
             opacity: 0,
@@ -434,7 +502,11 @@ export default {
         (e.target.dataset.unit ? e.target.dataset.unit : "");
     },
     onInput(e) {
+      console.log(this.stripHtmlTags(e.target.innerText));
       if (e.target.innerText !== this.oldText) this.showSubmit = true;
+      if (this.typetester.isUserCreated) return;
+      if (this.stripHtmlTags(e.target.innerText).trim() == "")
+        this.showSubmit = false;
     },
 
     onEdit(e) {
@@ -492,7 +564,6 @@ export default {
     window.addEventListener("beforeunload", this.unload);
 
     this.typetesterDefault = this.typetester;
-
     this.typetester = cloneDeep(
       Object.assign({}, this.typetester, this.currentTypetesterOptions)
     );
@@ -508,20 +579,6 @@ export default {
     this.oldText = this.typetester.text;
     this.typetester.style.fontFeatureSettings =
       this.$helpers.getOpenTypeFeatures(this.typetester.openTypeFeatures);
-
-    const oldTypetester = cloneDeep(this.typetester);
-    const unwatch = this.$watch(
-      "typetester",
-      (typetester) => {
-        if (!isEqual(oldTypetester, typetester)) {
-          this.showSubmit = true;
-          unwatch();
-        }
-      },
-      {
-        deep: true,
-      }
-    );
   },
   // beforeMount() {
   // },
@@ -529,7 +586,10 @@ export default {
   mounted() {
     document.addEventListener("keyup", this.closeKeyup);
 
-    if (this.typetester.isUserCreated) return;
+    if (this.typetester.isUserCreated) {
+      this.showSubmit = true;
+      return;
+    }
     // this.$nextTick(() => {
     setTimeout(() => {
       let fontSizeElement = this.$el.querySelector(
@@ -550,6 +610,26 @@ export default {
       );
       // });
       fontSizeElement.classList.remove("editable-text-initial-fontsize");
+
+      const oldTypetester = cloneDeep(this.typetester);
+      const unwatch = this.$watch(
+        "typetester",
+        (typetester) => {
+          console.log(
+            isEqual(oldTypetester, typetester),
+            oldTypetester,
+            typetester,
+            "oldTypetester"
+          );
+          if (!isEqual(oldTypetester, typetester)) {
+            this.showSubmit = true;
+            unwatch();
+          }
+        },
+        {
+          deep: true,
+        }
+      );
     }, 10);
 
     // this.setIsTypetesterOpen(false)
@@ -581,6 +661,26 @@ export default {
 .kimera-typetester .button-wrapper button:hover {
   background: var(--kimera-white);
   color: var(--black);
+}
+.kimera-typetester .mobile-ui {
+  .font-sliders {
+    align-items: flex-start;
+    flex-direction: column;
+    row-gap: var(--kimera-grid-gap);
+    .kimera-slider {
+      width: 100%;
+    }
+  }
+  .submit-mobile {
+    text-transform: uppercase;
+    margin-top: var(--kimera-grid-gap);
+    width: 100%;
+    justify-content: center;
+  }
+  // transition: opacity 0.25s ease-in;
+  // &.is-submitting {
+  //   opacity: 0;
+  // }
 }
 //
 </style>
@@ -693,6 +793,9 @@ $typetester-margin: var(--kimera-side-padding);
   position: fixed;
   top: 0;
   left: 0;
+  @include until($tablet) {
+    // padding: 0;
+  }
 }
 .editable-text {
   // display: inline-block !important;
@@ -730,6 +833,7 @@ $typetester-margin: var(--kimera-side-padding);
   flex-grow: 1;
   align-items: flex-start;
 }
+
 .close {
   flex-basis: 0;
 }
@@ -750,9 +854,9 @@ $typetester-margin: var(--kimera-side-padding);
     pointer-events: none;
   }
   @include until($tablet) {
-    margin: 1rem;
-    height: calc(100% - 2rem);
-    width: calc(100% - 2rem);
+    // margin: 1rem;
+    height: calc(100% - 8rem);
+    width: calc(100% - var(--kimera-side-padding));
   }
 }
 

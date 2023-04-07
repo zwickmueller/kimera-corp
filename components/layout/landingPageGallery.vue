@@ -143,6 +143,11 @@ export default {
     width: 100%;
     object-fit: cover;
   }
+  .image-container {
+    // overflow: auto;
+    align-items: center;
+    height: 100% !important;
+  }
   .landing-title {
     padding-left: var(--kimera-side-padding);
     z-index: 2;
@@ -171,8 +176,8 @@ export default {
   // height: 100%;
   max-height: 90vh;
   @include until($tablet) {
-    aspect-ratio: 16/9;
-    height: 100%;
+    // aspect-ratio: 16/9;
+    height: 60vh;
   }
 }
 </style>

@@ -47,7 +47,7 @@ export default {
 .project .image-container:first-child {
   @include until($tablet) {
     flex-direction: column;
-    height: 50vh !important;
+    height: 60vh !important;
     max-height: initial !important;
   }
 }

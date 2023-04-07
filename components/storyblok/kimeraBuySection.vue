@@ -124,7 +124,7 @@ export default {
   bottom: 1rem;
   z-index: 2;
   //   transform: scale(1);
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0rem !important;
   //   transform-origin: center;
   &.fixed {

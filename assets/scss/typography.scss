@@ -34,7 +34,7 @@
 .kimera-text-mobile {
   font-family: "Waldenburg";
   font-style: normal;
-  font-weight: 600;
+  // font-weight: 600;
   font-size: 1rem;
 
   line-height: 110.5%;
@@ -45,7 +45,7 @@
 .kimera-text-bigger {
   font-family: "Waldenburg";
   font-style: normal;
-  font-weight: 300;
+  // font-weight: 300;
   font-size: 1.5rem;
   // line-height: 80%;
   letter-spacing: 0.04rem;
@@ -57,7 +57,7 @@
 .kimera-text p {
   font-family: "Waldenburg";
   font-style: normal;
-  font-weight: 600;
+  // font-weight: 600;
   font-size: 0.8rem;
   line-height: 110.5%;
   font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1,
@@ -69,7 +69,7 @@
   font-size: 0.55em;
   // font-size: 8.4px;
   line-height: 100%;
-  font-weight: 600;
+  // font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1,
@@ -86,8 +86,8 @@ h1 {
     font-size: 4em;
   }
 }
-
+.product-title h3,
 .buy-cta {
   // font-size: 7rem;
-  font-weight: 400;
+  font-weight: 500;
 }

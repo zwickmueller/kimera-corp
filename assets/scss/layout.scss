@@ -12,6 +12,25 @@
   }
 }
 
+$aspect-ratios: (
+  1: calc(16 / 16),
+  2: calc(16 / 12),
+  3: calc(16 / 9),
+  4: calc(16 / 8),
+  5: calc(16 / 7),
+  6: calc(16 / 6),
+  7: calc(16 / 5),
+  8: calc(16 / 4),
+);
+@each $n, $ratio in $aspect-ratios {
+  .kimera-typetester.grid-width-#{$n} {
+    aspect-ratio: $ratio;
+    @include until($tablet) {
+      aspect-ratio: 1 / 0.9;
+    }
+  }
+}
+
 .padding-top-s {
   padding-top: var(--kimera-small-gap);
 }

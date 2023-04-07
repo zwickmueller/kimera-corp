@@ -213,10 +213,17 @@ export default {
 
       const state = Flip.getState(cloned);
 
-      cloned.style.width = "calc(100% - 2.5em)";
-      cloned.style.minWidth = "calc(100% - 2.5em)";
-      cloned.style.height = "calc(100vh - 2.5em)";
-      cloned.style.margin = "1.25em";
+      cloned.style.width = this.isMobile
+        ? "calc(100% - (var(--kimera-side-padding) * 3))"
+        : "calc(100% - (var(--kimera-side-padding) * 2))";
+      cloned.style.minWidth = this.isMobile
+        ? "calc(100% - (var(--kimera-side-padding) * 3))"
+        : "calc(100% - (var(--kimera-side-padding) * 2))";
+      cloned.style.height = this.isMobile
+        ? "calc(100% - 8rem - (var(--kimera-side-padding) * 2))"
+        : "calc(100vh - (var(--kimera-side-padding) * 2))";
+      cloned.style.margin = "var(--kimera-side-padding)";
+
       cloned.style.left = 0;
       cloned.style.top = 0;
       cloned.style.pointerEvents = "none";

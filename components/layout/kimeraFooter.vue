@@ -1,7 +1,10 @@
 <template>
   <footer
     class="kimera-footer"
-    :class="this.$route.name == 'info' ? 'is-info' : ''"
+    :class="[
+      this.$route.name == 'info' ? 'is-info' : '',
+      this.$route.name == 'index' ? 'is-index' : '',
+    ]"
   >
     <div class="flex adress kimera-text-filter-tags">
       kimera Holzstraße 15a 80469 München +49 173 9032725
@@ -495,7 +498,10 @@ export default {
       display: flex;
     }
   }
-  padding: 1em var(--kimera-side-padding) var(--kimera-small-gap);
+  padding: var(--kimera-small-gap) var(--kimera-side-padding);
+  &.is-index {
+    padding: 1em var(--kimera-side-padding) var(--kimera-small-gap);
+  }
   // a:first-child {
   //     padding-right: 1em;
   //
