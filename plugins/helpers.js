@@ -110,9 +110,9 @@ export default ({ app, store }, inject) => {
           if (_date == "") return "11:35";
           // console.log(date,_date)
           if (date == "Invalid Date") return _date;
-          let hours = date.getUTCHours();
-          let minutes = date.getUTCMinutes();
-          let seconds = date.getUTCSeconds();
+          let hours = date.getUTCHours().toString().padStart(2, "0");
+          let minutes = date.getUTCMinutes().toString().padStart(2, "0");
+          let seconds = date.getUTCSeconds().toString().padStart(2, "0");
           let offset = date.getTimezoneOffset() / 60;
           let sign = offset < 0 ? "+" : "-";
           offset = Math.abs(offset);

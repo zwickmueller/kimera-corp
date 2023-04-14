@@ -220,7 +220,7 @@ export default {
         ? "calc(100% - (var(--kimera-side-padding) * 3))"
         : "calc(100% - (var(--kimera-side-padding) * 2))";
       cloned.style.height = this.isMobile
-        ? "calc(100% - 8rem - (var(--kimera-side-padding) * 2))"
+        ? "calc(100svh - 4rem - (var(--kimera-side-padding) * 2))"
         : "calc(100vh - (var(--kimera-side-padding) * 2))";
       cloned.style.margin = "var(--kimera-side-padding)";
 
@@ -231,6 +231,19 @@ export default {
       cloned.style.zIndex = 100;
       cloned.style.background = "#eaeaea";
       cloned.style.position = "fixed";
+
+      if (this.isMobile) {
+        const inner = cloned.querySelector(".typetester-inner");
+        // inner.style.alignSelf = "flex-start";
+        // inner.style.height = "100%";
+        // inner.style.transition = "transform 0.5s linear";
+        // inner.style.transform = "translateY(-10%)";
+        gsap.to(inner, {
+          duration: 0.9,
+          y: "-12.5%",
+          ease: "power3.inOut",
+        });
+      }
       // cloned.dataset.flipId = "a"
 
       this.$nextTick(() => {
@@ -238,9 +251,11 @@ export default {
           // targets: [cloned, test],
           duration: 0.9,
           fade: true,
+          // nested: true,
           absolute: true,
           toggleClass: "flipping",
           ease: "power3.inOut",
+          onStart() {},
           onComplete() {
             enableScroll();
             typetesterDom.childNodes[0].style.opacity = 1;

@@ -16,7 +16,7 @@
 
 content-editable {
   white-space: pre;
-  min-width: 250px;
+  // min-width: 250px;
   cursor: auto;
   outline: none;
   div,
@@ -86,6 +86,10 @@ content-editable {
       outline: none;
     }
     .editable-text {
+    }
+    @include until($tablet) {
+      // margin: 1rem;
+      height: calc(80%);
     }
     // .editable-text-initial-fontsize {
     //   font-size: min(12cqw, 30cqh) !important;

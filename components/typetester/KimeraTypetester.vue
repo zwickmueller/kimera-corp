@@ -463,6 +463,16 @@ export default {
               delay: -1.5,
             })
           );
+          const inner = cloned.querySelector(".typetester-inner");
+          // inner.style.alignSelf = "flex-start";
+          // inner.style.height = "100%";
+          // inner.style.transition = "transform 0.5s linear";
+          // inner.style.transform = "translateY(-10%)";
+          gsap.to(inner, {
+            duration: 0.9,
+            y: "12.5%",
+            ease: "power3.inOut",
+          });
         }
         tl.add(
           gsap.to(cloned, {
@@ -855,7 +865,8 @@ $typetester-margin: var(--kimera-side-padding);
   }
   @include until($tablet) {
     // margin: 1rem;
-    height: calc(100% - 8rem);
+    height: calc(100% - 4rem);
+    height: calc(100svh - 4rem);
     width: calc(100% - var(--kimera-side-padding));
   }
 }

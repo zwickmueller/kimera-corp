@@ -4,7 +4,7 @@
       :elements="story.content.slideShow"
     ></landing-page-gallery>
     <!-- <project-grid></project-grid> -->
-    <div class="kimera-flex-grid">
+    <div class="kimera-flex-grid index-grid">
       <!-- <single-grid> -->
       <!-- <transition-group name="list" tag="div" class="kimera-flex-grid" @before-leave="beforeLeave"> -->
       <component
@@ -28,7 +28,9 @@ import { gsap, Flip } from "gsap/all";
 if (process.client) {
   gsap.registerPlugin(Flip);
 }
-
+function flushQueue() {
+  return new Promise((resolve) => setTimeout(resolve, 0));
+}
 const shuffledArr = (array) => array.sort(() => 0.5 - Math.random());
 
 export default {
@@ -119,6 +121,7 @@ export default {
                 { opacity: 0 },
                 { opacity: 1, duration: 0.2 }
               );
+
               // that.$nextTick(() => {
               // gsap.to(grid[0], { height: "auto", duration: 1 });
               // });
@@ -214,12 +217,13 @@ export default {
 
         // console.log(this.batch);
         this.batch.run(true);
+
         // console.log(grid[0].scrollHeight);
-        // window.scrollTo({
-        //   top: landingHeight,
-        //   left: 0,
-        //   behavior: "smooth",
-        // });
+        window.scrollTo({
+          top: window.innerHeight * 0.85,
+          left: 0,
+          behavior: "smooth",
+        });
         // var endHeight = gsap.getProperty(".kimera-flex-grid", "height");
         // console.log(startHeight, endHeight);
         // var flip = Flip.from(state, {
@@ -365,4 +369,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.index-grid {
+  min-height: 105vh;
+}
+</style>
