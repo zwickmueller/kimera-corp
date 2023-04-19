@@ -34,7 +34,6 @@
           v-for="(_blok, index) in elements"
           :style="{ maxHeight: '100%', width: '100vw' }"
         >
-          <!-- <kimera-image :blok="_blok"></kimera-image> -->
           <component
             :height="'100%'"
             :key="_blok.body[0]._uid"
@@ -42,11 +41,7 @@
             :is="_blok.body[0].component"
           />
         </div>
-        <!-- </div> -->
-
-        <!-- </div> -->
       </flicking>
-      <!-- <canvas id="glcanvas" width="100vw" height="100%" tabindex="1"></canvas> -->
     </client-only>
   </div>
 </template>
@@ -95,15 +90,11 @@ export default {
       this.currentIndex = e.index;
     },
     handleScroll() {
+      if (!process.client || !this.$refs.stickyElement) return;
       this.stickyHeight =
         this.$refs.stickyElement.getBoundingClientRect().height -
         window.scrollY;
     },
-    // transformImage(image, option) {
-    //   return (
-    //     "https://cors.cables.gl/" + this.$helpers.transformImage(image, option)
-    //   );
-    // },
   },
   computed: {
     slideShowTitle() {
@@ -119,8 +110,17 @@ export default {
     if (!process.client) return;
     this.$nextTick(() => {
       window.addEventListener("scroll", this.handleScroll);
-      this.handleScroll();
-      this.$refs.flicking.resize();
+      // this.$refs.flicking.resize();
+      // console.log(this.$refs.flicking);
+      this.$nextTick(() => {
+        if (this.$refs.flicking) {
+          this.$refs.flicking.$once("mounted", () => {
+            this.$refs.flicking.resize();
+          });
+        }
+        this.handleScroll();
+        // console.log(this.$refs.flicking);
+      });
     });
   },
 };

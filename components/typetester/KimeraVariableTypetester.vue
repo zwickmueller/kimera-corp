@@ -234,10 +234,10 @@ export default {
   max-width: 100vw;
   // z-index: -1;
   border-radius: 0;
-  // @include until($tablet) {
-  //   margin-left: calc(var(--kimera-grid-gap) * -1 / 2);
-  //   margin-right: calc(var(--kimera-grid-gap) * -1 / 2);
-  // }
+  @include until($tablet) {
+    margin-top: calc(-1 * var(--kimera-grid-gap));
+    margin-bottom: calc(-1 * var(--kimera-grid-gap));
+  }
   .anim {
     transition: font-variation-settings 1.5s cubic-bezier(0.87, 0, 0.13, 1);
   }

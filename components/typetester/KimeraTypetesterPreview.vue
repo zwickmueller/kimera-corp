@@ -9,7 +9,7 @@
     <div class="typetester-overlay">
       <div class="top">
         <div class="current-fonttype">
-          <tag-button
+          <!-- <tag-button
             :isDiv="true"
             :isSmall="true"
             :isInverted="typetester.invertColors"
@@ -17,13 +17,12 @@
               getFontDataByName(typetester.style.fontFamily).nameReadable
             }}</tag-button
           >
-          <!-- typetester.style.fontFamily  -->
           <tag-button
             :isDiv="true"
             :isSmall="true"
             :isInverted="typetester.invertColors"
             >{{ getReadableFontWeight(typetester.style) }}</tag-button
-          >
+          > -->
         </div>
         <div
           class="close close-button"
@@ -355,24 +354,27 @@ export default {
     this.typetester = Object.assign({}, this.defaults, this.typetesterData);
   },
   mounted() {
-    // this.$nextTick(() => {
-    const fontData = this.getFontDataByName(this.getStyle.fontFamily);
-    // console.log("fontDatafrom created", fontData);
+    if (!process.client) return;
 
-    const fontFamily = fontData.fontFamilies.find(
-      (font) =>
-        font.weight == this.getStyle.fontWeight &&
-        font.fontStyle == this.getStyle.fontStyle &&
-        font.fontStretch == this.getStyle.fontStretch
-    );
-    // console.log("here ", fontFamily, fontData, this.getStyle.fontWeight);
-    // return
-    this.loadFont(fontFamily, fontData.name, fontData.fontDir);
-    // })
+    this.$nextTick(() => {
+      const fontData = this.getFontDataByName(this.getStyle.fontFamily);
+      console.log("fontDatafrom created", fontData, this.$store);
+      // console.log("fontDatafrom created", fontData);
 
-    this.dom.innerText = this.$el.querySelector(".typetester-inner");
-    this.dom.timestamp = this.$el.querySelector(".timestamp");
-    this.dom.currenFontType = this.$el.querySelector(".current-fonttype");
+      const fontFamily = fontData.fontFamilies.find(
+        (font) =>
+          font.weight == this.getStyle.fontWeight &&
+          font.fontStyle == this.getStyle.fontStyle &&
+          font.fontStretch == this.getStyle.fontStretch
+      );
+      // console.log("here ", fontFamily, fontData, this.getStyle.fontWeight);
+      // return
+      this.loadFont(fontFamily, fontData.name, fontData.fontDir);
+
+      this.dom.innerText = this.$el.querySelector(".typetester-inner");
+      this.dom.timestamp = this.$el.querySelector(".timestamp");
+      this.dom.currenFontType = this.$el.querySelector(".current-fonttype");
+    });
     // const fitter = new this.$helpers.fitText(this.$refs.typetesterInner);
     // fitter.fit();
 

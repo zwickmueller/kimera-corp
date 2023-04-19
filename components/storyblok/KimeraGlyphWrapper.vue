@@ -176,6 +176,7 @@ export default {
 <style lang="scss" scoped>
 .kimera-glyph-wrapper {
   display: flex;
+  position: relative;
   grid-gap: calc(var(--kimera-grid-gap) / 2);
   padding: 0 var(--kimera-side-padding);
   .kimera-glyph-set + .kimera-glyph-set {
@@ -183,10 +184,11 @@ export default {
   }
   @include until($tablet) {
     padding: 0;
+    .kimera-glyph-set-wrapper {
+      overflow: hidden;
+    }
     &:not(.expand-mobile) {
       max-height: 120vh;
-      overflow: hidden;
-      position: relative;
       &:after {
         content: "";
         position: absolute;
@@ -259,7 +261,10 @@ export default {
     pointer-events: none;
     transform: translate(-50%, -50%) scale(0.5);
     opacity: 0;
-    transition: opacity 0.15s linear, transform 0.25s ease;
+    // transform-origin: top left;
+    transform-origin: bottom center;
+    will-change: opacity, transform;
+    transition: opacity 0.25s linear, transform 0.25s ease;
     .color-toggle {
       display: none;
     }
@@ -319,6 +324,7 @@ export default {
       /* left: 55px; */
       filter: drop-shadow(2px 4px 6px var(--kimera-grey));
       height: auto;
+      transform: translateZ(0);
     }
 
     span {

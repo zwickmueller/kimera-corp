@@ -80,6 +80,10 @@ export default {
 .kimera-buy-section-wrapper {
   height: 100%;
   width: 100%;
+  @include until($tablet) {
+    margin-top: calc(-1 * var(--kimera-grid-gap));
+    margin-bottom: calc(-1 * var(--kimera-grid-gap));
+  }
 }
 .buy-cta.buy-cta-small.is-sticky {
   position: sticky;

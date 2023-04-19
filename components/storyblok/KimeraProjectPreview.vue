@@ -60,7 +60,7 @@ export default {
     },
   },
   onBeforeRouteLeave(to, from, next) {
-    console.log("ASDASD ASODJIKOA SIjd");
+    // console.log("ASDASD ASODJIKOA SIjd");
     // Add a delay before allowing the navigation to proceed
     setTimeout(() => next(), 1000);
   },
@@ -132,6 +132,9 @@ export default {
   .grid-item-tags {
     display: none;
   }
+}
+.kimera-container-inner .kimera-flex-grid a:first-child {
+  padding-top: 0;
 }
 .grid-item-inner.is-transitioning {
   // z-index: 10;
@@ -212,30 +215,34 @@ export default {
     }
   }
   &:not(.is-transitioning):hover {
-    &:before {
-      transform: translateX(0%);
-    }
-    .grid-item-overlay {
-      background: #c4c4c4;
-    }
-    .grid-item-overlay.overlay-background {
-      background: #f7f7f7;
-    }
+    @include from($tablet) {
+      &:before {
+        transform: translateX(0%);
+      }
+      .grid-item-overlay {
+        background: #c4c4c4;
+      }
+      .grid-item-overlay.overlay-background {
+        background: #f7f7f7;
+      }
 
-    .grid-item-overlay {
-    }
-    .kimera-image img {
-      filter: grayscale(100%) contrast(0.6) brightness(1.4);
-      mix-blend-mode: multiply;
-      opacity: 0.2;
-      // filter: grayscale(100%) contrast(0.6) brightness(1.6);
-      // mix-blend-mode: multiply;
-      // opacity: 0.4;
+      .grid-item-overlay {
+      }
+      .kimera-image img {
+        filter: grayscale(100%) contrast(0.6) brightness(1.4);
+        mix-blend-mode: multiply;
+        opacity: 0.2;
+        // filter: grayscale(100%) contrast(0.6) brightness(1.6);
+        // mix-blend-mode: multiply;
+        // opacity: 0.4;
+      }
     }
   }
   &:not(.is-transitioning):hover {
-    .grid-item-overlay.overlay-background {
-      background: #fff;
+    @include from($tablet) {
+      .grid-item-overlay.overlay-background {
+        background: #fff;
+      }
     }
   }
   .kimera-image img {

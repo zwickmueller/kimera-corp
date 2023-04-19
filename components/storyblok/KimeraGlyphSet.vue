@@ -64,7 +64,8 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(min(70px, 100%), 1fr));
   // display: flex;
   // flex-wrap: wrap;
-  grid-gap: calc(var(--kimera-small-gap) / 2);
+  grid-gap: 1px;
+  // grid-gap: calc(var(--kimera-small-gap) / 2);
   @include until($tablet) {
     // padding: var(--kimera-side-padding);
     grid-template-columns: repeat(auto-fill, minmax(min(4.5rem, 100%), 1fr));

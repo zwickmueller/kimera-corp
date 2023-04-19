@@ -54,8 +54,12 @@ $aspect-ratios: (
 .kimera-container.container-full-width-mobile {
   @include until($tablet) {
     width: 100vw;
-    padding: 0;
-
+    padding-top: var(--kimera-grid-gap);
+    padding-left: 0;
+    padding-right: 0;
+    &:not(.bottom-gradient) {
+      padding-bottom: var(--kimera-grid-gap);
+    }
     //   margin-left: calc(-1 * var(--kimera-grid-gap) / 2) !important;
     //   margin-right: calc(-1 * var(--kimera-grid-gap) / 2) !important;
     //   width: 100vw !important;

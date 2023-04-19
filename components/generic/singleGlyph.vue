@@ -2,15 +2,22 @@
   <div
     class="single-glyph"
     :class="invertedColors ? 'invert-colors' : ''"
-    @touchstart="handleLongTouch($event, true)"
-    @touchend="handleLongTouch($event, false)"
     @mouseenter="mouseEntered"
+    v-touch:start="handleLongTouch(true)"
+    v-touch:end="handleLongTouch(false)"
   >
+    <!-- v-touch-options="{ tapTolerance: 1000 }" -->
+    <!-- @touchstart="handleLongTouch($event, true)"
+    @touchend="handleLongTouch($event, false)" -->
+    <!-- v-touch:tap="myMethod" -->
+    <!-- @v-touch:end="() => handleLongTouch(false)" -->
     <span v-html="glyph"></span>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   props: {
     glyph: {
@@ -22,42 +29,69 @@ export default {
       default: false,
     },
   },
+  computed: {
+    ...mapGetters({
+      isMobile: "isMobile",
+    }),
+  },
   methods: {
-    handleLongTouch($event, bool) {
-      this.isHolding = bool;
-      // console.log(bool);
-      // alert(bool);
-      // console.log($event);
-      var element = this.$el;
-      var parent = document.querySelector(".kimera-glyph-set-wrapper");
-      var yPosition =
-        element.getBoundingClientRect().y - parent.getBoundingClientRect().y;
-      // console.log(yPosition);
-      var xPosition =
-        element.getBoundingClientRect().x - parent.getBoundingClientRect().x;
-      let style = {
-        top: yPosition + "px",
-        // top: this.$el.getBoundingClientRect().y + "px",
-        // left: this.$el.getBoundingClientRect().x + "px",
-        left: xPosition + "px",
-        transform: "translate(-50%, -50%) scale(1)",
-        opacity: 1,
+    handleLongTouch(bool) {
+      if (!this.isMobile) return;
+      return () => {
+        // $event.preventDefault();
+        this.isHolding = bool;
+
+        let element = this.$el;
+        let parent = document.querySelector(".kimera-glyph-set-wrapper");
+        let yPosition =
+          element.getBoundingClientRect().y +
+          element.getBoundingClientRect().height * -2 -
+          parent.getBoundingClientRect().y;
+        let xPosition =
+          element.getBoundingClientRect().x +
+          element.getBoundingClientRect().width / 2 -
+          parent.getBoundingClientRect().x;
+
+        // let previewWidth = document
+        //   .querySelector(".glyph-map-container")
+        //   .getBoundingClientRect().width;
+        //... your code to get the preview width ...
+        console.log(parentWidth);
+        // Clamp the x position to stay within the bounds of the viewport
+        // let clampedXPosition = Math.min(
+        //   Math.max(xPosition, previewWidth / 2),
+        //   window.innerWidth - previewWidth / 2
+        // );
+        let parentWidth = parent.getBoundingClientRect().width;
+        // xPosition = Math.max(xPosition, previewWidth / 2);
+        // xPosition = Math.min(xPosition, parentWidth - previewWidth / 2);
+
+        var maxXPosition =
+          window.innerWidth - parent.getBoundingClientRect().left;
+        var previewWidth = parentWidth * 0.7;
+        maxXPosition = maxXPosition - previewWidth / 2;
+
+        // Clamp the x position so that the enlarged preview does not go outside of the viewport
+        xPosition = Math.max(xPosition, previewWidth / 2);
+        // 4 is padding left
+        xPosition = Math.min(xPosition, maxXPosition - 4);
+
+        let style = {
+          top: yPosition + "px",
+          left: xPosition + "px",
+          transform: "translate(-50%, -50%) scale(1)",
+          opacity: 1,
+        };
+        if (this.isHolding) {
+          this.$root.$emit("setCurrentGlyph", this.glyph);
+          this.$root.$emit("setGlyphMobileStyle", style);
+        } else {
+          style.opacity = 0;
+          style.transform = "translate(-50%, -50%) scale(0.5)";
+          console.log(style);
+          this.$root.$emit("setGlyphMobileStyle", style);
+        }
       };
-      if (this.isHolding) {
-        //         const dimensions = this.$helpers.getDomDimensions(element)
-        // const centerY = dimensions.height - dimensions.top / 2
-        // const centerX = dimensions.width - dimensions.left / 2
-        // var element = temp2;
-        // console.log(yPosition);
-        // console.log(this.$el);
-        this.$root.$emit("setCurrentGlyph", this.glyph);
-        this.$root.$emit("setGlyphMobileStyle", style);
-      } else {
-        style.opacity = 0;
-        style.transform = "translate(-50%, -50%) scale(0.5)";
-        console.log(style);
-        this.$root.$emit("setGlyphMobileStyle", style);
-      }
     },
 
     mouseEntered() {
@@ -104,6 +138,10 @@ export default {
       transform: scale(2);
     }
   }
+  @include until($tablet) {
+    user-select: none;
+  }
+  -webkit-tap-highlight-color: transparent;
 }
 .invert-colors.single-glyph {
   background: var(--kimera-dark-grey);

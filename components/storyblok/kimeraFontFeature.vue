@@ -14,8 +14,9 @@
     >
       ●
     </div>
+    <!-- @touchstart="mobileToggle = !mobileToggle" -->
     <div
-      @touchstart="mobileToggle = !mobileToggle"
+      v-touch:tap="touchHandler"
       class="feature-after feature"
       :style="featureStyle"
       :class="mobileToggle ? 'mobile-toggle' : ''"
@@ -33,6 +34,8 @@
 
 <script>
 import fitty from "fitty";
+import { mapGetters } from "vuex";
+
 export default {
   props: {
     blok: {
@@ -47,6 +50,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      isMobile: "isMobile",
+    }),
     baseStyle() {
       if (!this.selectedFontData) return;
       // this.selectedFontData = JSON.parse(this.blok.font.selectedFontData)
@@ -68,48 +74,56 @@ export default {
     },
   },
   methods: {
+    touchHandler() {
+      if (!this.isMobile) return;
+      this.mobileToggle = !this.mobileToggle;
+    },
     resizeType() {
       this.$nextTick(() => {
-        const beforeWidth = this.$refs.before.getBoundingClientRect().width;
-        const afterWidth = this.$refs.after.getBoundingClientRect().width;
-        let toFit;
-        let toAdjust;
-        if (beforeWidth > afterWidth) {
-          toAdjust = this.$refs.after;
-          toFit = this.$refs.before;
-        } else {
-          toAdjust = this.$refs.before;
-          toFit = this.$refs.after;
-        }
+        this.$nextTick(() => {
+          const beforeWidth = this.$refs.before.getBoundingClientRect().width;
+          const afterWidth = this.$refs.after.getBoundingClientRect().width;
+          let toFit;
+          let toAdjust;
+          if (beforeWidth > afterWidth) {
+            toAdjust = this.$refs.after;
+            toFit = this.$refs.before;
+          } else {
+            toAdjust = this.$refs.before;
+            toFit = this.$refs.after;
+          }
 
-        const fitter = new this.$helpers.fitText(toFit);
-        fitter.fit();
-        let fontSize = window.getComputedStyle(toFit).fontSize;
-        toAdjust.parentNode.style.fontSize = fontSize;
-        // const fitter2 = new this.$helpers.fitText(this.$refs.before);
-        // const fitter3 = new this.$helpers.fitText(this.$refs.after);
-        // fitter2.fit();
-        // fitter3.fit();
+          const fitter = new this.$helpers.fitText(toFit);
+          fitter.fit();
+          let fontSize = window.getComputedStyle(toFit).fontSize;
+          toAdjust.parentNode.style.fontSize = fontSize;
+          // const fitter2 = new this.$helpers.fitText(this.$refs.before);
+          // const fitter3 = new this.$helpers.fitText(this.$refs.after);
+          // fitter2.fit();
+          // fitter3.fit();
 
-        // console.log(
-        //   this.$refs.after,
-        //   this.$refs.before.getBoundingClientRect().height,
-        //   this.$refs.after.getBoundingClientRect().height,
-        //   window.getComputedStyle(this.$refs.after).height,
-        //   window.getComputedStyle(this.$refs.before).height,
-        //   Math.min(beforeWidth, afterWidth)
-        // );
-        // let after = this.$refs.before.getBoundingClientRect().height;
-        // let before = this.$refs.after.getBoundingClientRect().height;
-        // if (before > after)
-        //   this.$refs.before.style.height =
-        //     this.$refs.after.getBoundingClientRect().height + "px";
+          // console.log(
+          //   this.$refs.after,
+          //   this.$refs.before.getBoundingClientRect().height,
+          //   this.$refs.after.getBoundingClientRect().height,
+          //   window.getComputedStyle(this.$refs.after).height,
+          //   window.getComputedStyle(this.$refs.before).height,
+          //   Math.min(beforeWidth, afterWidth)
+          // );
+          // let after = this.$refs.before.getBoundingClientRect().height;
+          // let before = this.$refs.after.getBoundingClientRect().height;
+          // if (before > after)
+          //   this.$refs.before.style.height =
+          //     this.$refs.after.getBoundingClientRect().height + "px";
+        });
       });
     },
   },
   mounted() {
-    this.resizeType();
-    document.addEventListener("resize", this.resizeType);
+    if (process.client) {
+      this.resizeType();
+      document.addEventListener("resize", this.resizeType);
+    }
   },
 };
 </script>
@@ -188,9 +202,9 @@ export default {
   left: 0;
 }
 .mobile-indicator {
-  color: green;
+  color: var(--kimera-green);
   font-size: 1.15rem;
   top: -0.5rem;
-  filter: drop-shadow(0 0 2px green);
+  filter: drop-shadow(0 0 2px var(--kimera-green));
 }
 </style>

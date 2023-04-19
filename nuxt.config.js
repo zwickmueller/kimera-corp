@@ -2,10 +2,15 @@ const axios = require("axios");
 const CMSaccessToken = "YwkxX7UXlj9Wd7lngwwrbAtt";
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  // ssr: false,
-  // target: "server",
-  target: "static",
-
+  ssr: true,
+  target: "server",
+  // target: "static",
+  debug: {
+    // enable console debugging in nuxtServerInit
+    enabled: true,
+    // limit the amount of data displayed in the console
+    sendStateOnError: false,
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "KIMERA CORP",
@@ -52,6 +57,7 @@ export default {
     "@/plugins/helpers",
     { src: "@/plugins/flicking", mode: "client" },
     { src: "@/plugins/vuex-persist.js", mode: "client" },
+    { src: "@/plugins/vue-touch.js", mode: "client" },
   ],
   styleResources: {
     sass: [

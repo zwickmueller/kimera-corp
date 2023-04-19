@@ -6,35 +6,48 @@ export const state = () => ({
   // fontData: [Waldenburg, Melange],
   fontData: [],
   // test: {}
-})
+});
 
 export const getters = {
   getFontData(state) {
-    return state.fontData
+    return state.fontData;
   },
   getFontDataByName: (state) => (name) => {
-    return state.fontData.find(el => el.name.toLowerCase() == name.toLowerCase())
+    return state.fontData.find(
+      (el) => el.name.toLowerCase() == name.toLowerCase()
+    );
   },
   getFontWeightAsReadable: (state) => (style) => {
     // console.log(style);
-    const { fontWeight, fontStretch, fontStyle, fontFamily } = style
-    const fontData = getters.getFontDataByName(state)(fontFamily)
+    const { fontWeight, fontStretch, fontStyle, fontFamily } = style;
+    const fontData = getters.getFontDataByName(state)(fontFamily);
     if (!fontData) {
       console.error("No Font Data Found: ", fontFamily, fontWeight);
-      return
+      return;
     }
-    const family = fontData.fontFamilies.find(el => el.weight == fontWeight && el.fontStyle == fontStyle && el.fontStretch == fontStretch)
+    const family = fontData.fontFamilies.find(
+      (el) =>
+        el.weight == fontWeight &&
+        el.fontStyle == fontStyle &&
+        el.fontStretch == fontStretch
+    );
     if (!family) {
-      console.error("No Font Properties Found: ", fontFamily, fontWeight, fontStretch, fontStyle, fontFamily);
-      return
+      console.error(
+        "No Font Properties Found: ",
+        fontFamily,
+        fontWeight,
+        fontStretch,
+        fontStyle,
+        fontFamily
+      );
+      return;
     }
-    return family.weightReadable
-  }
-}
+    return family.weightReadable;
+  },
+};
 
 export const mutations = {
   initiateFontData(state, fontData) {
-    state.fontData = fontData
+    state.fontData = fontData;
   },
-
-}
+};
