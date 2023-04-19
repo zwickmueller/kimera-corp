@@ -31,3 +31,14 @@ export const mutations = {
     state.windowWidth = windowWidth;
   },
 };
+
+export const actions = {
+  async nuxtServerInit({ commit }) {
+    console.log("nuxtServerInit");
+    let fontData = await this.$axios.$get(
+      "https://zwickmueller.github.io/kimera-corp-json-store/fontData.json"
+    );
+
+    commit("fontData/initiateFontData", fontData);
+  },
+};
