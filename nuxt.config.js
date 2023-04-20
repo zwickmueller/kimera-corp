@@ -118,6 +118,17 @@ export default {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: "/",
   },
+  router: {
+    // Remove trailing slash from all URLs
+    trailingSlash: false,
+    // Optionally, redirect to URL without trailing slash
+    // middleware: ["redirect"],
+  },
+  // routerMiddleware: ["redirect"],
+  // Middleware to handle redirect
+  // serverMiddleware: [
+  //   { path: "/redirect", handler: "~/middleware/redirect.js" },
+  // ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

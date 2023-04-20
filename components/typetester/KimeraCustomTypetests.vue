@@ -18,7 +18,9 @@ export default {
       // ...
     }),
     customTypetests() {
-      return this.getCustomTypetestsByPath(this.$route.fullPath);
+      // ROUTECHANGE HERE
+      const path = this.$helpers.normalizePath(this.$route.fullPath);
+      return this.getCustomTypetestsByPath(path);
     },
   },
 };

@@ -358,7 +358,7 @@ export default {
 
     this.$nextTick(() => {
       const fontData = this.getFontDataByName(this.getStyle.fontFamily);
-      console.log("fontDatafrom created", fontData, this.$store);
+      // console.log("fontDatafrom created", fontData, this.$store);
       // console.log("fontDatafrom created", fontData);
 
       const fontFamily = fontData.fontFamilies.find(

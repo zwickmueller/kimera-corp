@@ -369,7 +369,9 @@ export default {
 
     async submit() {
       this.isSubmitting = true;
-      this.typetester.path = this.$route.fullPath;
+      // ROUTECHANGE HERE
+      this.typetester.path = this.$helpers.normalizePath(this.$route.fullPath);
+      // this.typetester.path = this.$route.fullPath;
       // console.log(
       //   this.stripHtmlTags(this.typetester.text),
       //   this.typetester.text

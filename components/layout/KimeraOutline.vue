@@ -73,9 +73,9 @@ export default {
       return this.$store.state.isPageTransitioning;
     },
     getTitle() {
-      return this.shouldRender
-        ? this.$route.params.pathMatch.split("-").join(" ")
-        : "";
+      let path = this.$route.params.pathMatch.split("-").join(" ");
+      path = this.$helpers.normalizePath(path);
+      return this.shouldRender ? path : "";
     },
   },
   methods: {

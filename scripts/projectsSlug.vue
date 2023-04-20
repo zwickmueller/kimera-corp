@@ -52,8 +52,16 @@ export default {
   //     story: data.story
   //   }
   // },
+  // fetchKey: "kimera-font-data",
+  // async fetch() {
+  //   let fontData = await this.$axios.$get(
+  //     "https://zwickmueller.github.io/kimera-corp-json-store/fontData.json"
+  //   );
+
+  //   this.$store.commit("fontData/initiateFontData", fontData);
+  // },
   asyncData: async (context) => {
-    const { app, route } = context;
+    const { app, route, store, $axios } = context;
     const version =
       context.query._storyblok || context.isDev ? "draft" : "published";
 
@@ -65,6 +73,16 @@ export default {
     });
     // console.log(data);
     // console.log("asdsad");
+    if (process.env.NODE_ENV === "development") {
+      let fontData = await $axios.$get(
+        "https://zwickmueller.github.io/kimera-corp-json-store/fontData.json"
+      );
+      store.commit("fontData/initiateFontData", fontData);
+      let tags = await $axios.$get(
+        "https://zwickmueller.github.io/kimera-corp-json-store/tags.json"
+      );
+      store.commit("setTags", tags);
+    }
     return {
       story: data.story,
     };

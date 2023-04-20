@@ -9,6 +9,7 @@
 export const state = () => ({
   isPageTransitioning: false,
   windowWidth: 1024,
+  tags: [],
 });
 
 export const getters = {
@@ -21,6 +22,9 @@ export const getters = {
   isMobile(state) {
     return state.windowWidth < 769;
   },
+  getTags(state) {
+    return state.tags;
+  },
 };
 
 export const mutations = {
@@ -30,6 +34,9 @@ export const mutations = {
   setWindowWidth(state, windowWidth) {
     state.windowWidth = windowWidth;
   },
+  setTags(state, tags) {
+    state.tags = tags;
+  },
 };
 
 export const actions = {
@@ -38,7 +45,10 @@ export const actions = {
     let fontData = await this.$axios.$get(
       "https://zwickmueller.github.io/kimera-corp-json-store/fontData.json"
     );
-
+    let tags = await this.$axios.$get(
+      "https://zwickmueller.github.io/kimera-corp-json-store/tags.json"
+    );
+    commit("setTags", tags);
     commit("fontData/initiateFontData", fontData);
   },
 };

@@ -81,6 +81,14 @@ export default ({ app, store }, inject) => {
         normalizeString(string) {
           return string.toLowerCase().trim().replace(" ", "-");
         },
+        normalizePath(path) {
+          if (path !== "/" && path.endsWith("/")) {
+            const newPath = path.slice(0, -1);
+            return newPath;
+          } else {
+            return path;
+          }
+        },
         removeClassByPrefix(node, prefix) {
           var regx = new RegExp("\\b" + prefix + "[^ ]*[ ]?\\b", "g");
           node.className = node.className.replace(regx, "");

@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { throws } from "assert";
 import { gsap } from "gsap";
 
 const tags = [
@@ -132,6 +133,7 @@ for (var i = 0; i < tags.length; i++) {
   if (!tags[i].show) tags[i].show = false;
 }
 tags.sort((a, b) => Number("subTags" in b) - Number("subTags" in a));
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   data() {
@@ -295,6 +297,9 @@ export default {
     },
   },
   computed: {
+    // ...mapGetters({
+    //   tags: "getTags",
+    // }),
     visibleTags() {
       if (!this.tags) return;
 
@@ -319,14 +324,19 @@ export default {
   watch: {
     $route: {
       immediate: true,
-      handler: function (old, _new) {
-        if (!this.tags) return;
+      handler: async function (old, _new) {
+        // console.log(this.tags, this.tags.length);
+        if (this.tags.length == 0) {
+          await this.$fetch();
+          // return;
+        }
         if (old.name == "index") {
           this.tags.forEach((el) => (el.show = el.isMainTag));
         } else if (old.name !== "index") {
           this.tags.forEach((el) => (el.show = el.isTitle));
           this.tags.forEach((el) => (el.active = false));
         }
+        // console.log(old, _new);
       },
     },
     activeTagsComputed: function (a, b) {
@@ -351,6 +361,7 @@ export default {
     tags.sort((a, b) => Number("subTags" in b) - Number("subTags" in a));
     //
     this.tags = tags;
+    // this.$store.commit("setTags", tags);
     // this.tags = Object.assign([], tags)
     // console.log("FETCHED TAGS");
   },
