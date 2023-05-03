@@ -1,7 +1,10 @@
 <template>
   <div
     class="single-glyph"
-    :class="invertedColors ? 'invert-colors' : ''"
+    :class="[
+      invertedColors ? 'invert-colors' : '',
+      isHolding ? 'mobile-hover-state' : '',
+    ]"
     @mouseenter="mouseEntered"
     v-touch:start="handleLongTouch(true)"
     v-touch:end="handleLongTouch(false)"
@@ -28,6 +31,11 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  data() {
+    return {
+      isHolding: false,
+    };
   },
   computed: {
     ...mapGetters({
@@ -127,12 +135,20 @@ export default {
   border-radius: calc(
     var(--kimera-border-radius)
   ); // var(--kimera-border-radius/2);
-  transition: background 0.1s ease;
   font-size: 1.5em;
+  transition: background 0.1s ease;
   span {
     transition: transform 0.1s ease;
   }
-  &:hover {
+  @include from($tablet) {
+    &:hover {
+      background: var(--kimera-white);
+      span {
+        transform: scale(2);
+      }
+    }
+  }
+  &.mobile-hover-state {
     background: var(--kimera-white);
     span {
       transform: scale(2);
@@ -140,6 +156,10 @@ export default {
   }
   @include until($tablet) {
     user-select: none;
+    transition: background 0.25s ease;
+    span {
+      transition: transform 0.25s ease;
+    }
   }
   -webkit-tap-highlight-color: transparent;
 }

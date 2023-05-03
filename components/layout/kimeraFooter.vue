@@ -524,6 +524,11 @@ export default {
       display: flex;
     }
   }
+  @include until($tablet) {
+    .kimera-text {
+      padding: 0;
+    }
+  }
   padding: var(--kimera-small-gap) var(--kimera-side-padding);
   &.is-index {
     padding: 1em var(--kimera-side-padding) var(--kimera-small-gap);

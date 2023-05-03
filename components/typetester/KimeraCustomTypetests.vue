@@ -42,3 +42,13 @@ export default {
   }
 }
 </style>
+
+<style lang="scss">
+section:has(.kimera-custom-typetests) {
+  @include until($tablet) {
+    // background: red;
+    padding-top: 0;
+    margin-top: calc(var(--kimera-grid-gap) / -2);
+  }
+}
+</style>

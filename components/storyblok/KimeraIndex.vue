@@ -25,6 +25,8 @@
 <script>
 // import cloneDeep from 'lodash.cloneDeep'
 import { gsap, Flip } from "gsap/all";
+import { mapGetters } from "vuex";
+
 if (process.client) {
   gsap.registerPlugin(Flip);
 }
@@ -220,7 +222,7 @@ export default {
 
         // console.log(grid[0].scrollHeight);
         window.scrollTo({
-          top: window.innerHeight * 0.85,
+          top: window.innerHeight * (this.isMobile ? 0.55 : 0.85),
           left: 0,
           behavior: "smooth",
         });
@@ -333,6 +335,9 @@ export default {
     //   return this.projects.filter(el => el.show)
     //   // return this.currentActiveTags.length > 0 ? this.clonedProjects.filter(project => this.compareTagArrays(this.currentActiveTags, project.project.content.tags)) : this.projects
     // },
+    ...mapGetters({
+      isMobile: "isMobile",
+    }),
     visibleProjects: {
       cache: false,
       get() {
