@@ -25,9 +25,10 @@
         <span v-else> ~</span>
       </div>
     </div>
+    <!-- :class="checkProjectType" -->
     <div
       class="grid-item-inner center-all relative kimera-text-kacheln"
-      :class="checkProjectType"
+      :class="checkClasses"
       :title="
         project
           ? project.name
@@ -39,6 +40,7 @@
         class="grid-item-overlay overlay-foreground h-w-100p fixed-reset absolute"
       ></div>
       <kimera-image :blok="blok"></kimera-image>
+      <!-- <image-container :blok="blok.src[0]"></image-container> -->
       <div
         class="grid-item-overlay overlay-background h-w-100p fixed-reset absolute"
       ></div>
@@ -110,13 +112,19 @@ export default {
         return body.height;
       else return "100vh";
     },
-    checkProjectType() {
-      if (this.tags[0] == "~") return "";
-      if (this.stringExists(this.project.tags, "services")) return "services";
-      if (this.stringExists(this.project.tags, "typefaces")) return "typefaces";
-      if (this.stringExists(this.project.tags, "products")) return "products";
-      return "";
+    checkClasses() {
+      if (!this.blok) return "";
+      const padding = this.blok.padding ? "padding-4" : "";
+      const objectFit = this.blok.objectFit ? "contain" : "cover";
+      return [padding, objectFit];
     },
+    // checkProjectType() {
+    //   if (this.tags[0] == "~") return "";
+    //   if (this.stringExists(this.project.tags, "services")) return "services";
+    //   if (this.stringExists(this.project.tags, "typefaces")) return "typefaces";
+    //   if (this.stringExists(this.project.tags, "products")) return "products";
+    //   return "";
+    // },
   },
   mounted() {
     this.$refs.link.$el.classList.add(
@@ -253,34 +261,44 @@ export default {
     opacity: 1;
   }
   picture {
+    // height: auto;
+    // max-height: 100%;
+    width: 100%;
+    height: 100%;
+  }
+  img {
     height: 100%;
     width: 100%;
+    // object-fit: cover;
   }
-  &.products {
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 4em;
-      // @include until($tablet) {
-      //   padding: 0;
-      // }
-    }
-  }
+  // .image-container {
+  //   height: unset !important;
+  // }
+  // &.products {
+  //   img {
+  //     width: 100%;
+  //     height: 100%;
+  //     object-fit: contain;
+  //     padding: 4em;
+  //     // @include until($tablet) {
+  //     //   padding: 0;
+  //     // }
+  //   }
+  // }
 
-  &.services img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  &.typefaces img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 6em;
-    @include until($tablet) {
-      // padding: 0;
-    }
-  }
+  // &.services img {
+  //   width: 100%;
+  //   height: 100%;
+  //   object-fit: cover;
+  // }
+  // &.typefaces img {
+  //   width: 100%;
+  //   height: 100%;
+  //   object-fit: contain;
+  //   padding: 6em;
+  //   @include until($tablet) {
+  //     // padding: 0;
+  //   }
+  // }
 }
 </style>

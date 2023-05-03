@@ -49,6 +49,28 @@ $aspect-ratios: (
 .padding-bottom-l {
   padding-bottom: 2rem;
 }
+@for $i from 1 through 6 {
+  .padding-#{$i} {
+    padding: #{$i}rem;
+  }
+}
+.hide-headline {
+  height: 0;
+  padding: 0 !important;
+  overflow: hidden;
+}
+.contain {
+  img,
+  img.image {
+    object-fit: contain;
+  }
+}
+.cover {
+  img,
+  img.image {
+    object-fit: cover;
+  }
+}
 
 // WEIRD: calc(var(--kimera-grid-gap) * -1 / 2) throws an error on npm run generate. Order of operations seem to be the issue.
 .kimera-container.container-full-width-mobile {

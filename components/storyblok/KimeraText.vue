@@ -20,6 +20,8 @@ export default {
   },
   computed: {
     richtext() {
+      if (this.blok.content)
+        return useStoryblokApi().richTextResolver.render(this.blok);
       return useStoryblokApi().richTextResolver.render(this.blok.text);
     },
   },

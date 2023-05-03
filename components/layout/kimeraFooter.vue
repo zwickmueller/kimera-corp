@@ -33,7 +33,11 @@
           class="info-content"
           :class="mobileActive == 'info' ? 'active' : ''"
         >
-          <p>
+          <kimera-text
+            v-if="getInfoContent"
+            :blok="getInfoContent.content.info"
+          ></kimera-text>
+          <!-- <p>
             Kasper-Florio is a graphic design studio, founded by Larissa Kasper
             and Rosario Florio in 2013. Together with our frequent collaborators
             Bänziger Hug we run Jungle Books, an independent publishing imprint
@@ -66,13 +70,17 @@
             Teaching & Lectures:<br />
             Stuttgart Media University, Lectureship, 2019-2020<br />
             Hochschule Pforzheim - Fakultät für Gestaltung, Workshop, 2022<br />
-          </p>
+          </p> -->
         </div>
         <div
           class="info-content"
           :class="mobileActive == 'privacy' ? 'active' : ''"
         >
-          <p>
+          <kimera-text
+            v-if="getInfoContent"
+            :blok="getInfoContent.content.privacy"
+          ></kimera-text>
+          <!-- <p>
             Privacy Policy<br />
             Version 1.14<br />
             <br />
@@ -85,13 +93,17 @@
             telephone or fax numbers and email addresses for marketing purposes
             is prohibited, offenders sending unwanted spam messages will be
             punished.
-          </p>
+          </p> -->
         </div>
         <div
           class="info-content"
           :class="mobileActive == 'licensing' ? 'active' : ''"
         >
-          <p>
+          <kimera-text
+            v-if="getInfoContent"
+            :blok="getInfoContent.content.licensing"
+          ></kimera-text>
+          <!-- <p>
             End User License Agreement Version 2.14 Terminology & Licenses The
             terms and conditions set below establish an agreement between you
             (the Licensee) and kimera (the Supplier) governing the use of the
@@ -185,13 +197,17 @@
             the right to update this agreement at any time without prior consent
             or notice. You acknowledge that you have read, understood, and
             agreed to be bound by the terms and conditions of this agreement.
-          </p>
+          </p> -->
         </div>
         <div
           class="info-content"
           :class="mobileActive == 'products' ? 'active' : ''"
         >
-          <p>
+          <kimera-text
+            v-if="getInfoContent"
+            :blok="getInfoContent.content.products"
+          ></kimera-text>
+          <!-- <p>
             End User License Agreement Version 2.14 Terminology & Licenses The
             terms and conditions set below establish an agreement between you
             (the Licensee) and kimera (the Supplier) governing the use of the
@@ -285,7 +301,7 @@
             the right to update this agreement at any time without prior consent
             or notice. You acknowledge that you have read, understood, and
             agreed to be bound by the terms and conditions of this agreement.
-          </p>
+          </p> -->
         </div>
       </div>
     </div>
@@ -295,6 +311,7 @@
 <script>
 import { gsap } from "gsap/all";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { mapGetters } from "vuex";
 
 if (process.client) {
   gsap.registerPlugin(ScrollToPlugin);
@@ -307,6 +324,12 @@ export default {
       mobileActive: "info",
     };
   },
+  computed: {
+    ...mapGetters({
+      getInfoContent: "getInfoContent",
+      // ...
+    }),
+  },
   methods: {
     getOffsetTop(element) {
       return element
@@ -315,7 +338,7 @@ export default {
     },
     anim(name) {
       // console.log("asd");
-      console.log(name);
+      // console.log(name);
       if (window.innerWidth < 769) {
         this.mobileActive = name;
       }
@@ -380,6 +403,9 @@ export default {
               duration: 1,
               autoKill: true,
               ease: "elastic.out(1, 2)",
+            });
+            gsap.to(el, {
+              minHeight: "100vh",
             });
             // window.scrollTo({
             //   left: 0,

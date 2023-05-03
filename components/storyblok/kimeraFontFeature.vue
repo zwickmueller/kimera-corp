@@ -26,6 +26,7 @@
     <div
       class="feature-before feature"
       :class="mobileToggle ? 'mobile-toggle' : ''"
+      :style="featureStyleOverride"
     >
       <div class="feature-inner" ref="before" v-html="blok.textBefore"></div>
     </div>
@@ -71,6 +72,10 @@ export default {
       return `font-feature-settings: ${this.$helpers.getOpenTypeFeatures(
         this.blok.font
       )}`;
+    },
+    featureStyleOverride() {
+      if (!this.blok.featureStyleOverride) return "";
+      else return `font-feature-settings: ${this.blok.featureStyleOverride}`;
     },
   },
   methods: {

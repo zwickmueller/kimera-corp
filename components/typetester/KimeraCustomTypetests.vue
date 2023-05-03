@@ -1,5 +1,8 @@
 <template>
   <div class="kimera-custom-typetests">
+    <h3 id="custom-typetests" class="hide-headline kimera-text-filter-tags">
+      Custom Typetests
+    </h3>
     <kimera-typetester-preview
       :data-timestamp="String(typetest.timestamp)"
       v-for="typetest in customTypetests"

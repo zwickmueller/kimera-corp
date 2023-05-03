@@ -23,7 +23,7 @@
       <div
         class="grid-item-overlay overlay-foreground h-w-100p fixed-reset absolute"
       ></div>
-      <kimera-image :blok="blok"></kimera-image>
+      <kimera-image class="cover" :blok="blok"></kimera-image>
       <div
         class="grid-item-overlay overlay-background h-w-100p fixed-reset absolute"
       ></div>

@@ -6,6 +6,7 @@
       :options="options"
       :viewportTag="'div'"
       :cameraTag="'div'"
+      :plugins="autoplay"
     >
       <!-- :plugins="plugins" -->
       <div class="slide" v-for="(_blok, index) in blok.body">
@@ -39,12 +40,46 @@ export default {
       // plugins,
       currentIndex: 0,
       initAnim: false,
-      options: {
+      // options: {
+      //   // circularFallback: "linear",
+
+      //   circular: true,
+      //   moveType: "snap",
+      //   align: "prev",
+      //   defaultIndex: 0,
+      //   preventClickOnDrag: true,
+      //   // noPanelStyleOverride: true,
+
+      //   panelsPerView: -1,
+      //   adaptive: true,
+      //   deceleration: 0.03,
+      //   interruptable: true,
+      //   bounce: "3%",
+      //   resizeOnContentsReady: true,
+      //   // overflow: true,
+      //   inputType: ["touch", "mouse"],
+      //   autoInit: true,
+      // },
+    };
+  },
+  props: {
+    blok: {
+      type: Object,
+      required: true,
+    },
+  },
+  computed: {
+    autoplay() {
+      return this.blok.autoplay ? plugins : [];
+    },
+    options() {
+      return {
         // circularFallback: "linear",
 
-        // circular: true,
+        circular: this.blok.loop,
         moveType: "snap",
         align: "prev",
+        // align: "prev",
         defaultIndex: 0,
         preventClickOnDrag: true,
         // noPanelStyleOverride: true,
@@ -58,16 +93,8 @@ export default {
         // overflow: true,
         inputType: ["touch", "mouse"],
         autoInit: true,
-      },
-    };
-  },
-  props: {
-    blok: {
-      type: Object,
-      required: true,
+      };
     },
-  },
-  computed: {
     // currentIndex() {
     //   return this.$refs.flicking.currentPanel
     // },
@@ -99,7 +126,7 @@ export default {
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   // padding: 0 var(--kimera-side-padding);
   .slide {

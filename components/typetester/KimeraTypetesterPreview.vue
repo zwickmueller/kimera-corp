@@ -9,7 +9,7 @@
     <div class="typetester-overlay">
       <div class="top">
         <div class="current-fonttype">
-          <!-- <tag-button
+          <tag-button
             :isDiv="true"
             :isSmall="true"
             :isInverted="typetester.invertColors"
@@ -22,7 +22,7 @@
             :isSmall="true"
             :isInverted="typetester.invertColors"
             >{{ getReadableFontWeight(typetester.style) }}</tag-button
-          > -->
+          >
         </div>
         <div
           class="close close-button"
@@ -112,7 +112,7 @@ export default {
         timestamp: null,
         currenFontType: null,
       },
-      typetester: {},
+      // typetester: {},
       defaults: {
         // width: 8,
         invertColors: false,
@@ -147,6 +147,12 @@ export default {
     //   return Object.assign({}, this.defaults, this.typetesterData)
     //
     // }
+    typetester() {
+      // typetester is a computed property, so changes from Storyblok will be correctly displayed in the preview.
+      let typetester = {};
+      Object.assign(typetester, this.defaults, this.typetesterData);
+      return typetester;
+    },
   },
   methods: {
     ...mapMutations({
@@ -318,7 +324,7 @@ export default {
       );
       if (!this.typetester.isUserCreated && this.typetester.isPreview) return;
 
-      this.$el.addEventListener("mousemove", this.handleMouseMove);
+      // this.$el.addEventListener("mousemove", this.handleMouseMove);
     },
     mouseLeaved() {
       if (this.isMobile) return;
@@ -347,11 +353,11 @@ export default {
         }
       );
       if (!this.typetester.isUserCreated && this.typetester.isPreview) return;
-      this.$el.removeEventListener("mousemove", this.handleMouseMove);
+      // this.$el.removeEventListener("mousemove", this.handleMouseMove);
     },
   },
   created() {
-    this.typetester = Object.assign({}, this.defaults, this.typetesterData);
+    // this.typetester = Object.assign({}, this.defaults, this.typetesterData);
   },
   mounted() {
     if (!process.client) return;

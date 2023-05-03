@@ -123,13 +123,13 @@ const TypetesterMixin = {
         });
     },
 
-    handleMouseMove: throttle(function (e) {
-      var rect = e.target.getBoundingClientRect();
-      var x = (e.clientX - rect.left) / rect.width;
-      var y = (e.clientY - rect.top) / rect.height;
-      this.showCloseButton =
-        e.target.classList.contains("close-button") || (x > 0.8 && y < 0.4);
-    }, 100),
+    // handleMouseMove: throttle(function (e) {
+    //   var rect = e.target.getBoundingClientRect();
+    //   var x = (e.clientX - rect.left) / rect.width;
+    //   var y = (e.clientY - rect.top) / rect.height;
+    //   this.showCloseButton =
+    //     e.target.classList.contains("close-button") || (x > 0.8 && y < 0.4);
+    // }, 100),
   },
 };
 

@@ -10,6 +10,7 @@ export const state = () => ({
   isPageTransitioning: false,
   windowWidth: 1024,
   tags: [],
+  infoContent: null,
 });
 
 export const getters = {
@@ -25,6 +26,9 @@ export const getters = {
   getTags(state) {
     return state.tags;
   },
+  getInfoContent(state) {
+    return state.infoContent;
+  },
 };
 
 export const mutations = {
@@ -36,6 +40,9 @@ export const mutations = {
   },
   setTags(state, tags) {
     state.tags = tags;
+  },
+  setInfoContent(state, story) {
+    state.infoContent = story;
   },
 };
 
