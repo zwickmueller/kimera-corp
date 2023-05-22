@@ -5,11 +5,12 @@
 // })
 //
 // export const plugins = [vuexLocal.plugin]
+import Tags from "../assets/data/tags.json";
 
 export const state = () => ({
   isPageTransitioning: false,
   windowWidth: 1024,
-  tags: [],
+  tags: Tags,
   infoContent: null,
   infoContentMobileState: "info",
 });
@@ -55,16 +56,16 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit({ commit }) {
-    console.log("nuxtServerInit");
-    let fontData = await this.$axios.$get("/api/fontData.json");
-    let tags = await this.$axios.$get("/api/tags.json");
-    // let fontData = await this.$axios.$get(
-    //   "https://zwickmueller.github.io/kimera-corp-json-store/fontData.json"
-    // );
-    // let tags = await this.$axios.$get(
-    //   "https://zwickmueller.github.io/kimera-corp-json-store/tags.json"
-    // );
-    commit("setTags", tags);
-    commit("fontData/initiateFontData", fontData);
+    // console.log("nuxtServerInit");
+    // let fontData = await this.$axios.$get("/api/fontData.json");
+    // let tags = await this.$axios.$get("/api/tags.json");
+    // // let fontData = await this.$axios.$get(
+    // //   "https://zwickmueller.github.io/kimera-corp-json-store/fontData.json"
+    // // );
+    // // let tags = await this.$axios.$get(
+    // //   "https://zwickmueller.github.io/kimera-corp-json-store/tags.json"
+    // // );
+    // commit("setTags", tags);
+    // commit("fontData/initiateFontData", fontData);
   },
 };

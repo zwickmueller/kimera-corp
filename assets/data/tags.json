@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Kimera",
+    "isTitle": true,
+    "show": false
+  },
+  {
+    "name": "Typefaces",
+    "isMainTag": true,
+    "subTags": ["Sans", "Serif", "Mono", "Display"],
+    "show": true,
+    "value": "Typefaces"
+  },
+  {
+    "name": "Services",
+    "isMainTag": true,
+    "subTags": ["Identity", "Editorial", "Custom Type"],
+    "show": true,
+    "value": "Services"
+  },
+  {
+    "name": "Products",
+    "isMainTag": true,
+    "show": true,
+    "subTags": ["Poster", "Clothing", "Objects", "Specimen"],
+    "value": "Products"
+  },
+  {
+    "name": "Custom Type",
+    "value": "Custom Type"
+  },
+  {
+    "name": "Identity",
+    "value": "Identity"
+  },
+  {
+    "name": "Editorial",
+    "value": "Editorial"
+  },
+  {
+    "name": "Poster",
+    "value": "Poster"
+  },
+  {
+    "name": "Clothing",
+    "value": "Clothing"
+  },
+  {
+    "name": "Objects",
+    "value": "Objects"
+  },
+  {
+    "name": "Specimen",
+    "value": "Specimen"
+  },
+  {
+    "name": "Sans",
+    "value": "Sans"
+  },
+  {
+    "name": "Serif",
+    "value": "Serif"
+  },
+  {
+    "name": "Mono",
+    "value": "Mono"
+  },
+  {
+    "name": "Display",
+    "value": "Display"
+  }
+]

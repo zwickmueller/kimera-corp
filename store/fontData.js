@@ -1,10 +1,12 @@
 import Vue from "vue";
 // import Waldenburg from '../scripts/fontData/waldenburg.js'
 // import Melange from '../scripts/fontData/melange.js'
+import FontData from "../assets/data/fontData.json";
 
 export const state = () => ({
   // fontData: [Waldenburg, Melange],
-  fontData: [],
+  fontData: FontData,
+  // fontData: [],
   // test: {}
 });
 

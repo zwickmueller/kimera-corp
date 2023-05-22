@@ -1,0 +1,504 @@
+[
+  {
+    "name": "KMR-Waldenburg",
+    "nameReadable": "Waldenburg",
+    "fontDir": "/fonts/KMR-Waldenburg/",
+    "openTypeFeatures": [
+      {
+        "label": "Light Punctuation",
+        "value": "ss01"
+      },
+      {
+        "label": "Heavy Punctuation",
+        "value": "ss02"
+      },
+      {
+        "label": "Alt Ampersand",
+        "value": "ss03"
+      },
+      {
+        "label": "Alt G",
+        "value": "ss04"
+      },
+      {
+        "label": "Alt R",
+        "value": "ss05"
+      },
+      {
+        "label": "Case-Sensitive Form",
+        "value": "case"
+      },
+      {
+        "label": "Standard Ligatures",
+        "value": "liga"
+      },
+      {
+        "label": "Stylistic Alternatives",
+        "value": "salt"
+      },
+      {
+        "label": "Denominators",
+        "value": "dnom"
+      },
+      {
+        "label": "Fractions",
+        "value": "frac"
+      },
+      {
+        "label": "Historical Forms",
+        "value": "hist"
+      },
+      {
+        "label": "Localized Forms",
+        "value": "locl"
+      },
+      {
+        "label": "Numerators",
+        "value": "numr"
+      },
+      {
+        "label": "Ordinals",
+        "value": "ordn"
+      },
+      {
+        "label": "Scientific Inferiors",
+        "value": "sinf"
+      },
+      {
+        "label": "Slashed Zero",
+        "value": "zero"
+      }
+    ],
+    "openTypeFeaturesFiltered": [
+      "ss05",
+      "ss04",
+      "ss03",
+      "ss01",
+      "ss02",
+      "case"
+    ],
+    "variable": "/fonts/KMR-Waldenburg/KMR-WaldenburgVariable",
+    "fontFamilies": [
+      {
+        "path": "Fein/KMR-Waldenburg-Fein",
+        "weight": 100,
+        "weightReadable": "Fein",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "FeinKursiv/KMR-Waldenburg-FeinKursiv",
+        "weight": 100,
+        "weightReadable": "Fein Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "FeinHalbschmal/KMR-Waldenburg-FeinHalbschmal",
+        "weight": 100,
+        "weightReadable": "Fein Halbschmal",
+        "fontStyle": "normal",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "FeinHalbschmalKursiv/KMR-Waldenburg-FeinHalbschmalKursiv",
+        "weight": 100,
+        "weightReadable": "Fein Halbschmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "FeinSchmal/KMR-Waldenburg-FeinSchmal",
+        "weight": 100,
+        "weightReadable": "Fein Schmal",
+        "fontStyle": "normal",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "FeinSchmalKursiv/KMR-Waldenburg-FeinSchmalKursiv",
+        "weight": 100,
+        "weightReadable": "Fein Schmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "Mager/KMR-Waldenburg-Mager",
+        "weight": 200,
+        "weightReadable": "Mager",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "MagerKursiv/KMR-Waldenburg-MagerKursiv",
+        "weight": 200,
+        "weightReadable": "Mager Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "MagerHalbschmal/KMR-Waldenburg-MagerHalbschmal",
+        "weight": 200,
+        "weightReadable": "Mager Halbschmal",
+        "fontStyle": "normal",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "MagerHalbschmalKursiv/KMR-Waldenburg-MagerHalbschmalKursiv",
+        "weight": 200,
+        "weightReadable": "Mager Halbschmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "MagerSchmal/KMR-Waldenburg-MagerSchmal",
+        "weight": 200,
+        "weightReadable": "Mager Schmal",
+        "fontStyle": "normal",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "MagerSchmalKursiv/KMR-Waldenburg-MagerSchmalKursiv",
+        "weight": 200,
+        "weightReadable": "Mager Schmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "Buch/KMR-Waldenburg-Buch",
+        "weight": 300,
+        "weightReadable": "Buch",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "BuchKursiv/KMR-Waldenburg-BuchKursiv",
+        "weight": 300,
+        "weightReadable": "Buch Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "BuchHalbschmal/KMR-Waldenburg-BuchHalbschmal",
+        "weight": 300,
+        "weightReadable": "Buch Halbschmal",
+        "fontStyle": "normal",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "BuchHalbschmalKursiv/KMR-Waldenburg-BuchHalbschmalKursiv",
+        "weight": 300,
+        "weightReadable": "Buch Halbschmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "BuchSchmal/KMR-Waldenburg-BuchSchmal",
+        "weight": 300,
+        "weightReadable": "Buch Schmal",
+        "fontStyle": "normal",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "BuchSchmalKursiv/KMR-Waldenburg-BuchSchmalKursiv",
+        "weight": 300,
+        "weightReadable": "Buch Schmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "Normal/KMR-Waldenburg-Normal",
+        "weight": 400,
+        "weightReadable": "Normal",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "NormalKursiv/KMR-Waldenburg-NormalKursiv",
+        "weight": 400,
+        "weightReadable": "Normal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "Halbschmal/KMR-Waldenburg-Halbschmal",
+        "weight": 400,
+        "weightReadable": "Halbschmal",
+        "fontStyle": "normal",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "HalbschmalKursiv/KMR-Waldenburg-HalbschmalKursiv",
+        "weight": 400,
+        "weightReadable": "Halbschmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "Schmal/KMR-Waldenburg-Schmal",
+        "weight": 400,
+        "weightReadable": "Schmal",
+        "fontStyle": "normal",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "SchmalKursiv/KMR-Waldenburg-SchmalKursiv",
+        "weight": 400,
+        "weightReadable": "Schmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "Halbfett/KMR-Waldenburg-Halbfett",
+        "weight": 500,
+        "weightReadable": "Halbfett",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "HalbfettKursiv/KMR-Waldenburg-HalbfettKursiv",
+        "weight": 500,
+        "weightReadable": "Halbfett Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "HalbfettHalbschmal/KMR-Waldenburg-HalbfettHalbschmal",
+        "weight": 500,
+        "weightReadable": "Halbfett Halbschmal",
+        "fontStyle": "normal",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "HalbfettHalbschmalKursiv/KMR-Waldenburg-HalbfettHalbschmalKursiv",
+        "weight": 500,
+        "weightReadable": "Halbfett Halbschmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "HalbfettSchmal/KMR-Waldenburg-HalbfettSchmal",
+        "weight": 500,
+        "weightReadable": "Halbfett Schmal",
+        "fontStyle": "normal",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "HalbfettSchmalKursiv/KMR-Waldenburg-HalbfettSchmalKursiv",
+        "weight": 500,
+        "weightReadable": "Halbfett Schmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "Fett/KMR-Waldenburg-Fett",
+        "weight": 600,
+        "weightReadable": "Fett",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "FettKursiv/KMR-Waldenburg-FettKursiv",
+        "weight": 600,
+        "weightReadable": "Fett Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "FettHalbschmal/KMR-Waldenburg-FettHalbschmal",
+        "weight": 600,
+        "weightReadable": "Fett Halbschmal",
+        "fontStyle": "normal",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "FettHalbschmalKursiv/KMR-Waldenburg-FettHalbschmalKursiv",
+        "weight": 600,
+        "weightReadable": "Fett Halbschmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "FettSchmal/KMR-Waldenburg-FettSchmal",
+        "weight": 600,
+        "weightReadable": "Fett Schmal",
+        "fontStyle": "normal",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "FettSchmalKursiv/KMR-Waldenburg-FettSchmalKursiv",
+        "weight": 600,
+        "weightReadable": "Fett Schmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "Schwer/KMR-Waldenburg-Schwer",
+        "weight": 700,
+        "weightReadable": "Schwer",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "SchwerKursiv/KMR-Waldenburg-SchwerKursiv",
+        "weight": 700,
+        "weightReadable": "Schwer Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "SchwerHalbschmal/KMR-Waldenburg-SchwerHalbschmal",
+        "weight": 700,
+        "weightReadable": "Schwer Halbschmal",
+        "fontStyle": "normal",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "SchwerHalbschmalKursiv/KMR-Waldenburg-SchwerHalbschmalKursiv",
+        "weight": 700,
+        "weightReadable": "Schwer Halbschmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "SchwerSchmal/KMR-Waldenburg-SchwerSchmal",
+        "weight": 700,
+        "weightReadable": "Schwer Schmal",
+        "fontStyle": "normal",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "SchwerSchmalKursiv/KMR-Waldenburg-SchwerSchmalKursiv",
+        "weight": 700,
+        "weightReadable": "Schwer Schmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "Schwarz/KMR-Waldenburg-Schwarz",
+        "weight": 800,
+        "weightReadable": "Schwarz",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "SchwarzKursiv/KMR-Waldenburg-SchwarzKursiv",
+        "weight": 800,
+        "weightReadable": "Schwarz Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "SchwarzHalbschmal/KMR-Waldenburg-SchwarzHalbschmal",
+        "weight": 800,
+        "weightReadable": "Schwarz Halbschmal",
+        "fontStyle": "normal",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "SchwarzHalbschmalKursiv/KMR-Waldenburg-SchwarzHalbschmalKursiv",
+        "weight": 800,
+        "weightReadable": "Schwarz Halbschmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "semi-condensed"
+      },
+      {
+        "path": "SchwarzSchmal/KMR-Waldenburg-SchwarzSchmal",
+        "weight": 800,
+        "weightReadable": "Schwarz Schmal",
+        "fontStyle": "normal",
+        "fontStretch": "condensed"
+      },
+      {
+        "path": "SchwarzSchmalKursiv/KMR-Waldenburg-SchwarzSchmalKursiv",
+        "weight": 800,
+        "weightReadable": "Schwarz Schmal Kursiv",
+        "fontStyle": "italic",
+        "fontStretch": "condensed"
+      }
+    ]
+  },
+  {
+    "name": "Melange",
+    "nameReadable": "Melange",
+    "fontDir": "/fonts/Melange/",
+    "fontFamilies": [
+      {
+        "path": "Hairline/MelangeNeue-Hairline",
+        "weight": 100,
+        "weightReadable": "Hairline",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "Thin/MelangeNeue-Thin",
+        "weight": 150,
+        "weightReadable": "Thin",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "Light/MelangeNeue-Light",
+        "weight": 200,
+        "weightReadable": "Light",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "Book/MelangeNeue-Book",
+        "weight": 300,
+        "weightReadable": "Book",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "Regular/MelangeNeue-Regular",
+        "weight": 400,
+        "weightReadable": "Regular",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "Medium/MelangeNeue-Medium",
+        "weight": 450,
+        "weightReadable": "Medium",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "SemiBold/MelangeNeue-SemiBold",
+        "weight": 500,
+        "weightReadable": "SemiBold",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "Bold/MelangeNeue-Bold",
+        "weight": 600,
+        "weightReadable": "Bold",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "ExtraBold/MelangeNeue-ExtraBold",
+        "weight": 700,
+        "weightReadable": "ExtraBold",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "Black/MelangeNeue-Black",
+        "weight": 800,
+        "weightReadable": "Black",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      },
+      {
+        "path": "ExtraBlack/MelangeNeue-ExtraBlack",
+        "weight": 900,
+        "weightReadable": "ExtraBlack",
+        "fontStyle": "normal",
+        "fontStretch": "normal"
+      }
+    ]
+  }
+]
