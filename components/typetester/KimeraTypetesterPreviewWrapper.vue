@@ -4,6 +4,7 @@
     :key="blok.fontSelector.selectedFontData"
     :typetester-data="typetesterData"
   ></kimera-typetester-preview>
+  <!-- @typetester-data-updated="updateTypetesterData" -->
   <!-- :class="`grid-width-${this.blok.width}`" -->
 </template>
 
@@ -26,6 +27,12 @@ export default {
   // } else {
   //   openTypeFeatures = 'normal'
   // }
+  //   methods: {
+  //   updateTypetesterData(newTypetesterData) {
+  //     // Update the prop value
+  //     this.typetesterData = newTypetesterData;
+  //   }
+  // },
   computed: {
     typetesterData() {
       if (this.blok.fontSelector.selectedFontData == undefined) return {};

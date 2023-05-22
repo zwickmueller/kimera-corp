@@ -86,6 +86,7 @@ label {
   min-width: 16rem;
 }
 input {
+  --slider-border: 2px;
   pointer-events: all;
 }
 // $typetester-invert-transition
@@ -102,7 +103,7 @@ input[type="range"].styled-slider {
   background: transparent;
 
   @include until($tablet) {
-    height: 1rem;
+    height: 2.2rem;
   }
 }
 
@@ -135,6 +136,12 @@ input[type="range"].styled-slider::-webkit-slider-thumb {
   // margin-top: 0;
   background: var(--kimera-white);
   transition: background $typetester-invert-duration ease;
+  @include until($tablet) {
+    margin-top: 0;
+    width: calc(2rem - var(--slider-border));
+    height: calc(2rem - var(--slider-border));
+    border: var(--slider-border) var(--black) solid;
+  }
 }
 .is-inverted input[type="range"].styled-slider::-moz-range-thumb {
   background: var(--black);
@@ -168,6 +175,10 @@ input[type="range"].styled-slider::-webkit-slider-runnable-track {
   border: 0.1875rem solid var(--black);
   transition: background $typetester-invert-duration ease,
     border $typetester-invert-duration ease;
+  @include until($tablet) {
+    height: 100%;
+    border: var(--slider-border) solid var(--black);
+  }
 }
 
 input[type="range"].styled-slider.slider-progress::-webkit-slider-runnable-track {

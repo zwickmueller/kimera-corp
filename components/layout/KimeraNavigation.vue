@@ -41,98 +41,13 @@
 </template>
 
 <script>
-import { throws } from "assert";
 import { gsap } from "gsap";
-
-const tags = [
-  {
-    name: "Kimera",
-    isTitle: true,
-    show: false,
-  },
-  {
-    name: "Services",
-    isMainTag: true,
-    subTags: ["Branding", "Editorial", "Digital"],
-    show: true,
-  },
-  {
-    name: "Typefaces",
-    isMainTag: true,
-    subTags: ["Sans-serif", "Serif", "Monospace"],
-    show: true,
-  },
-  {
-    name: "Products",
-    isMainTag: true,
-    subTags: ["Poster", "Garmets"],
-    show: true,
-  },
-  // {
-  //   name: 'Garmets',
-  //   isMainTag: true,
-  //   show: true,
-  // },
-
-  ///SUB TAGS
-  {
-    name: "Branding",
-    subTags: ["asd", "qwe", "ert"],
-  },
-  {
-    name: "asd",
-  },
-  {
-    name: "qwe",
-  },
-  {
-    name: "Garmets",
-  },
-  {
-    name: "Poster",
-  },
-  {
-    name: "ert",
-  },
-  {
-    name: "Book",
-  },
-  {
-    name: "Magazine",
-  },
-  {
-    name: "Catalogue",
-  },
-  {
-    name: "Sans-serif",
-  },
-  {
-    name: "Serif",
-  },
-  {
-    name: "Monospace",
-  },
-  {
-    name: "Editorial",
-    subTags: ["Book", "Magazine", "Catalogue"],
-  },
-  {
-    name: "Digital",
-    subTags: ["Website", "App"],
-  },
-  {
-    name: "Website",
-  },
-  {
-    name: "App",
-  },
-];
-
-for (var i = 0; i < tags.length; i++) {
-  tags[i].active = false;
-  if (!tags[i].show) tags[i].show = false;
-}
-tags.sort((a, b) => Number("subTags" in b) - Number("subTags" in a));
+import clonedeep from "lodash.clonedeep";
+// for (var i = 0; i < tags.length; i++) {
+//   tags[i].active = false;
+//   if (!tags[i].show) tags[i].show = false;
+// }
+// tags.sort((a, b) => Number("subTags" in b) - Number("subTags" in a));
 import { mapMutations, mapGetters } from "vuex";
 
 export default {
@@ -295,11 +210,35 @@ export default {
       }
       this.$root.$emit("activeTags", this.activeTagsComputed);
     },
+    async fetchTags() {
+      if (this._tags) {
+        let tags = clonedeep(this._tags);
+        for (var i = 0; i < tags.length; i++) {
+          tags[i].active = false;
+          if (!tags[i].show) tags[i].show = false;
+        }
+        tags.sort((a, b) => Number("subTags" in b) - Number("subTags" in a));
+        this.tags = tags;
+        return;
+      }
+      let tags = await this.$axios.$get("/api/tags.json");
+      // let tags = await this.$axios.$get(
+      //   "https://zwickmueller.github.io/kimera-corp-json-store/tags.json"
+      // );
+
+      for (var i = 0; i < tags.length; i++) {
+        tags[i].active = false;
+        if (!tags[i].show) tags[i].show = false;
+      }
+      tags.sort((a, b) => Number("subTags" in b) - Number("subTags" in a));
+
+      this.tags = tags;
+    },
   },
   computed: {
-    // ...mapGetters({
-    //   tags: "getTags",
-    // }),
+    ...mapGetters({
+      _tags: "getTags",
+    }),
     visibleTags() {
       if (!this.tags) return;
 
@@ -327,7 +266,7 @@ export default {
       handler: async function (old, _new) {
         // console.log(this.tags, this.tags.length);
         if (this.tags.length == 0) {
-          await this.$fetch();
+          await this.fetchTags();
           // return;
         }
         if (old.name == "index") {
@@ -345,25 +284,7 @@ export default {
   },
   fetchKey: "kimera-tags",
   async fetch() {
-    let tags = await this.$axios.$get(
-      "https://zwickmueller.github.io/kimera-corp-json-store/tags.json"
-    );
-
-    // this.tags = await fetch(
-    //     'https://zwickmueller.github.io/kimera-corp-json-store/tags.json'
-    //   )
-    //   .then(res => res.json())
-    // console.log(tags);
-    for (var i = 0; i < tags.length; i++) {
-      tags[i].active = false;
-      if (!tags[i].show) tags[i].show = false;
-    }
-    tags.sort((a, b) => Number("subTags" in b) - Number("subTags" in a));
-    //
-    this.tags = tags;
-    // this.$store.commit("setTags", tags);
-    // this.tags = Object.assign([], tags)
-    // console.log("FETCHED TAGS");
+    await this.fetchTags();
   },
   mounted() {
     if (this.$route.name !== "index") {
@@ -386,6 +307,19 @@ export default {
     }
   }
 }
+.tag.active {
+  @include until($tablet) {
+    span svg {
+      rect {
+        fill: var(--kimera-white) !important;
+      }
+      path {
+        fill: var(--black);
+        stroke: var(--black);
+      }
+    }
+  }
+}
 </style>
 <style lang="scss" scoped>
 .tag.title {
@@ -396,12 +330,13 @@ export default {
   width: 8px;
   display: block;
   @include until($tablet) {
-    margin-right: 4px;
+    margin-right: 0px;
     width: 8px;
     height: 4px;
     svg {
       position: absolute;
-      top: 5px;
+      top: 7px;
+      right: 4px;
     }
   }
 }

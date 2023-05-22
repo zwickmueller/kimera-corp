@@ -358,7 +358,11 @@ export default {
   },
   beforeDestroy() {
     // console.log("DESTROYAED");
-    // this.batch.kill()
+    this.$nextTick(() => {
+      this.$root.$off("activeTags", this.changeFilter);
+      this.batch.kill();
+      this.batch = null;
+    });
   },
   mounted() {
     // console.log("BATCH ", Flip.batch("id"));

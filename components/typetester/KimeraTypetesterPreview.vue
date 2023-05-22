@@ -50,6 +50,7 @@
             @click.native="handleInvertColors2"
             :invert="typetester.invertColors"
           ></dark-mode-toggle>
+          <!-- {{ typetester.invertColors }} -->
 
           <!-- <input type="checkbox"  :checked="typetester.invertColors"> -->
         </div>
@@ -112,6 +113,7 @@ export default {
         timestamp: null,
         currenFontType: null,
       },
+      typetesterOverrides: {},
       // typetester: {},
       defaults: {
         // width: 8,
@@ -147,11 +149,29 @@ export default {
     //   return Object.assign({}, this.defaults, this.typetesterData)
     //
     // }
+    // typetester() {
+    //   // typetester is a computed property, so changes from Storyblok will be correctly displayed in the preview.
+    //   let typetester = {};
+    //   Object.assign(typetester, this.defaults, this.typetesterData);
+    //   return typetester;
+    // },
+    // typetester: {
+    //     get() {
+    //   let typetester = {};
+    //   Object.assign(typetester, this.defaults, this.typetesterData);
+    //   return typetester;
+    // },
+    // set(newTypetesterData) {
+    //   // Emit an event to notify the parent component about the change
+    //   this.$emit('typetester-data-updated', newTypetesterData);
+    // }
+    // }
     typetester() {
-      // typetester is a computed property, so changes from Storyblok will be correctly displayed in the preview.
-      let typetester = {};
-      Object.assign(typetester, this.defaults, this.typetesterData);
-      return typetester;
+      return {
+        ...this.defaults,
+        ...this.typetesterData,
+        ...this.typetesterOverrides,
+      };
     },
   },
   methods: {
@@ -282,8 +302,17 @@ export default {
       this.removeCustomTypetest(this.typetester);
     },
     handleInvertColors2() {
-      // console.log("asd");
-      this.typetester.invertColors = !this.typetester.invertColors;
+      // use vue set to change invertcolors property of this.typetester
+
+      // this.$set(this.typetester, "invertColors", !this.typetester.invertColors);
+      this.$set(
+        this.typetesterOverrides,
+        "invertColors",
+        !this.typetester.invertColors
+      );
+      // this.typetesterOverrides.invertColors = !this.typetester.invertColors;
+      // this.typetester.invertColors = !this.typetester.invertColors;
+      console.log("asd", this.typetester.invertColors);
       // Object.assign({}, this.defaults, this.typetesterData)
       // this.localInvertColors = !this.localInvertColors
       // this.$set(this.typetester, )

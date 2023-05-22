@@ -15,9 +15,10 @@ import throttle from "lodash/throttle";
 export default {
   fetchKey: "kimera-font-data",
   async fetch() {
-    let fontData = await this.$axios.$get(
-      "https://zwickmueller.github.io/kimera-corp-json-store/fontData.json"
-    );
+    let fontData = await this.$axios.$get("/api/tags.json");
+    // let fontData = await this.$axios.$get(
+    //   "https://zwickmueller.github.io/kimera-corp-json-store/fontData.json"
+    // );
 
     this.$store.commit("fontData/initiateFontData", fontData);
   },

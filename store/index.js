@@ -11,6 +11,7 @@ export const state = () => ({
   windowWidth: 1024,
   tags: [],
   infoContent: null,
+  infoContentMobileState: "info",
 });
 
 export const getters = {
@@ -29,6 +30,9 @@ export const getters = {
   getInfoContent(state) {
     return state.infoContent;
   },
+  getInfoMobileState(state) {
+    return state.infoContentMobileState;
+  },
 };
 
 export const mutations = {
@@ -44,17 +48,22 @@ export const mutations = {
   setInfoContent(state, story) {
     state.infoContent = story;
   },
+  setInfoMobileState(state, stateName) {
+    state.infoContentMobileState = stateName;
+  },
 };
 
 export const actions = {
   async nuxtServerInit({ commit }) {
     console.log("nuxtServerInit");
-    let fontData = await this.$axios.$get(
-      "https://zwickmueller.github.io/kimera-corp-json-store/fontData.json"
-    );
-    let tags = await this.$axios.$get(
-      "https://zwickmueller.github.io/kimera-corp-json-store/tags.json"
-    );
+    let fontData = await this.$axios.$get("/api/fontData.json");
+    let tags = await this.$axios.$get("/api/tags.json");
+    // let fontData = await this.$axios.$get(
+    //   "https://zwickmueller.github.io/kimera-corp-json-store/fontData.json"
+    // );
+    // let tags = await this.$axios.$get(
+    //   "https://zwickmueller.github.io/kimera-corp-json-store/tags.json"
+    // );
     commit("setTags", tags);
     commit("fontData/initiateFontData", fontData);
   },

@@ -73,6 +73,7 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
     { path: "~/components", extensions: ["vue"], pathPrefix: false },
+    { path: "~/shop/components", extensions: ["vue"], pathPrefix: false },
   ],
 
   //  {
@@ -116,7 +117,16 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: "/",
+    baseURL: "http://localhost:3000",
+    // baseURL: "/",
+    proxy: true,
+  },
+  proxy: {
+    "/api/": {
+      target: "https://zwickmueller.github.io/kimera-corp-json-store/",
+      pathRewrite: { "^/api/": "" },
+      changeOrigin: true,
+    },
   },
   router: {
     // Remove trailing slash from all URLs

@@ -1,0 +1,65 @@
+[
+  {
+    "name": "home",
+    "path": "/home",
+    "component": "D:\\\\TECH\\\\DEV\\\\220718 Kimera Corp\\\\kimera corp website\\\\pages\\\\home.vue",
+    "chunkName": "pages/home",
+    "pathToRegexpOptions": {
+      "strict": true
+    }
+  },
+  {
+    "name": "info",
+    "path": "/info",
+    "component": "D:\\\\TECH\\\\DEV\\\\220718 Kimera Corp\\\\kimera corp website\\\\pages\\\\info.vue",
+    "chunkName": "pages/info",
+    "pathToRegexpOptions": {
+      "strict": true
+    }
+  },
+  {
+    "name": "test",
+    "path": "/test",
+    "component": "D:\\\\TECH\\\\DEV\\\\220718 Kimera Corp\\\\kimera corp website\\\\pages\\\\test.vue",
+    "chunkName": "pages/test",
+    "pathToRegexpOptions": {
+      "strict": true
+    }
+  },
+  {
+    "name": "typefaces-all",
+    "path": "/typefaces/*",
+    "component": "D:\\\\TECH\\\\DEV\\\\220718 Kimera Corp\\\\kimera corp website\\\\pages\\\\typefaces\\\\_.vue",
+    "chunkName": "pages/typefaces/_",
+    "pathToRegexpOptions": {
+      "strict": true
+    }
+  },
+  {
+    "name": "services-all",
+    "path": "/services/*",
+    "component": "D:\\\\TECH\\\\DEV\\\\220718 Kimera Corp\\\\kimera corp website\\\\pages\\\\services\\\\_.vue",
+    "chunkName": "pages/services/_",
+    "pathToRegexpOptions": {
+      "strict": true
+    }
+  },
+  {
+    "name": "products-all",
+    "path": "/products/*",
+    "component": "D:\\\\TECH\\\\DEV\\\\220718 Kimera Corp\\\\kimera corp website\\\\pages\\\\products\\\\_.vue",
+    "chunkName": "pages/products/_",
+    "pathToRegexpOptions": {
+      "strict": true
+    }
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "D:\\\\TECH\\\\DEV\\\\220718 Kimera Corp\\\\kimera corp website\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "pathToRegexpOptions": {
+      "strict": true
+    }
+  }
+]
