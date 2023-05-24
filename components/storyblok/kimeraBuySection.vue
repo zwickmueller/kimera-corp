@@ -59,6 +59,8 @@ export default {
       isFixed: false,
       stopScroll: false,
       isBuyButtonExpanded: false,
+      minHeight: 0,
+      minWidth: 0,
     };
   },
   beforeDestroy() {
@@ -113,6 +115,13 @@ export default {
         ctaButton.classList.remove("is-expanded");
         ctaButton.querySelector(".buy-content").style.display = "none";
         ctaButton.querySelector(".buy-content").opacity = 0;
+
+        const buyCtaText = this.$refs.buyCta.querySelector(".buy-cta-text");
+
+        gsap.set(buyCtaText, {
+          minWidth: this.minWidth,
+          minHeight: this.minHeight,
+        });
       }
 
       // ctaButton.style.height = "calc(100vh - var(--kimera-side-padding))";
@@ -197,10 +206,14 @@ export default {
       this.$refs.buySection.style.minHeight = `calc(100vh - ${height}px)`;
     }
     window.addEventListener("scroll", this.handleScroll);
-    const buyCtaText = this.$refs.buyCta.querySelector(".buy-cta-text");
-    gsap.set(buyCtaText, {
-      minWidth: buyCtaText.getBoundingClientRect().width,
-      minHeight: buyCtaText.getBoundingClientRect().height,
+    this.$nextTick(() => {
+      const buyCtaText = this.$refs.buyCta.querySelector(".buy-cta-text");
+      this.minWidth = buyCtaText.getBoundingClientRect().width;
+      this.minHeight = buyCtaText.getBoundingClientRect().height;
+      gsap.set(buyCtaText, {
+        minWidth: this.minWidth,
+        minHeight: this.minHeight,
+      });
     });
   },
 };
