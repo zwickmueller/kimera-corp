@@ -291,6 +291,7 @@ export default {
   position: fixed;
   z-index: 100;
   border-radius: 1rem;
+  // overflow: hidden;
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
