@@ -207,12 +207,14 @@ export default {
     }
     window.addEventListener("scroll", this.handleScroll);
     this.$nextTick(() => {
-      const buyCtaText = this.$refs.buyCta.querySelector(".buy-cta-text");
-      this.minWidth = buyCtaText.getBoundingClientRect().width;
-      this.minHeight = buyCtaText.getBoundingClientRect().height;
-      gsap.set(buyCtaText, {
-        minWidth: this.minWidth,
-        minHeight: this.minHeight,
+      this.$nextTick(() => {
+        const buyCtaText = this.$refs.buyCta.querySelector(".buy-cta-text");
+        this.minWidth = buyCtaText.getBoundingClientRect().width + 36;
+        this.minHeight = buyCtaText.getBoundingClientRect().height;
+        gsap.set(buyCtaText, {
+          minWidth: this.minWidth,
+          minHeight: this.minHeight,
+        });
       });
     });
   },
