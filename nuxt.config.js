@@ -1,9 +1,9 @@
 const axios = require("axios");
-const CMSaccessToken = "YwkxX7UXlj9Wd7lngwwrbAtt";
+const CMSaccessToken = process.env.STORYBLOK_API_KEY;
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  ssr: false,
-  target: "static",
+  ssr: process.env.APP_ENV === "production",
+  target: process.env.APP_ENV === "production" ? "server" : "static",
   // target: "server",
   // target: "static",
   debug: {
@@ -91,6 +91,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     "@nuxtjs/eslint-module",
+    "@nuxtjs/dotenv",
     ["@nuxtjs/composition-api/module"],
     [
       "@storyblok/nuxt-2/module",
