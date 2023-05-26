@@ -63,7 +63,11 @@ export default {
   asyncData: async (context) => {
     const { app, route, store, $axios } = context;
     const version =
-      context.query._storyblok || context.isDev ? "draft" : "published";
+      context.query._storyblok ||
+      context.isDev ||
+      process.env.APP_ENV === "development"
+        ? "draft"
+        : "published";
 
     const { data } = await app.$storyapi.get("cdn/stories" + route.path, {
       version: version,
