@@ -3,7 +3,8 @@ const CMSaccessToken = process.env.STORYBLOK_API_KEY;
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   ssr: process.env.APP_ENV === "production",
-  target: process.env.APP_ENV === "production" ? "server" : "static",
+  target: "static",
+  // target: process.env.APP_ENV === "production" ? "server" : "static",
   // target: "server",
   // target: "static",
   debug: {
