@@ -3,7 +3,8 @@ const CMSaccessToken = "YwkxX7UXlj9Wd7lngwwrbAtt";
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   ssr: false,
-  target: "server",
+  target: "static",
+  // target: "server",
   // target: "static",
   debug: {
     // enable console debugging in nuxtServerInit
