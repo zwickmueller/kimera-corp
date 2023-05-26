@@ -61,7 +61,7 @@
           name="license-types"
           value="desktop"
         />
-        <label for="desktop">Base (Desktop) License</label><br />
+        <label for="desktop">Desktop License</label><br />
         <input type="checkbox" id="web" name="license-types" value="web" />
         <label for="web">Web License</label><br />
         <input

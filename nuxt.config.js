@@ -2,7 +2,7 @@ const axios = require("axios");
 const CMSaccessToken = "YwkxX7UXlj9Wd7lngwwrbAtt";
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  ssr: true,
+  ssr: false,
   target: "server",
   // target: "static",
   debug: {

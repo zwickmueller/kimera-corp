@@ -209,7 +209,7 @@ export default {
     this.$nextTick(() => {
       this.$nextTick(() => {
         const buyCtaText = this.$refs.buyCta.querySelector(".buy-cta-text");
-        this.minWidth = buyCtaText.getBoundingClientRect().width + 36;
+        this.minWidth = buyCtaText.getBoundingClientRect().width + 24;
         this.minHeight = buyCtaText.getBoundingClientRect().height;
         gsap.set(buyCtaText, {
           minWidth: this.minWidth,
