@@ -221,18 +221,19 @@ export default {
     height: 2rem;
     // margin-bottom: 1rem;
   }
+  .submit-button {
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
 }
 .font-cuts-wrapper {
   max-height: 30rem;
   overflow-y: auto;
 }
-.submit-button {
-  height: 3rem;
-  width: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
+
 .label-wrapper {
   margin-bottom: 1rem;
 }

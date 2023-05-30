@@ -39,6 +39,7 @@ export default {
   }
   @include until($tablet) {
     padding: 0;
+    margin-top: -1rem;
   }
 }
 </style>

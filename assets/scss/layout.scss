@@ -55,9 +55,11 @@ $aspect-ratios: (
   }
 }
 .hide-headline {
-  height: 0;
-  padding: 0 !important;
-  overflow: hidden;
+  // height: 0;
+  // padding: 0 !important;
+  // overflow: hidden;
+  position: absolute !important;
+  left: -100%;
 }
 .contain {
   img,

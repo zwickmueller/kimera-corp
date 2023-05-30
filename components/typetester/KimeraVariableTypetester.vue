@@ -267,8 +267,10 @@ export default {
       align-items: center;
       gap: 1rem;
       padding-top: 2rem;
+      bottom: 1rem;
+      position: absolute;
       .kimera-slider {
-        width: 90%;
+        width: calc(100% - var(--kimera-side-padding) * 2);
       }
     }
   }
@@ -279,6 +281,8 @@ export default {
       justify-content: flex-end;
       @include until($tablet) {
         display: block;
+        position: relative;
+        height: 100%;
       }
       // padding-right: var(--kimera-side-padding);
     }
@@ -288,6 +292,11 @@ export default {
     height: 100%;
     @include until($tablet) {
       padding: 2rem;
+    }
+  }
+  .typetester-overlay .bottom {
+    @include until($tablet) {
+      display: none;
     }
   }
   .typetester-inner {
