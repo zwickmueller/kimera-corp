@@ -30,6 +30,9 @@ export default {
             : this.blok.overrideObjectfit,
         padding:
           this.blok.overridePadding == "0em" ? "" : this.blok.overridePadding,
+        background: this.blok.overrideBackground
+          ? this.blok.overrideBackground
+          : "",
       };
     },
   },
@@ -49,6 +52,7 @@ video.video {
 .video-container {
   position: relative;
   width: 100%;
+  height: 100%;
   @include until($tablet) {
     display: flex;
   }
