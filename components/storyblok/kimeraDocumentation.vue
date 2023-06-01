@@ -135,8 +135,10 @@ export default {
       // pointer-events: none;
       user-select: none;
     }
-    img {
-      height: min(55vh, 45rem);
+    img,
+    video {
+      height: min(55vh, 45rem) !important;
+      position: relative !important;
       width: 100%;
       object-fit: cover;
       border-radius: var(--kimera-border-radius);
@@ -145,6 +147,10 @@ export default {
         max-width: 95vw;
       }
     }
+    .video-container {
+      height: min(55vh, 45rem) !important;
+    }
+
     margin-right: calc(var(--kimera-grid-gap) / 2);
     flex-shrink: 0;
     transform: translate(var(--kimera-side-padding), 0px);

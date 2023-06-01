@@ -23,7 +23,14 @@
       <div
         class="grid-item-overlay overlay-foreground h-w-100p fixed-reset absolute"
       ></div>
-      <kimera-image class="cover" :blok="blok"></kimera-image>
+      <kimera-image class="cover" :blok="blok" v-if="!blok.src2"></kimera-image>
+      <component
+        v-else
+        v-for="_blok in blok.src2"
+        :key="_blok._uid"
+        :blok="_blok"
+        :is="_blok.component"
+      />
       <div
         class="grid-item-overlay overlay-background h-w-100p fixed-reset absolute"
       ></div>
@@ -60,6 +67,9 @@ export default {
     aspect-ratio: 1;
     min-height: unset;
     height: 100%;
+  }
+  .video-container {
+    z-index: 1;
   }
 }
 // .project {
