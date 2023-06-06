@@ -1,21 +1,33 @@
 // FONT WEIGHT KEY KEY NEED TO BE A NUMBER/INT (NOT A STRING)
 $font-families: (
-  375: "Buch/Waldenburg-Buch",
-  500: "Halbfett/Waldenburg-Halbfett",
-  600: "Fett/Waldenburg-Fett",
+  375: "KMR-Waldenburg-Buch",
+  500: "KMR-Waldenburg-Halbfett",
+  600: "KMR-Waldenburg-Fett",
 );
-$fontsDir: "~@/static/fonts/KMR-Waldenburg/";
+$fontsDir: "~@/static/fonts/KMR-Waldenburg/WEB/WOFF/";
 $fontFamily: "Waldenburg";
-@each $fontWeight, $fontName in $font-families {
-  @font-face {
-    font-family: #{$fontFamily};
-    src: url("#{$fontsDir}#{$fontName}.eot");
-    src: url("#{$fontsDir}#{$fontName}.eot?#iefix") format("embedded-opentype"),
-      url("#{$fontsDir}#{$fontName}.woff") format("woff"),
-      url("#{$fontsDir}#{$fontName}.woff2") format("woff2");
-    font-weight: $fontWeight;
-    font-style: normal;
-    font-display: fallback;
-    // font-display: swap;
-  }
+// @each $fontWeight, $fontName in $font-families {
+//   @font-face {
+//     font-family: #{$fontFamily};
+//     // src: url("#{$fontsDir}#{$fontName}.eot");
+//     // src: url("#{$fontsDir}#{$fontName}.eot?#iefix") format("embedded-opentype"),
+
+//     src: url("#{$fontsDir}#{$fontName}.woff") format("woff");
+//     // url("#{$fontsDir}#{$fontName}.woff2") format("woff2");
+//     font-weight: $fontWeight;
+//     font-style: normal;
+//     font-display: fallback;
+//     // font-display: swap;
+//   }
+// }
+
+@font-face {
+  font-family: "Waldenburg";
+  src: url("~@/static/fonts/KMR-Waldenburg/KMR-WaldenburgVF.woff2")
+    format("woff2");
+  font-weight: 40 210;
+  font-display: fallback;
+  font-style: normal;
+  // font-stretch: 1 100;
+  font-variation-settings: "wdth" 3 5, "wght" 40 210;
 }

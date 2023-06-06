@@ -413,6 +413,7 @@ export default {
         const previewDom = document.querySelector(
           `[data-timestamp="${this.typetester.timestamp}"]`
         );
+        previewDom.style.opacity = 0;
         let height = window.getComputedStyle(previewDom).height;
         console.log(height);
         const tl = gsap.timeline();
@@ -479,7 +480,13 @@ export default {
         tl.add(
           gsap.to(cloned, {
             opacity: 0,
-            duration: 0.1,
+            duration: 0.4,
+            onStart() {
+              gsap.to(previewDom, {
+                opacity: 1,
+                duration: 0.4,
+              });
+            },
             onComplete() {
               cloned.remove();
             },

@@ -240,6 +240,7 @@ export default {
         filter: grayscale(100%) contrast(0.6) brightness(1.4);
         mix-blend-mode: multiply;
         opacity: 0.2;
+        // transform: scale(1.05);
         // filter: grayscale(100%) contrast(0.6) brightness(1.6);
         // mix-blend-mode: multiply;
         // opacity: 0.4;
@@ -254,7 +255,7 @@ export default {
     }
   }
   .kimera-image img {
-    border-radius: var(--kimera-border-radius);
+    // border-radius: var(--kimera-border-radius);
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.055, 0.315, 0.355, 1.02);
     z-index: 1;

@@ -209,6 +209,7 @@ export default ({ app, store }, inject) => {
             }
           );
 
+          console.log(`url(/fonts/${name + "/WEB/WOFF/" + path + ".woff"})`);
           // for (var fontFace of document.fonts.values()) {
           //   if (fontFace.family.toLowerCase() == name.toLowerCase() && fontFace.weight == weight && fontFace.style == fontStyle && fontFace.stretch == fontStretch && fontFace.loaded) {
           //     console.log(`FONT ${name} with weight ${weight} was already loaded`);

@@ -56,7 +56,9 @@ html {
   background: var(--white);
   font-size: unquote("clamp(12px, 1.05vw, 16px)");
   font-family: "Waldenburg", Arial, sans-serif;
-  font-weight: 600;
+  // font-weight: 600;
+  font-variation-settings: "wdth" 4.8, "wght" 170;
+
   // font-variation-settings: 'wght' 370;
   font-synthesis: none;
   @include until($tablet) {

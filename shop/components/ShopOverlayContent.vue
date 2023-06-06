@@ -1,139 +1,146 @@
 <template>
-  <div class="temporary-buy-form relative">
-    <div class="temporary-buy-form-inner relative">
-      <div class="kimera-text" style="padding-bottom: 2rem">
-        <p>
-          Currently, the shop is under construction! Keep up to date by
-          following @Kimeracorp. In the meantime, you can still purchase our
-          fonts by contacting us directly:
-        </p>
-      </div>
-      <div class="label-wrapper">
-        <label for="license-size-licensee">
+  <keep-alive>
+    <div class="temporary-buy-form relative">
+      <div class="temporary-buy-form-inner relative">
+        <div class="kimera-text" style="padding-bottom: 2rem">
+          <p>
+            Currently, the shop is under construction! Keep up to date by
+            following @Kimeracorp. In the meantime, you can still purchase our
+            fonts by contacting us directly:
+          </p>
+        </div>
+        <div class="label-wrapper">
+          <label for="license-size-licensee">
+            <div class="kimera-text">
+              <p>License Size</p>
+            </div>
+          </label>
+          <input
+            type="radio"
+            id="commercial"
+            checked
+            name="license-size-licensee"
+            value="Commercial Project"
+            @change="changedLicenseeType($event, false)"
+          />
+          <label for="commercial">Commercial Project</label>
+
+          <input
+            type="radio"
+            id="student"
+            name="license-size-licensee"
+            value="Student Project"
+            @change="changedLicenseeType($event, true)"
+          />
+          <label for="student">Personal Student Project</label>
+        </div>
+
+        <div class="label-wrapper" id="license-size-label">
           <div class="kimera-text">
             <p>License Size</p>
           </div>
-        </label>
-        <input
-          type="radio"
-          id="commercial"
-          checked
-          name="license-size-licensee"
-          value="Commercial Project"
-        />
-        <label for="commercial">Commercial Project</label>
-
-        <input
-          type="radio"
-          id="student"
-          name="license-size-licensee"
-          value="Student Project"
-        />
-        <label for="student">Personal Student Project</label>
-      </div>
-
-      <div class="label-wrapper" id="license-size-label">
-        <div class="kimera-text">
-          <p>License Size</p>
-        </div>
-        <div v-for="(sizes, i) in licenseSizes">
-          <label
-            :for="sizes[0]"
-            class="flex"
-            style="justify-content: flex-start"
-          >
-            <input
-              type="radio"
-              name="license-size"
-              :id="sizes[0]"
-              :value="sizes[0]"
-              :checked="i == 0"
-            />
-            <div class="flex-space-between" style="width: 100%">
-              <div>{{ sizes[0] }}</div>
-              <div v-if="typeof sizes[1] == 'string'">
-                {{ sizes[1] }}
+          <div v-for="(sizes, i) in licenseSizes">
+            <label
+              :for="sizes[0]"
+              class="flex"
+              style="justify-content: flex-start"
+            >
+              <input
+                type="radio"
+                name="license-size"
+                :id="sizes[0]"
+                :value="sizes[0]"
+                :checked="i == 0"
+              />
+              <div class="flex-space-between" style="width: 100%">
+                <div>{{ sizes[0] }}</div>
+                <div v-if="typeof sizes[1] == 'string'">
+                  {{ sizes[1] }}
+                </div>
+                <div v-else>
+                  {{
+                    sizes[1] == 1
+                      ? sizes[1] + " employee"
+                      : "<" + sizes[1] + " employees"
+                  }}
+                </div>
               </div>
-              <div v-else>
-                {{
-                  sizes[1] == 1
-                    ? sizes[1] + " employee"
-                    : "<" + sizes[1] + " employees"
-                }}
-              </div>
-            </div>
-          </label>
-        </div>
-      </div>
-      <div class="label-wrapper">
-        <div class="kimera-text">
-          <p>License Type</p>
-        </div>
-        <div style="column-count: 2">
-          <!-- <input type="checkbox" id="student" name="student" value="student" /> -->
-          <div v-for="types in licenseTypes">
-            <input
-              type="checkbox"
-              :id="types"
-              name="license-types"
-              :value="types"
-            />
-            <label :for="types"> {{ types + " License" }}</label>
+            </label>
           </div>
         </div>
-      </div>
-
-      <div class="label-wrapper">
-        <div class="kimera-text">
-          <p>Cut Selection</p>
-        </div>
-        <div class="font-cuts-wrapper" v-for="chunk in fontFamilyChunked">
-          <div class="font-cuts-inner">
-            <div class="font-cut" v-for="cut in chunk">
+        <div class="label-wrapper">
+          <div class="kimera-text">
+            <p>License Type</p>
+          </div>
+          <div style="column-count: 2">
+            <!-- <input type="checkbox" id="student" name="student" value="student" /> -->
+            <div v-for="types in licenseTypes">
               <input
                 type="checkbox"
-                :id="'cut-' + cut.weightReadable"
-                :name="'cut-' + cut.weightReadable"
-                :value="cut.weightReadable"
+                :id="types"
+                name="license-types"
+                :value="types"
               />
-              <label :for="'cut-' + cut.weightReadable">
-                {{ cut.weightReadable }}</label
-              >
+              <label :for="types"> {{ types + " License" }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="label-wrapper">
+          <div class="kimera-text">
+            <p>Cut Selection</p>
+          </div>
+          <div class="font-cuts-wrapper" v-for="chunk in fontFamilyChunked">
+            <div class="font-cuts-inner">
+              <div class="font-cut" v-for="cut in chunk">
+                <input
+                  type="checkbox"
+                  :id="'cut-' + cut.weightReadable"
+                  :name="'cut-' + cut.weightReadable"
+                  :value="cut.weightReadable"
+                />
+                <label :for="'cut-' + cut.weightReadable">
+                  <inline-font-preview
+                    :fontName="fontName"
+                    :fontData="cut"
+                  ></inline-font-preview>
+                </label>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <contactDetails :type="'licensee'" id="LicenseeDetails"></contactDetails>
-    <input
-      type="checkbox"
-      checked
-      name="same-as-licensee"
-      id="same-as-licensee"
-    />
-    <label for="same-as-licensee">
-      Invoice details are the same as Licensee details</label
-    >
-    <contactDetails
-      :type="'invoice'"
-      class="invoice-details"
-      id="InvoiceDetails"
-    ></contactDetails>
+      <contactDetails :type="'licensee'" id="LicenseeDetails"></contactDetails>
+      <input
+        type="checkbox"
+        checked
+        name="same-as-licensee"
+        id="same-as-licensee"
+      />
+      <label for="same-as-licensee">
+        Invoice details are the same as Licensee details</label
+      >
+      <contactDetails
+        :type="'invoice'"
+        class="invoice-details"
+        id="InvoiceDetails"
+      ></contactDetails>
 
-    <div style="padding-top: 2rem">
-      <div class="flex-space-between">
-        <tag-button is-secondary is-active>Pricing List</tag-button>
-        <tag-button is-secondary is-active>EULA</tag-button>
+      <div style="padding-top: 2rem">
+        <div class="flex-space-between">
+          <tag-button is-secondary is-active>Pricing List</tag-button>
+          <tag-button is-secondary is-active>EULA</tag-button>
+        </div>
+      </div>
+
+      <div class="submit-button">
+        <tag-button is-big is-secondary @click.native.prevent="submitForm"
+          >Submit</tag-button
+        >
       </div>
     </div>
-
-    <div class="submit-button">
-      <tag-button is-big is-secondary @click.native.prevent="submitForm"
-        >Submit</tag-button
-      >
-    </div>
-  </div>
+  </keep-alive>
 </template>
 
 <script>
@@ -219,6 +226,21 @@ export default {
     getFontDataAsChunks(chunkSize) {
       const array = this.fontFamily;
       return divideArrayIntoChunks(array, chunkSize);
+    },
+    changedLicenseeType(event, boolean) {
+      console.log(event.target.value);
+      var radioButtonsPerson = document.querySelectorAll(".person-licensee");
+      // check each radio button
+
+      var radioButtonsCompany = document.querySelectorAll(".company-licensee");
+      for (var i = 0; i < radioButtonsPerson.length; i++) {
+        radioButtonsPerson[i].checked = boolean;
+      }
+      for (var i = 0; i < radioButtonsCompany.length; i++) {
+        radioButtonsCompany[i].disabled = boolean;
+        radioButtonsCompany[i].checked = !boolean;
+      }
+      // radioButton.checked = true;
     },
     submitForm() {
       // Get all the data from the inputs and prepare an email template, that formats the data nicely and opens a new window with the email client

@@ -71,6 +71,7 @@
   // font-size: 8.4px;
   line-height: 100%;
   // font-weight: 600;
+  font-variation-settings: "wdth" 4.8, "wght" 170;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1,
@@ -90,5 +91,6 @@ h1 {
 .product-title h3,
 .buy-cta {
   // font-size: 7rem;
-  font-weight: 500;
+  // font-weight: 500;
+  font-variation-settings: "wdth" 4.8, "wght" 120;
 }

@@ -60,13 +60,14 @@
       </div>
     </div>
     <div class="kimera-glyph-set-wrapper">
+      <!-- :style="style" -->
       <component
         :invertedColors="invertColors"
         :key="blok._uid"
-        :style="style"
         v-for="blok in blok.body"
         :blok="blok"
         :is="blok.component"
+        :overrideStyle="style"
       />
       <tag-button
         @click.native="expandMobile = true"

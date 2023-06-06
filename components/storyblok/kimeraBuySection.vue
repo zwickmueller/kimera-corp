@@ -13,7 +13,9 @@
         <!--  -->
         <div class="buy-cta-text">{{ blok.title }}</div>
         <div class="buy-content">
-          <shop-overlay-content></shop-overlay-content>
+          <shop-overlay-content
+            :fontName="blok.fontName"
+          ></shop-overlay-content>
         </div>
       </div>
       <!-- <tag-button

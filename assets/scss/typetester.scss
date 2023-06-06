@@ -1,7 +1,7 @@
 .kimera-typetester.is-inverted {
   background: var(--black) !important;
   color: var(--kimera-white) !important;
-
+  font-variation-settings: "wdth" 4.8, "wght" 155;
   &:hover {
     background: var(--black) !important;
   }

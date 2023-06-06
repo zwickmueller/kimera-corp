@@ -7,12 +7,13 @@
     <h3 v-if="!blok.showTitle" class="kimera-text-filter-tags">
       {{ blok.title }}
     </h3>
-    <div class="kimera-glyph-grid">
+    <div class="kimera-glyph-grid" :style="overrideStyle">
       <single-glyph
         :invertedColors="invertedColors"
         :key="glyph + i"
         v-for="(glyph, i) in glyphListAsArray"
         :glyph="glyph"
+        :style="overrideOTP"
       ></single-glyph>
     </div>
   </div>
@@ -34,9 +35,20 @@ export default {
       type: Boolean,
       default: false,
     },
+    overrideStyle: {
+      type: Object,
+      // default: false,
+    },
   },
 
   computed: {
+    overrideOTP() {
+      if (this.blok.overrideOTP) {
+        return this.overrideOTP;
+      } else {
+        return "";
+      }
+    },
     glyphListAsArray() {
       return this.blok.glyphList.split(" ");
     },

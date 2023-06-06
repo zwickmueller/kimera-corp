@@ -76,6 +76,7 @@ export default {
       invertColors: true,
       animInterval: null,
       fitter: null,
+      stoppedAnim: false,
     };
   },
   props: {
@@ -112,8 +113,11 @@ export default {
       console.log("edit", e);
     },
     stopAnim() {
-      window.clearInterval(this.animInterval);
-      this.$refs.editableContent.classList.remove("anim");
+      if (!this.stoppedAnim) {
+        window.clearInterval(this.animInterval);
+        this.$refs.editableContent.classList.remove("anim");
+        this.stoppedAnim = true;
+      }
     },
     onInput(e) {
       this.hasChanged = true;
@@ -146,6 +150,7 @@ export default {
       };
     },
     handleSliders(e) {
+      this.stopAnim();
       const target = e.target.name;
       const value = e.target.value;
       this.variableData[target] = value;

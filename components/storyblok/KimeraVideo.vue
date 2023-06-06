@@ -8,6 +8,7 @@
       muted
       :style="overrideStyles"
       :autoplay="blok.autoplay"
+      playsinline
     ></video>
   </div>
 </template>
