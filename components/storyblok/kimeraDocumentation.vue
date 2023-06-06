@@ -88,7 +88,7 @@ export default {
         // adaptive: true,
         // deceleration: 0.03,
         interruptable: true,
-        bounce: this.blok.loop ? 0 : "3%",
+        bounce: 0,
         resizeOnContentsReady: true,
         // overflow: true,
         inputType: ["touch", "mouse"],
