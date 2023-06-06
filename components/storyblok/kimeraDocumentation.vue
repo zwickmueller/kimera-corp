@@ -93,6 +93,8 @@ export default {
         // overflow: true,
         inputType: ["touch", "mouse"],
         autoInit: true,
+        hideBeforeInit: true,
+        firstPanelSize: "min(55vh, 45rem)",
       };
     },
     // currentIndex() {
