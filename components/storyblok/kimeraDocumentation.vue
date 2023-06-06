@@ -112,15 +112,18 @@ export default {
   methods: {},
   mounted() {
     // this.currentIndex = this.defaultIndex;
-    this.$nextTick(() => {
-      this.$nextTick(() => {
-        this.$refs.flicking.resize();
-        //   this.initAnim = true;
-        //   // const a = document.querySelectorAll('.stop-anim')
-        //   // console.log(a);
-        //   // a.forEach(el => el.classList.remove('stop-anim'))
-      });
-    });
+    // this.$nextTick(() => {
+    //   this.$nextTick(() => {
+    //     this.$refs.flicking.resize();
+    //     //   this.initAnim = true;
+    //     //   // const a = document.querySelectorAll('.stop-anim')
+    //     //   // console.log(a);
+    //     //   // a.forEach(el => el.classList.remove('stop-anim'))
+    //   });
+    // });
+    setTimeout(() => {
+      this.$refs.flicking.resize();
+    }, 200);
     // console.log(this.$refs.flicking);
   },
 };
