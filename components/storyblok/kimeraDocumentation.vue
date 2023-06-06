@@ -1,19 +1,19 @@
 <template>
   <div class="slider-documentation">
-    <!-- <client-only> -->
-    <flicking
-      ref="flicking"
-      :options="options"
-      :viewportTag="'div'"
-      :cameraTag="'div'"
-      :plugins="autoplay"
-    >
-      <!-- :plugins="plugins" -->
-      <div class="slide" v-for="(_blok, index) in blok.body">
-        <component :key="_blok._uid" :blok="_blok" :is="_blok.component" />
-      </div>
-    </flicking>
-    <!-- </client-only> -->
+    <client-only>
+      <flicking
+        ref="flicking"
+        :options="options"
+        :viewportTag="'div'"
+        :cameraTag="'div'"
+        :plugins="autoplay"
+      >
+        <!-- :plugins="plugins" -->
+        <div class="slide" v-for="(_blok, index) in blok.body">
+          <component :key="_blok._uid" :blok="_blok" :is="_blok.component" />
+        </div>
+      </flicking>
+    </client-only>
   </div>
 </template>
 
