@@ -85,10 +85,10 @@ export default {
         // noPanelStyleOverride: true,
 
         panelsPerView: -1,
-        adaptive: true,
-        deceleration: 0.03,
+        // adaptive: true,
+        // deceleration: 0.03,
         interruptable: true,
-        bounce: "3%",
+        bounce: this.blok.loop ? 0 : "3%",
         resizeOnContentsReady: true,
         // overflow: true,
         inputType: ["touch", "mouse"],
@@ -112,12 +112,15 @@ export default {
   methods: {},
   mounted() {
     // this.currentIndex = this.defaultIndex;
-    // this.$nextTick(() => {
-    //   this.initAnim = true;
-    //   // const a = document.querySelectorAll('.stop-anim')
-    //   // console.log(a);
-    //   // a.forEach(el => el.classList.remove('stop-anim'))
-    // });
+    this.$nextTick(() => {
+      this.$nextTick(() => {
+        this.$refs.flicking.resize();
+        //   this.initAnim = true;
+        //   // const a = document.querySelectorAll('.stop-anim')
+        //   // console.log(a);
+        //   // a.forEach(el => el.classList.remove('stop-anim'))
+      });
+    });
     // console.log(this.$refs.flicking);
   },
 };

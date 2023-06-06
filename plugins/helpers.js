@@ -200,7 +200,8 @@ export default ({ app, store }, inject) => {
           // console.log(name + '/' + path);
           const fontToLoad = new FontFace(
             name,
-            `url(/fonts/${name + "/" + path + ".woff"})`,
+            `url(/fonts/${name + "/WEB/WOFF/" + path + ".woff"})`,
+            // `url(/fonts/${name + "/" + path + ".woff"})`,
             {
               weight: String(weight),
               stretch: String(fontStretch),
@@ -240,6 +241,8 @@ export default ({ app, store }, inject) => {
             })
             .catch(function (error) {
               console.error(error);
+              console.error("Failed to load font: " + name);
+              console.error(weight, path, fontStretch, fontStyle);
               // error occurred
             });
         },
