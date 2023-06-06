@@ -94,7 +94,7 @@ export default {
         inputType: ["touch", "mouse"],
         autoInit: true,
         hideBeforeInit: true,
-        firstPanelSize: "100%",
+        // firstPanelSize: "100%",
       };
     },
     // currentIndex() {
