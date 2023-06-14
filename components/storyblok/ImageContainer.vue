@@ -3,8 +3,9 @@
     v-editable="blok"
     class="image-container"
     :style="style"
-    :class="blok.objectFit ? blok.objectFit : ''"
+    :class="classes"
   >
+    <!-- :class="blok.objectFit ? blok.objectFit : ''" -->
     <component
       v-for="blok in blok.body"
       :key="blok._uid"
@@ -30,6 +31,13 @@ export default {
         background: this.blok.background ? this.blok.background : "",
         padding: this.blok.padding ? "4em" : "",
         maxHeight: this.blok.height == "auto" ? "none" : "",
+      };
+    },
+    classes() {
+      return {
+        contain: this.blok.objectFit == "contain",
+        cover: this.blok.objectFit == "cover",
+        "auto-height": this.blok.height == "auto",
       };
     },
   },
@@ -80,6 +88,11 @@ export default {
     img,
     img.image {
       object-fit: cover;
+    }
+  }
+  &.auto-height {
+    .video-container {
+      height: auto !important;
     }
   }
 }

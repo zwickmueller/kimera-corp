@@ -95,6 +95,7 @@ export default {
     // },
     defaultIndex() {
       let lastClickedImageId = this.$root.lastClickedImageId;
+
       if (!lastClickedImageId) return 0;
       else
         return this.blok.body.findIndex(
@@ -124,8 +125,12 @@ export default {
   },
   methods: {
     test(e) {
-      // console.log(e);
+      const videoElement = e.panel.element.querySelector("video");
       this.currentIndex = e.index;
+      if (videoElement) {
+        videoElement.currentTime = 0;
+        videoElement.play();
+      }
     },
   },
   mounted() {
@@ -136,7 +141,8 @@ export default {
       // console.log(a);
       // a.forEach(el => el.classList.remove('stop-anim'))
     });
-    console.log(this.$refs.flicking);
+    // console.log(this.$refs.flicking);
+    // console.log("lastClickedImageId ", this.$root.lastClickedImageId);
   },
 };
 </script>
