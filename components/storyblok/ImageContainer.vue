@@ -92,7 +92,10 @@ export default {
   }
   &.auto-height {
     .video-container {
-      height: auto !important;
+      height: auto;
+      video.video {
+        position: relative;
+      }
     }
   }
 }
