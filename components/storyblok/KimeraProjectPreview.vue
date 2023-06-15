@@ -74,9 +74,9 @@ export default {
       $event.target.parentNode.parentNode.classList.add("clicked");
       // this.$refs.link.$el.classList.add("clicked");
       // });
-      console.log($event.target.parentNode.parentNode);
+      // console.log($event.target.parentNode.parentNode);
       const url = $event.target.parentNode.parentNode.pathname;
-      console.log($event.target.parentNode.parentNode.pathname);
+      // console.log($event.target.parentNode.parentNode.pathname);
       setTimeout(() => {
         this.$router.push(url);
       }, 100); // Delay of 1 second
