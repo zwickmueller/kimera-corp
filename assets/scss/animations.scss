@@ -8,6 +8,37 @@
   opacity: 0;
 }
 
+// Shop list transition
+
+// .list-complete-enter, .list-complete-leave-to
+// /* .list-complete-leave-active below version 2.1.8 */ {
+//   opacity: 0;
+//   transform: translateY(30px);
+// }
+// .list-complete-leave-active {
+//   position: absolute;
+// }
+
+// shop-content-transition
+.shop-content-transition-enter-active,
+.shop-content-transition-leave-active {
+  transition: opacity 0.4s ease-in, transform 0.5s ease;
+}
+
+.shop-content-transition-enter,
+.shop-content-transition-leave-to {
+  opacity: 0;
+}
+
+.shop-content-transition-enter {
+  transform: translateY(3em);
+}
+.shop-content-transition-leave-to {
+  // transform: translateY(-3em);
+}
+
+// landing title transition
+
 .landing-title-enter-active,
 .landing-title-leave-active {
   transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;

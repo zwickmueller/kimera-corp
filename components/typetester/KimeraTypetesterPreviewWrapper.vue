@@ -3,12 +3,15 @@
     :class="`grid-width-${this.blok.width}`"
     :key="blok.fontSelector.selectedFontData"
     :typetester-data="typetesterData"
+    v-if="shouldRender"
   ></kimera-typetester-preview>
   <!-- @typetester-data-updated="updateTypetesterData" -->
   <!-- :class="`grid-width-${this.blok.width}`" -->
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   props: {
     blok: {
@@ -34,6 +37,13 @@ export default {
   //   }
   // },
   computed: {
+    ...mapGetters({
+      isMobile: "isMobile",
+    }),
+    shouldRender() {
+      if (this.blok.hideOnMobile && this.isMobile) return false;
+      else return true;
+    },
     typetesterData() {
       if (this.blok.fontSelector.selectedFontData == undefined) return {};
       const selectedFontData = JSON.parse(

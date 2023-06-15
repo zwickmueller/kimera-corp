@@ -14,6 +14,7 @@
         <div class="buy-cta-text">{{ blok.title }}</div>
         <div class="buy-content">
           <shop-overlay-content
+            @closeShopOverlay="closeShopOverlay"
             :fontName="blok.fontName"
           ></shop-overlay-content>
         </div>
@@ -69,8 +70,24 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
-    async handleClick() {
+    closeShopOverlay() {
+      console.log("closeShopOverlay");
+      if (this.isBuyButtonExpanded) {
+        // setTimeout(() => {
+        this.handleClick(false);
+        // }, 1000);
+      }
+    },
+    async handleClick(_forceClose) {
+      // check if forceClose is of type boolean, of so, use it, otherwise use the opposite of isBuyButtonExpanded
+      // const forceClose =
+      //   typeof _forceClose === "boolean"
+      //     ? _forceClose
+      //     : !this.isBuyButtonExpanded;
+
+      // this.isBuyButtonExpanded = forceClose;
       this.isBuyButtonExpanded = !this.isBuyButtonExpanded;
+      console.log("handleClick", this.isBuyButtonExpanded);
       this.stopScroll = this.isBuyButtonExpanded;
       const ctaButton = this.$refs.buyCta;
       const ctaButtonText = this.$refs.buyCta.querySelector(".buy-cta-text");
@@ -271,6 +288,7 @@ export default {
 .buy-cta-small {
   //   position: fixed;
   //   transition: filter 0.375s ease, transform 1s ease;
+  transition: background-color 1s ease;
   bottom: 1rem;
   z-index: 2;
   //   transform: scale(1);
@@ -300,8 +318,8 @@ export default {
 
 .buy-cta-small.is-expanded {
   height: calc(100vh - var(--kimera-side-padding));
-  max-width: 40rem;
-  min-width: 30rem;
+  max-width: 50rem;
+  min-width: 40rem;
   width: 100%;
   justify-content: center;
   transform: scale(1) !important;
@@ -312,6 +330,8 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
+  background-color: var(--kimera-grey);
+  padding: 0.5rem;
   @include until($tablet) {
     width: 95vw;
     min-width: auto;
@@ -323,13 +343,14 @@ export default {
   .buy-cta-text {
     // display: none;
     position: absolute;
-    width: calc(100% - 2rem);
+    width: calc(100% - 1rem);
     // font-size: 1rem;
     // width: calc(100%);
   }
   .buy-content {
     // opacity: 1;
     // opacity: 1;
+    height: 100%;
     display: block;
   }
   // hide the scrollbar

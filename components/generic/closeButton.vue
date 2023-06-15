@@ -3,7 +3,7 @@
     class="kimera-close-button close-button"
     @mouseenter="animate(true)"
     @mouseleave="animate()"
-    :class="isInverted ? 'is-inverted' : ''"
+    :class="[isInverted ? 'is-inverted' : '', isCross ? 'is-cross' : '']"
   >
     <svg
       v-if="isCross"
@@ -68,6 +68,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    noAnim: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -77,6 +81,7 @@ export default {
   methods: {
     animate(_in) {
       if (this.isCross) return;
+      if (this.noAnim) return;
       if (_in) {
         this.tl.restart();
       } else {
@@ -141,6 +146,9 @@ export default {
       },
       ">-0.2"
     );
+    if (this.noAnim) {
+      this.tl.progress(1);
+    }
   },
 };
 </script>
@@ -179,6 +187,20 @@ export default {
 }
 .kimera-close-button.is-inverted {
   background-color: var(--kimera-dark-grey);
+  &:hover {
+    background-color: var(--kimera-white);
+    svg path {
+      stroke: var(--black) !important;
+      fill: var(--black) !important;
+    }
+  }
+}
+.kimera-close-button.is-inverted.is-cross {
+  background-color: var(--black);
+  svg path {
+    stroke: var(--white);
+    fill: var(--white);
+  }
   &:hover {
     background-color: var(--kimera-white);
     svg path {
