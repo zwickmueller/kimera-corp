@@ -80,6 +80,8 @@ export default {
     //   document.querySelector(".intro-loader svg").getBoundingClientRect()
     //     .height * 1.25;
     // console.log(height);
+    gsap.set("#logo_1 path", { y: -y + "%" });
+    gsap.set("#logo_2 path", { y: -y + "%" });
     timeline.fromTo(
       "#logo_1 path",
       {
