@@ -13,7 +13,7 @@ export default {
   css: false,
   mode: "out-in",
   enter(el, done) {
-    console.log("enter");
+    // console.log("enter");
     this.$store.commit("setIsPageTransitioning", true);
     let that = this;
 
@@ -36,16 +36,16 @@ export default {
     );
   },
   beforeLeave(el) {
-    console.log("beforeLeave");
+    // console.log("beforeLeave");
     this.clickedEl = el.querySelector(".grid-item.clicked");
     // console.log("ASDASD ASD ASD ASD A", el, this.clickedEl);
   },
   leave(el, done) {
-    console.log("leave");
+    // console.log("leave");
     // const clickedEl = el.querySelector('.grid-item.clicked')
     const clickedEl = el.querySelector(".grid-item.clicked");
     // const clickedEl = this.clickedEl
-    console.log(this.clickedEl, clickedEl);
+    // console.log(this.clickedEl, clickedEl);
     // console.log("clickedEl ", clickedEl);
     // debugger
     this.$store.commit("setIsPageTransitioning", true);

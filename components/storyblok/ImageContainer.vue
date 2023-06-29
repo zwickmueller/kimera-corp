@@ -31,6 +31,7 @@ export default {
         background: this.blok.background ? this.blok.background : "",
         padding: this.blok.padding ? "4em" : "",
         maxHeight: this.blok.height == "auto" ? "none" : "",
+        minHeight: this.blok.height == "auto" ? 0 : "",
       };
     },
     classes() {

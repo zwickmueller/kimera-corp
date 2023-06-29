@@ -126,7 +126,21 @@ export default ({ app, store }, inject) => {
           offset = Math.abs(offset);
           return `${hours}:${minutes}:${seconds} UTC${sign}${offset}`;
         },
+        chunkArray(array, chunkSize) {
+          const chunks = [];
+          let currentChunk = [];
 
+          for (let i = 0; i < array.length; i++) {
+            currentChunk.push(array[i]);
+
+            if (currentChunk.length === chunkSize || i === array.length - 1) {
+              chunks.push(currentChunk);
+              currentChunk = [];
+            }
+          }
+
+          return chunks;
+        },
         getOpenTypeFeatures(object) {
           let openTypeFeatures = object.selectedOpenTypeFeatures;
           // console.log(openTypeFeatures, object);

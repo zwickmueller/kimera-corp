@@ -1,6 +1,10 @@
 <template>
   <!-- <div v-editable="blok" class="kimera-image"> -->
-  <picture v-editable="blok" class="kimera-image">
+  <picture
+    v-editable="blok"
+    class="kimera-image"
+    :class="blok.hideOnMobile ? 'hide-on-mobile' : ''"
+  >
     <source
       type="image/webp"
       :srcset="`${transformImage(

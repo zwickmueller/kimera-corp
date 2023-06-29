@@ -1,5 +1,6 @@
 <template>
   <div class="layout-wrapper">
+    <kimera-intro-sequence></kimera-intro-sequence>
     <kimera-navigation></kimera-navigation>
     <div class="page-overlay h-w-100 fixed fixed-reset"></div>
 
@@ -13,7 +14,7 @@
 import throttle from "lodash/throttle";
 
 export default {
-  fetchKey: "kimera-font-data",
+  // fetchKey: "kimera-font-data",
   async fetch() {
     // let fontData = await this.$axios.$get("/api/tags.json");
     // let fontData = await this.$axios.$get(

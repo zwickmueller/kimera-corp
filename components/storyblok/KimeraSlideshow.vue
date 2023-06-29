@@ -97,6 +97,7 @@ export default {
       let lastClickedImageId = this.$root.lastClickedImageId;
 
       if (!lastClickedImageId) return 0;
+      if (String(lastClickedImageId).length < 3) return lastClickedImageId;
       else
         return this.blok.body.findIndex(
           (el) => el.src && el.src.id == lastClickedImageId
@@ -134,6 +135,10 @@ export default {
     },
   },
   mounted() {
+    console.log(
+      "this.$root.lastClickedImageId ",
+      this.$root.lastClickedImageId
+    );
     this.currentIndex = this.defaultIndex;
     this.$nextTick(() => {
       this.initAnim = true;

@@ -98,13 +98,13 @@ $positions: absolute, relative, fixed;
 
 .hide-on-mobile {
   @include until($tablet) {
-    display: none;
+    display: none !important;
   }
 }
 
 .hide-on-desktop {
   @include from($tablet) {
     // display: inherit;
-    display: none;
+    display: none !important;
   }
 }

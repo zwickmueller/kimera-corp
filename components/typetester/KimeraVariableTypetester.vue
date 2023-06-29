@@ -74,6 +74,7 @@ export default {
       originalFontSize: this.blok.fontSize + "px",
       newFontSize: this.blok.fontSize + "px",
       invertColors: true,
+      animationFrame: null,
       animInterval: null,
       fitter: null,
       stoppedAnim: false,
@@ -110,11 +111,12 @@ export default {
       this.invertColors = !this.invertColors;
     },
     onEdit(e) {
-      console.log("edit", e);
+      // console.log("edit", e);
     },
     stopAnim() {
       if (!this.stoppedAnim) {
-        window.clearInterval(this.animInterval);
+        // window.clearInterval(this.animInterval);
+        window.cancelAnimationFrame(this.animationFrame);
         this.$refs.editableContent.classList.remove("anim");
         this.stoppedAnim = true;
       }
@@ -169,6 +171,10 @@ export default {
       // this.test = `font-variation-settings: ${string.slice(0, -1)}`
     },
   },
+  beforeDestroy() {
+    this.stopAnim();
+    // console.log("destroyed");
+  },
   mounted() {
     // console.log(this.fitter);
     for (var i = 0; i < this.blok.sliders.length; i++) {
@@ -202,6 +208,8 @@ export default {
     }
 
     const randomizeText = () => {
+      // fitty.fitAll();
+      this.fitter.fit();
       let randomWeight = this.$helpers.getRandomNumber(100, 900);
       let randomWidth = this.$helpers.getRandomNumber(50, 200);
 
@@ -209,20 +217,37 @@ export default {
       this.sliders.wght.value = randomWeight;
       this.variableData.wdth = randomWidth;
       this.variableData.wght = randomWeight;
-      fitty.fitAll();
+      // fitty.fitAll();
     };
 
-    this.animInterval = setInterval(randomizeText, 2000);
     setTimeout(() => {
       const editableContent = this.$refs.editableContent;
       let max = window.getComputedStyle(
         this.$refs.editableContent.parentNode
       ).fontSize;
-      console.log(parseFloat(max));
+      // console.log(parseFloat(max));
       this.fitter = fitty(editableContent, {
         maxSize: parseFloat(max),
       });
       this.fitter.fit();
+      // this.animInterval = setInterval(randomizeText, 2000);
+      let last = 0;
+      let num = 0;
+      let interval = 2;
+      let that = this;
+      function animationFrame(timestamp) {
+        let timeInSecond = timestamp / 1000;
+
+        if (timeInSecond - last >= interval) {
+          last = timeInSecond;
+          console.log(++num);
+          randomizeText();
+        }
+        that.fitter.fit();
+        // console.log("test");
+        that.animationFrame = window.requestAnimationFrame(animationFrame);
+      }
+      animationFrame();
     }, 0);
   },
 };

@@ -65,12 +65,15 @@ export default {
     // console.log("ASDASD ASODJIKOA SIjd");
     // Add a delay before allowing the navigation to proceed
     setTimeout(() => next(), 1000);
+    // next();
   },
   methods: {
     handleClick($event) {
       // $event.preventDefault();
       // this.$nextTick(() => {
       this.$root.lastClickedImageId = this.blok.src.id;
+      if (this.blok.overrideSlideTarget)
+        this.$root.lastClickedImageId = this.blok.overrideSlideIndex;
       $event.target.parentNode.parentNode.classList.add("clicked");
       // this.$refs.link.$el.classList.add("clicked");
       // });
@@ -80,6 +83,7 @@ export default {
       setTimeout(() => {
         this.$router.push(url);
       }, 100); // Delay of 1 second
+      // }, 100); // Delay of 1 second
     },
     stringExists(arr, val) {
       const result = arr.findIndex(

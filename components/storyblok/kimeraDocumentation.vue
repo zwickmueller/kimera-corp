@@ -97,34 +97,12 @@ export default {
         // firstPanelSize: "100%",
       };
     },
-    // currentIndex() {
-    //   return this.$refs.flicking.currentPanel
-    // },
-    // defaultIndex() {
-    //   let lastClickedImageId = this.$root.lastClickedImageId;
-    //   if (!lastClickedImageId) return 0;
-    //   else
-    //     return this.blok.body.findIndex(
-    //       (el) => el.src && el.src.id == lastClickedImageId
-    //     );
-    // },
   },
   methods: {},
   mounted() {
-    // this.currentIndex = this.defaultIndex;
-    // this.$nextTick(() => {
-    //   this.$nextTick(() => {
-    //     this.$refs.flicking.resize();
-    //     //   this.initAnim = true;
-    //     //   // const a = document.querySelectorAll('.stop-anim')
-    //     //   // console.log(a);
-    //     //   // a.forEach(el => el.classList.remove('stop-anim'))
-    //   });
-    // });
     setTimeout(() => {
       this.$refs.flicking.resize();
     }, 200);
-    // console.log(this.$refs.flicking);
   },
 };
 </script>

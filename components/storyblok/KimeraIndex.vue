@@ -14,7 +14,10 @@
         :blok="blok"
         :is="blok.component"
         v-show="blok.show"
-        :class="currentActiveTags.length > 0 ? 'is-currently-filtering' : ''"
+        :class="[
+          currentActiveTags.length > 0 ? 'is-currently-filtering' : '',
+          blok.show ? 'is-visible' : '',
+        ]"
       />
       <!-- </transition-group> -->
       <!-- </single-grid> -->
@@ -179,28 +182,76 @@ export default {
             el.classList.add(el.dataset.originalWidth);
           });
         } else {
-          // console.log(this.visibleProjects.length, projects.length);
-          let visibleProjectsLength = this.visibleProjects.length;
-          let positions = this.orderPositions[5];
-          console.log(projects);
-          if (visibleProjectsLength >= 3)
-            positions =
-              this.orderPositions[
-                this.$helpers.getRandomIntInRange(0, 1, true)
-              ];
-          if (visibleProjectsLength == 2)
-            positions =
-              this.orderPositions[
-                this.$helpers.getRandomIntInRange(2, 4, true)
-              ];
-          // if(visibleProjectsLength <= 1) positions = this.orderPositions[5]
-          positions = shuffledArr(positions);
-          console.log("positions ", positions, visibleProjectsLength);
-          projects.forEach((el, i) => {
-            // console.log(i);
+          // let visibleProjectsLength = this.visibleProjects.length;
+          // let positions = this.orderPositions[5];
+          // console.log(projects);
+          // if (visibleProjectsLength >= 3)
+          //   positions =
+          //     this.orderPositions[
+          //       this.$helpers.getRandomIntInRange(0, 1, true)
+          //     ];
+          // if (visibleProjectsLength == 2)
+          //   positions =
+          //     this.orderPositions[
+          //       this.$helpers.getRandomIntInRange(2, 4, true)
+          //     ];
+          // positions = shuffledArr(positions);
+          // console.log("positions ", positions, visibleProjectsLength);
+          // projects.forEach((el, i) => {
+          //   this.removeClassByPrefix(el, "project-width-");
+          //   let className =
+          //     "project-width-" + positions[i % visibleProjectsLength];
+          //   if (
+          //     el
+          //       .querySelector(".grid-item-tags")
+          //       .innerHTML.toLowerCase()
+          //       .includes("typefaces")
+          //   ) {
+          //     className = "project-width-8";
+          //   }
+          //   el.classList.add(className);
+          //   el.dataset.newWidth = className;
+          // });
+          const _projects = this.visibleProjects;
+          const projectsChunked = this.$helpers.chunkArray(_projects, 3);
+
+          function randomArray(length) {
+            let result = [];
+            let sum = 0;
+            for (let i = 0; i < length - 1; i++) {
+              let rand =
+                Math.floor(Math.random() * (7 - sum - (length - i - 1) * 2)) +
+                2;
+              result.push(rand);
+              sum += rand;
+            }
+            result.push(8 - sum);
+            return result;
+          }
+          function shuffle(a) {
+            for (let i = a.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+          }
+          const widthArray = [];
+
+          for (let i = 0; i < projectsChunked.length; i++) {
+            const row = projectsChunked[i];
+            let newWidthArray = randomArray(row.length);
+            widthArray.push(shuffle(newWidthArray));
+          }
+          // console.log(widthArray);
+          // console.log(widthArray.flat());
+          // console.log(projects);
+          const visibleDomProjects = [...projects].filter((el) =>
+            el.classList.contains("is-visible")
+          );
+          const flattenedWidthArray = widthArray.flat();
+          visibleDomProjects.forEach((el, i) => {
             this.removeClassByPrefix(el, "project-width-");
-            let className =
-              "project-width-" + positions[i % visibleProjectsLength];
+            let className = "project-width-" + flattenedWidthArray[i];
             if (
               el
                 .querySelector(".grid-item-tags")
@@ -208,13 +259,29 @@ export default {
                 .includes("typefaces")
             ) {
               className = "project-width-8";
-              // console.log(className);
             }
-
             el.classList.add(className);
             el.dataset.newWidth = className;
-            // el.classList.add("project-width-" + this.$helpers.getRandomIntInRange(2, 8, true))
           });
+
+          // for (let i = 0; i < projects.length; i++) {
+          //   const project = projects[i];
+          //   const originalWidth = parseInt(project.originalWidth, 10);
+          //   let newWidth = this.$helpers.getRandomIntInRange(2, 8, true);
+
+          //   console.log(newWidth);
+          //   // Create a new row if the remaining width is insufficient
+          //   if (newWidth === remainingWidth && rowIndex < numRows - 1) {
+          //     rowIndex++;
+          //     remainingWidth = targetWidth;
+          //   }
+
+          //   // Assign the new width as a class to the project
+          //   // project.className = `project-width-${newWidth}`;
+          //   console.log(`project-width-${newWidth}`);
+
+          //   remainingWidth -= newWidth;
+          // }
         }
 
         // console.log(this.batch);

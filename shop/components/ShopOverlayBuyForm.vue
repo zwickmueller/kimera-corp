@@ -155,10 +155,14 @@
 
         <form-wrapper title="Cut Selection">
           <!-- <div class="label-wrapper"> -->
-          <selection-button-wrapper isGrid v-for="chunk in fontFamilyChunked">
+          <selection-button-wrapper
+            :key="String(cut + 1)"
+            isGrid
+            v-for="(chunk, i) in fontFamilyChunked"
+          >
             <selection-button
               v-for="cut in chunk"
-              :key="cut"
+              :key="String(cut)"
               type="checkbox"
               :id="'cut-' + cut.weightReadable"
               :outputValue="cut.weightReadable"
