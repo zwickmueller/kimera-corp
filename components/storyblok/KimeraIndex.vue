@@ -1,8 +1,14 @@
 <template>
   <div v-editable="story" class="page">
     <landing-page-gallery
+      style="display: none"
       :elements="story.content.slideShow"
     ></landing-page-gallery>
+    <div class="intro-sentence">
+      Kimera is an independent design agency and creative consultancy,
+      specializing in brand strategy, visual identity, and holistic brand
+      experiences.
+    </div>
     <!-- <project-grid></project-grid> -->
     <div class="kimera-flex-grid index-grid">
       <!-- <single-grid> -->
@@ -448,5 +454,12 @@ export default {
 <style lang="scss">
 .index-grid {
   min-height: 105vh;
+}
+.intro-sentence {
+  padding: 3rem var(--kimera-side-padding);
+  margin-top: 1rem;
+  font-size: 3rem;
+  line-height: 1;
+  // margin-bottom: 1rem;
 }
 </style>
