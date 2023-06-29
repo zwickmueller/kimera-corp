@@ -7,10 +7,11 @@
     ]"
   >
     <div class="flex adress kimera-text-filter-tags">
-      kimera Holzstraße 15a 80469 München +49 173 9032725
-      <br class="hide-on-desktop" />
-      post@kimeracorp.eu <br class="hide-on-desktop" />®All Rights reserved
-      ©kimera2022
+      kimera Holzstraße 15a 80469 Munich
+      <!-- <br class="hide-on-desktop" /> -->
+      post@kimeracorp.eu
+      <!-- <br class="hide-on-desktop" /> -->
+      ®All Rights reserved ©kimera2023
     </div>
     <div class="">
       <div class="foot flex kimera-text-filter-tags">
