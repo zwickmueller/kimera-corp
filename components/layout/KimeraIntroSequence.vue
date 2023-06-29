@@ -82,6 +82,7 @@ export default {
     // console.log(height);
     gsap.set("#logo_1 path", { y: -y + "%" });
     gsap.set("#logo_2 path", { y: -y + "%" });
+    gsap.set(".intro-loader svg", { opacity: 1 });
     timeline.fromTo(
       "#logo_1 path",
       {
@@ -176,6 +177,7 @@ export default {
   }
   svg {
     // overflow: unset;
+    opacity: 0;
     min-width: 50vw;
     max-width: 80vw;
     width: 100%;
