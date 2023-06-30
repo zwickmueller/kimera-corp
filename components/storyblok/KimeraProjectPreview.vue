@@ -45,6 +45,15 @@
         class="grid-item-overlay overlay-background h-w-100p fixed-reset absolute"
       ></div>
     </div>
+    <!-- {{ project.body[0].component }} -->
+    <!-- style="display: none" -->
+    <div style="position: absolute; overflow: hidden">
+      <component
+        v-if="shouldPreload"
+        :is="project.body[0].component"
+        :blok="project.body[0]"
+      ></component>
+    </div>
   </nuxt-link>
 </template>
 
@@ -53,6 +62,7 @@ export default {
   data() {
     return {
       wasClicked: false,
+      shouldPreload: false,
     };
   },
   props: {
@@ -64,13 +74,14 @@ export default {
   onBeforeRouteLeave(to, from, next) {
     // console.log("ASDASD ASODJIKOA SIjd");
     // Add a delay before allowing the navigation to proceed
-    setTimeout(() => next(), 1000);
+    setTimeout(() => next(), 100);
     // next();
   },
   methods: {
     handleClick($event) {
-      // $event.preventDefault();
+      $event.preventDefault();
       // this.$nextTick(() => {
+      this.shouldPreload = true;
       this.$root.lastClickedImageId = this.blok.src.id;
       if (this.blok.overrideSlideTarget)
         this.$root.lastClickedImageId = this.blok.overrideSlideIndex;
