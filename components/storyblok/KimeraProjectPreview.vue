@@ -8,6 +8,7 @@
     @click.native="handleClick"
     :data-original-width="`grid-width-${width}`"
     data-new-width="null"
+    @mouseenter.native="handleMouseEnter"
   >
     <!-- event="disabled" -->
     <div class="grid-item-tags">
@@ -78,10 +79,15 @@ export default {
     // next();
   },
   methods: {
+    handleMouseEnter() {
+      console.log("mouse enter");
+      if (this.shouldPreload) return;
+      else this.shouldPreload = true;
+    },
     handleClick($event) {
       $event.preventDefault();
       // this.$nextTick(() => {
-      this.shouldPreload = true;
+      // this.shouldPreload = true;
       this.$root.lastClickedImageId = this.blok.src.id;
       if (this.blok.overrideSlideTarget)
         this.$root.lastClickedImageId = this.blok.overrideSlideIndex;
