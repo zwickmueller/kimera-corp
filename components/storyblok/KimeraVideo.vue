@@ -48,43 +48,7 @@ export default {
       required: true,
     },
   },
-  methods: {
-    prepareSuspendedVideo() {
-      var video = this.$refs.video;
-
-      // Create a <canvas> element
-
-      // Listen for the "loadedmetadata" event to ensure the video is loaded
-      video.addEventListener("loadedmetadata", () => {
-        setTimeout(() => {
-          var canvas = document.createElement("canvas");
-
-          // Set the canvas dimensions to match the video
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-
-          // Get the 2D context of the canvas
-          var context = canvas.getContext("2d");
-          // Draw the first frame of the video onto the canvas
-          context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-          // Get the data URL of the canvas
-          var dataURL = canvas.toDataURL();
-          console.log(dataURL);
-
-          // Create an <img> element to display the first frame
-          // var img = document.createElement("img");
-          var img = new Image();
-          img.setAttribute("crossOrigin", "anonymous");
-          img.src = dataURL;
-
-          // Append the image to the document body or any other desired location
-          this.$refs.container.appendChild(img);
-          video.style.opacity = 0.5;
-        }, 100);
-      });
-    },
-  },
+  methods: {},
   computed: {
     overrideStyles() {
       return {

@@ -47,7 +47,7 @@
     </div>
     <!-- {{ project.body[0].component }} -->
     <!-- style="display: none" -->
-    <div style="position: absolute; overflow: hidden">
+    <div class="preload-helper">
       <component
         v-if="shouldPreload"
         :is="project.body[0].component"
@@ -166,6 +166,11 @@ export default {
   // width: 100vw;
   // top: 0;
   // left: 0;
+}
+.preload-helper {
+  position: fixed;
+  left: -3000vw;
+  top: 0;
 }
 .grid-item {
   min-height: 30em;
