@@ -1,14 +1,14 @@
 <template>
   <div v-editable="story" class="page">
+    <!-- style="display: none" -->
     <landing-page-gallery
-      style="display: none"
       :elements="story.content.slideShow"
     ></landing-page-gallery>
-    <div class="intro-sentence">
+    <!-- <div class="intro-sentence">
       Kimera is an independent design agency and creative consultancy,
       specializing in brand strategy, visual identity, and holistic brand
       experiences.
-    </div>
+    </div> -->
     <!-- <project-grid></project-grid> -->
     <div class="kimera-flex-grid index-grid">
       <!-- <single-grid> -->
@@ -51,7 +51,7 @@ export default {
       states: null,
       group: null,
       batch: null,
-      orderPositions: [[3, 3, 2], [2, 2, 4], [4, 4], [5, 3], [2, 6], [8]],
+      // orderPositions: [[3, 3, 2], [2, 2, 4], [4, 4], [5, 3], [2, 6], [8]],
       // clonedProjects: []
     };
   },
@@ -84,14 +84,14 @@ export default {
     },
     animateFilter() {
       var projects = document.querySelectorAll(".grid-item");
-      var grid = document.querySelectorAll(".kimera-flex-grid");
-      var _state = Flip.getState(grid);
-      var startHeight = gsap.getProperty(".kimera-flex-grid", "height");
-      console.log(startHeight);
-      var endHeight;
-      let landingHeight =
-        document.querySelectorAll(".kimera-landing")[0].getBoundingClientRect()
-          .height - 200;
+      // var grid = document.querySelectorAll(".kimera-flex-grid");
+      // var _state = Flip.getState(grid);
+      // var startHeight = gsap.getProperty(".kimera-flex-grid", "height");
+      // console.log(startHeight);
+      // var endHeight;
+      // let landingHeight =
+      //   document.querySelectorAll(".kimera-landing")[0].getBoundingClientRect()
+      //     .height - 200;
       // var state = Flip.getState(projects);
       // this.$root.lastState = state
       const footer = document.querySelector("footer");
@@ -102,7 +102,7 @@ export default {
           return Flip.getState(".grid-item");
         },
         animate(self) {
-          console.log("startHeight ", startHeight);
+          // console.log("startHeight ", startHeight);
           Flip.from(self.state, {
             duration: 0.375 * 2,
             ease: "power3.inOut",
