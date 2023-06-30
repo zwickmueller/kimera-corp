@@ -15,6 +15,7 @@
       muted
       :style="overrideStyles"
       :autoplay="blok.autoplay"
+      preload="auto"
       playsinline
     ></video>
     <component
