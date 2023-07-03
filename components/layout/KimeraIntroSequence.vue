@@ -32,7 +32,7 @@ export default {
     });
     gsap.to(".intro-loader", {
       duration: 0.5,
-      delay: 2,
+      delay: 1.8,
       opacity: 0,
       //   delay: -0.5,
       onComplete: () => {
