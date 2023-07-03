@@ -11,7 +11,7 @@
       <!-- <br class="hide-on-desktop" /> -->
       <!-- post@kimeracorp.eu -->
       <!-- <br class="hide-on-desktop" /> -->
-      ®All Rights reserved ©kimera2023
+      ®All Rights reserved ©kimera {{ new Date().getFullYear() }}
     </div>
     <div class="">
       <div class="foot flex kimera-text-filter-tags">

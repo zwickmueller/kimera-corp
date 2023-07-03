@@ -287,6 +287,36 @@ export default {
     await this.fetchTags();
   },
   mounted() {
+    const nav = document.querySelector("nav");
+    console.log(nav);
+    gsap.set(nav, { x: -nav.getBoundingClientRect().width * 1.2 + "px" });
+    let animPlayed = false;
+    const anim = gsap.to(nav, {
+      x: 0,
+      duration: 1.15,
+      paused: true,
+      // ease: "circ.out",
+
+      ease: "elastic.out(1, 1.25)",
+      delay: -0.25,
+      onComplete: () => {
+        animPlayed = true;
+      },
+    });
+
+    this.$root.$on("intro-animation-complete", () => {
+      anim.play();
+    });
+    setTimeout(() => {
+      if (!animPlayed) {
+        anim.play();
+      }
+    }, 3000);
+    // nav.style.transform = `translateX(-${nav.getBoundingClientRect().width}px)`;
+    // nav.style.transition = "transform 0.375s ease-out";
+    // this.$root.$on("intro-animation-complete", () => {
+    //   nav.style.transform = `translateX(0px)`;
+    // });
     if (this.$route.name !== "index") {
       this.tags.forEach((el) => (el.show = el.isTitle));
       this.tags.forEach((el) => (el.active = false));

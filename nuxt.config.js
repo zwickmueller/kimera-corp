@@ -45,6 +45,11 @@ export default {
         src: "/js/fitty.js",
         type: "module",
       },
+      {
+        charset: "utf-8",
+        src: "/js/lottie_light.min.js",
+        type: "module",
+      },
     ],
   },
   server: {
