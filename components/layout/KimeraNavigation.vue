@@ -298,7 +298,7 @@ export default {
       // ease: "circ.out",
 
       ease: "elastic.out(1, 1.25)",
-      delay: -0.25,
+      delay: -0.35,
       onComplete: () => {
         animPlayed = true;
       },
