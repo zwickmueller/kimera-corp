@@ -27,20 +27,27 @@ export default {
         viewBoxOnly: true,
       },
     });
+    // this.$nextTick(() => {
     // animation.goToAndStop(60, true);
+
+    // });
     animation.addEventListener("complete", () => {
       this.$root.$emit("intro-animation-complete");
     });
-    // return;
-    gsap.to(".intro-loader", {
-      duration: 0.5,
-      delay: 1.8,
-      "--opacity": 0,
-      //   delay: -0.5,
-      onComplete: () => {
-        this.renderSequence = false;
-      },
+    animation.addEventListener("DOMLoaded", () => {
+      console.log(animation.getDuration(false));
+      let fadeOutDuration = 0.75;
+      gsap.to(".intro-loader", {
+        duration: fadeOutDuration,
+        delay: animation.getDuration(false) - fadeOutDuration,
+        "--opacity": 0,
+        //   delay: -0.5,
+        onComplete: () => {
+          this.renderSequence = false;
+        },
+      });
     });
+    // return;
   },
 };
 </script>
