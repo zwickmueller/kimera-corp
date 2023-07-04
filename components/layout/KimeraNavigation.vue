@@ -101,7 +101,8 @@ export default {
         const style = getComputedStyle(el);
         const padding = parseFloat(style.fontSize);
         const letterSpacing = parseFloat(style.letterSpacing);
-
+        // somehow 8 fits a grid gap of 2px
+        const gridGapOffset = 8;
         tl.to(el, {
           onStart: function () {
             el.classList.add("is-transitioning");
@@ -111,7 +112,8 @@ export default {
           },
           duration: this.navAnimDurationIn,
           x:
-            (-el.getBoundingClientRect().height - (padding - letterSpacing)) *
+            (-el.getBoundingClientRect().height -
+              (padding - letterSpacing - gridGapOffset)) *
             (Number(el.dataset.index) -
               this.activeTagsComputed.length +
               Number(this.activeTagsIncreased)),
@@ -391,6 +393,7 @@ nav {
   margin: 0;
   // padding: 0;
   display: flex;
-  grid-gap: 0.5rem;
+  grid-gap: calc(var(--kimera-grid-gap) / 4);
+  // grid-gap: 0.5rem;
 }
 </style>
