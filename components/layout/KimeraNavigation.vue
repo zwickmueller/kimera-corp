@@ -102,7 +102,7 @@ export default {
         const padding = parseFloat(style.fontSize);
         const letterSpacing = parseFloat(style.letterSpacing);
         // somehow 8 fits a grid gap of 2px
-        const gridGapOffset = 8;
+        const gridGapOffset = 4;
         tl.to(el, {
           onStart: function () {
             el.classList.add("is-transitioning");
@@ -393,7 +393,7 @@ nav {
   margin: 0;
   // padding: 0;
   display: flex;
-  grid-gap: calc(var(--kimera-grid-gap) / 4);
+  grid-gap: calc(var(--kimera-grid-gap) / 2);
   // grid-gap: 0.5rem;
 }
 </style>
