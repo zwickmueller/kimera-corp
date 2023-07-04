@@ -18,7 +18,7 @@ export default {
     if (!this.renderSequence) return;
     var animation = lottie.loadAnimation({
       container: document.getElementById("lottie"), // Required
-      path: "/kimera_INTRO_ANIMATION_02.json", // Required
+      path: "/kimera_INTRO_ANIMATION_08.json", // Required
       renderer: "svg", // Required
       loop: false, // Optional
       autoplay: true, // Optional
@@ -27,34 +27,47 @@ export default {
         viewBoxOnly: true,
       },
     });
+    // animation.goToAndStop(60, true);
     animation.addEventListener("complete", () => {
       this.$root.$emit("intro-animation-complete");
     });
+    // return;
     gsap.to(".intro-loader", {
       duration: 0.5,
       delay: 1.8,
-      opacity: 0,
+      "--opacity": 0,
       //   delay: -0.5,
       onComplete: () => {
         this.renderSequence = false;
       },
     });
-    // animation.goToAndStop(60, true);
   },
 };
 </script>
 <style lang="scss">
 .intro-loader {
+  --opacity: 1;
   width: 100vw;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: var(--white);
+  // background-color: var(--white);
   z-index: 10000;
   .lottie-container {
     width: 100%;
     height: 100%;
+  }
+  &:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--white);
+    opacity: var(--opacity);
+    z-index: -1;
   }
 }
 </style>
