@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -64,10 +66,14 @@ export default {
   align-items: center;
 }
 .shop-overlay-close-wrapper {
-  position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
+  position: sticky;
+  right: 0rem;
+  // right: 0.5rem;
+  top: 0rem;
+  // top: 0.5rem;
   display: flex;
   gap: 0.25rem;
+  justify-content: flex-end;
+  z-index: 1;
 }
 </style>
