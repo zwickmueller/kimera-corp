@@ -9,8 +9,44 @@
         @click="isBuyButtonExpanded ? null : handleClick()"
         ref="buyCta"
         class="buy-cta buy-cta-small kimera-text-bigger is-big is-buy-button"
+        :style="isBuyButtonExpanded && showDisclaimer ? 'overflow: hidden' : ''"
       >
         <!--  -->
+        <transition name="fade" mode="out-in">
+          <div
+            class="shop-disclaimer"
+            v-if="isBuyButtonExpanded && showDisclaimer"
+            @click="hideShopDisclaimer"
+            key="showDisclaimer"
+          >
+            <div class="disclaimer-wrapper">
+              <div class="disclaimer-title">
+                <div>Full shop coming soon!</div>
+                <close-button
+                  style="height: 1.5rem"
+                  isCross
+                  class="shop-close-button"
+                ></close-button>
+              </div>
+
+              <!-- isInverted -->
+              <div class="disclaimer-inner kimera-text">
+                <p>
+                  Hi there!<br />
+                  <br />
+                  Our full webshop is currently under construction. In the
+                  meantime you can purchase our typefaces via a request formula
+                  that we will answer per mail and we want to give you a more
+                  personal and individual customer support.
+                  <br />
+                  <br />
+                  Best,<br />
+                  kimera
+                </p>
+              </div>
+            </div>
+          </div>
+        </transition>
         <div class="buy-cta-text">{{ blok.title }}</div>
         <div class="buy-content">
           <shop-overlay-content
@@ -49,6 +85,7 @@ if (process.client) {
 function sleep(ms = 1000) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+import { mapGetters } from "vuex";
 
 export default {
   props: {
@@ -69,7 +106,15 @@ export default {
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
   },
+  computed: {
+    ...mapGetters({
+      showDisclaimer: "getShowShopDisclaimer",
+    }),
+  },
   methods: {
+    hideShopDisclaimer() {
+      this.$store.commit("setShowShopDisclaimer", false);
+    },
     closeShopOverlay() {
       console.log("closeShopOverlay");
       if (this.isBuyButtonExpanded) {
@@ -278,7 +323,8 @@ export default {
   filter: drop-shadow(0px 0.4rem 0.3rem rgba(0, 0, 0, 0.075));
   padding: 1rem;
   background-color: var(--kimera-green);
-  transition: filter 0.375s ease, transform 0.375s ease;
+  transition: filter 0.375s ease, transform 0.375s ease,
+    background-color 1s ease;
   &:not(.is-expanded):hover {
     cursor: pointer;
     filter: drop-shadow(0px 1rem 1rem rgba(0, 0, 0, 0.3));
@@ -288,7 +334,7 @@ export default {
 .buy-cta-small {
   //   position: fixed;
   //   transition: filter 0.375s ease, transform 1s ease;
-  transition: background-color 1s ease;
+  // transition: background-color 1s ease;
   bottom: 1rem;
   z-index: 2;
   //   transform: scale(1);
@@ -309,11 +355,14 @@ export default {
     // max-width: calc(38rem) !important;
     // width: 100%;
   }
+  .buy-content:has(.buy-or-trial-wrapper) {
+    height: 90%;
+  }
 }
 .buy-content {
   // transition: opacity 0.375s ease;
   display: block;
-  padding-top: 1.5rem;
+  // padding-top: 1.5rem;
 }
 
 .buy-cta-small.is-expanded {
@@ -350,7 +399,7 @@ export default {
   .buy-content {
     // opacity: 1;
     // opacity: 1;
-    height: 100%;
+    // height: 100%;
     display: block;
   }
   // hide the scrollbar
@@ -379,6 +428,38 @@ export default {
   pointer-events: none;
   &.is-expanded {
     pointer-events: all;
+  }
+}
+
+.shop-disclaimer {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+  color: var(--white);
+  cursor: pointer;
+  .disclaimer-wrapper {
+    background-color: var(--black);
+    padding: 0.75rem;
+    padding-top: 0.5rem;
+    border-radius: 1.25rem;
+    max-width: 30rem;
+    width: 100%;
+  }
+  .disclaimer-title {
+    padding-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .disclaimer-inner {
+    background-color: var(--kimera-dark-grey);
+    padding: 0.75rem;
+    border-radius: 1rem;
   }
 }
 // a css keyframe animation called slide up that moves the button from the bottom to the top

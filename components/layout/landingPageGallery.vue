@@ -13,7 +13,11 @@
             class="kimera-text-kacheln"
           >
             <transition name="landing-title" mode="out-in">
-              <span style="display: block" :key="slideShowTitle">
+              <span
+                @click="handleTransition"
+                style="display: block"
+                :key="slideShowTitle"
+              >
                 {{ slideShowTitle }}</span
               >
             </transition>
@@ -86,6 +90,12 @@ export default {
   name: "LandingPageGallery",
   props: ["elements"],
   methods: {
+    handleTransition() {
+      const currentProject = this.elements[this.currentIndex];
+
+      if (currentProject.link && currentProject.link.cached_url)
+        this.$root.$emit("transitionTo", currentProject.link.cached_url);
+    },
     onChange(e) {
       this.currentIndex = e.index;
     },

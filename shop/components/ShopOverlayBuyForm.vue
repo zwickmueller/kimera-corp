@@ -1,67 +1,77 @@
 <template>
-  <keep-alive>
-    <div class="temporary-buy-form relative">
-      <div class="temporary-buy-form-inner relative">
-        <div class="kimera-text" style="padding-bottom: 2rem">
-          <p>
-            Currently, the shop is under construction! Keep up to date by
-            following @Kimeracorp. In the meantime, you can still purchase our
-            fonts by contacting us directly:
-          </p>
-        </div>
-
-        <form-wrapper title="License Size">
-          <!-- <div class="label-wrapper"> -->
-          <selection-button-wrapper>
-            <selection-button
-              id="commercial"
-              :checkedByDefault="true"
-              outputValue="Commercial Project"
-              group="license-size-licensee"
-              labelText="Commercial Project"
-              :onChangeEventValue="false"
-              @changed="changedLicenseeType"
-            ></selection-button>
-
-            <selection-button
-              id="student"
-              outputValue="Student Project"
-              group="license-size-licensee"
-              labelText="Personal Student Project"
-              :onChangeEventValue="true"
-              @changed="changedLicenseeType($event, true)"
-            ></selection-button>
-          </selection-button-wrapper>
-          <selection-button-wrapper isColumn id="license-size-label">
-            <!-- <div class="label-wrapper" >
-              <div > -->
-            <selection-button
-              v-for="(sizes, i) in licenseSizes"
-              :id="sizes[0]"
-              :outputValue="sizes[0]"
-              :type="'checkbox'"
-              group="license-size"
-              :key="sizes[0]"
-              :labelText="sizes[0]"
-              :checkedByDefault="false"
-              @changed="changedExclusiveLicense(i)"
+  <div style="padding-top: 1rem" :class="isSubmitting ? 'is-submitting' : ''">
+    <keep-alive>
+      <div class="temporary-buy-form relative">
+        <form
+          id="myForm"
+          method="POST"
+          action="https://formsubmit.co/ajax/489d8e6ffd4abce2bd9233ce422b5fff"
+        >
+          <div class="temporary-buy-form-inner relative">
+            <!-- <div class="kimera-text" style="padding-bottom: 2rem">
+              <p>
+                Currently, the shop is under construction! Keep up to date by
+                following @Kimeracorp. In the meantime, you can still purchase
+                our fonts by contacting us directly:
+              </p>
+            </div> -->
+            <input type="text" name="honeypot" style="display: none" />
+            <form-wrapper
+              title="License Size"
+              illustration="LICENSE_SIZE_VECTOR"
             >
-              <div class="flex-space-between" style="width: 100%">
-                <div>{{ sizes[0] }}</div>
-                <div v-if="typeof sizes[1] == 'string'">
-                  {{ sizes[1] }}
-                </div>
-                <div v-else>
-                  {{
-                    sizes[1] == 1
-                      ? sizes[1] + " employee"
-                      : "<" + sizes[1] + " employees"
-                  }}
-                </div>
-              </div>
-            </selection-button>
+              <!-- <div class="label-wrapper"> -->
+              <selection-button-wrapper>
+                <selection-button
+                  id="commercial"
+                  :checkedByDefault="true"
+                  outputValue="Commercial Project"
+                  group="license-size-licensee"
+                  labelText="Commercial Project"
+                  :onChangeEventValue="false"
+                  @changed="changedLicenseeType"
+                ></selection-button>
 
-            <!-- <label
+                <selection-button
+                  id="student"
+                  outputValue="Student Project"
+                  group="license-size-licensee"
+                  labelText="Personal Student Project"
+                  :onChangeEventValue="true"
+                  @changed="changedLicenseeType($event, true)"
+                ></selection-button>
+              </selection-button-wrapper>
+              <selection-button-wrapper isColumn id="license-size-label">
+                <!-- <div class="label-wrapper" >
+              <div > -->
+                <selection-button
+                  v-for="(sizes, i) in licenseSizes"
+                  :id="sizes[0]"
+                  :outputValue="sizes[0]"
+                  :type="'checkbox'"
+                  group="license-size"
+                  :key="sizes[0]"
+                  :labelText="sizes[0]"
+                  :checkedByDefault="false"
+                  @changed="changedExclusiveLicense(i)"
+                  :hasCheckmark="false"
+                >
+                  <div class="flex-space-between" style="width: 100%">
+                    <div>{{ sizes[0] }}</div>
+                    <div v-if="typeof sizes[1] == 'string'">
+                      {{ sizes[1] }}
+                    </div>
+                    <div v-else>
+                      {{
+                        sizes[1] == 1
+                          ? sizes[1] + " employee"
+                          : "<" + sizes[1] + " employees"
+                      }}
+                    </div>
+                  </div>
+                </selection-button>
+
+                <!-- <label
                   :for="sizes[0]"
                   class="flex"
                   style="justify-content: flex-start"
@@ -87,19 +97,19 @@
                     </div>
                   </div>
                 </label> -->
-            <!-- </div>
+                <!-- </div>
             </div> -->
-          </selection-button-wrapper>
-          <!-- </div> -->
-        </form-wrapper>
+              </selection-button-wrapper>
+              <!-- </div> -->
+            </form-wrapper>
 
-        <!-- <div class="label-wrapper"> -->
-        <!-- <label for="license-size-licensee">
+            <!-- <div class="label-wrapper"> -->
+            <!-- <label for="license-size-licensee">
             <div class="kimera-text">
               <p>License Size</p>
             </div>
           </label> -->
-        <!-- <input
+            <!-- <input
             type="radio"
             id="commercial"
             checked
@@ -117,26 +127,27 @@
             @change="changedLicenseeType($event, true)"
           />
           <label for="student">Personal Student Project</label> -->
-        <!-- </div> -->
+            <!-- </div> -->
 
-        <form-wrapper title="License Type">
-          <!-- <div class="label-wrapper"> -->
-          <selection-button-wrapper isGrid>
-            <selection-button
-              v-for="types in licenseTypes"
-              :key="types"
-              type="checkbox"
-              :id="types"
-              :outputValue="types"
-              group="license-types"
-              :labelText="types + ' License'"
-              :onChangeEventValue="false"
-              @changed="changedLicenseeType"
-            ></selection-button>
-          </selection-button-wrapper>
-        </form-wrapper>
+            <form-wrapper
+              title="License Type"
+              illustration="LICENSE_TYPE_VECTOR"
+            >
+              <!-- <div class="label-wrapper"> -->
+              <selection-button-wrapper isGrid>
+                <selection-button
+                  v-for="types in licenseTypes"
+                  :key="types"
+                  type="checkbox"
+                  :id="types"
+                  :outputValue="types"
+                  group="license-types"
+                  :labelText="types + ' License'"
+                ></selection-button>
+              </selection-button-wrapper>
+            </form-wrapper>
 
-        <!-- <div class="label-wrapper">
+            <!-- <div class="label-wrapper">
           <div class="kimera-text">
             <p>License Type</p>
           </div>
@@ -153,33 +164,34 @@
           </div>
         </div> -->
 
-        <form-wrapper title="Cut Selection">
-          <!-- <div class="label-wrapper"> -->
-          <selection-button-wrapper
-            :key="String(cut + 1)"
-            isGrid
-            v-for="(chunk, i) in fontFamilyChunked"
-          >
-            <selection-button
-              v-for="cut in chunk"
-              :key="String(cut)"
-              type="checkbox"
-              :id="'cut-' + cut.weightReadable"
-              :outputValue="cut.weightReadable"
-              :group="'cut-' + cut.weightReadable"
-              :labelText="'cut-' + cut.weightReadable"
-              :onChangeEventValue="false"
-              @changed="changedLicenseeType"
+            <form-wrapper
+              title="Cut Selection"
+              illustration="CUT_SELECTION_VECTOR"
             >
-              <inline-font-preview
-                :fontName="fontName"
-                :fontData="cut"
-              ></inline-font-preview>
-            </selection-button>
-          </selection-button-wrapper>
-        </form-wrapper>
+              <!-- <div class="label-wrapper"> -->
+              <selection-button-wrapper
+                :key="String(cut + 1)"
+                isGrid
+                v-for="(chunk, i) in fontFamilyChunked"
+              >
+                <selection-button
+                  v-for="cut in chunk"
+                  :key="String(cut)"
+                  type="checkbox"
+                  :id="'cut-' + cut.weightReadable"
+                  :outputValue="cut.weightReadable"
+                  :group="'cut-' + cut.weightReadable"
+                  :labelText="'cut-' + cut.weightReadable"
+                >
+                  <inline-font-preview
+                    :fontName="fontName"
+                    :fontData="cut"
+                  ></inline-font-preview>
+                </selection-button>
+              </selection-button-wrapper>
+            </form-wrapper>
 
-        <!-- <div class="label-wrapper">
+            <!-- <div class="label-wrapper">
           <div class="kimera-text">
             <p>Cut Selection</p>
           </div>
@@ -202,38 +214,102 @@
             </div>
           </div>
         </div> -->
-      </div>
-
-      <contactDetails :type="'licensee'" id="LicenseeDetails"></contactDetails>
-      <input
+          </div>
+          <form-wrapper
+            title="Billing Details"
+            illustration="BILLING_DETAILS_VECTOR"
+          >
+            <contactDetails
+              :type="'licensee'"
+              id="LicenseeDetails"
+            ></contactDetails>
+          </form-wrapper>
+          <form-wrapper altColor isSmall>
+            <selection-button
+              type="checkbox"
+              id="same-as-licensee"
+              :checkedByDefault="true"
+              group="same-as-licensee"
+              >Billing details are the same as Licensee
+              details</selection-button
+            >
+          </form-wrapper>
+          <!-- <input
         type="checkbox"
         checked
         name="same-as-licensee"
         id="same-as-licensee"
       />
+
       <label for="same-as-licensee">
         Invoice details are the same as Licensee details</label
-      >
-      <contactDetails
-        :type="'invoice'"
-        class="invoice-details"
-        id="InvoiceDetails"
-      ></contactDetails>
+      > -->
+          <form-wrapper title="Licensee Details" class="invoice-details">
+            <contactDetails
+              :type="'invoice'"
+              id="InvoiceDetails"
+            ></contactDetails>
+          </form-wrapper>
 
-      <div style="padding-top: 2rem">
-        <div class="flex-space-between">
-          <tag-button is-secondary is-active>Pricing List</tag-button>
-          <tag-button is-secondary is-active>EULA</tag-button>
-        </div>
-      </div>
+          <form-wrapper
+            title="Additional Information"
+            illustration="ADDITIONAL_INFORMATION_VECTOR"
+          >
+            <textarea
+              id="additional-information"
+              class="textarea"
+              rows="5"
+              form="MyForm"
+              name="text"
+              placeholder="Send us a message."
+            ></textarea>
+          </form-wrapper>
 
-      <div class="submit-button">
-        <tag-button is-big is-secondary @click.native.prevent="submitForm"
-          >Submit</tag-button
-        >
+          <!-- <div> -->
+          <div class="flex-space-between sticky-buttons">
+            <tag-button :isDiv="true" :isSecondary="true" :isActive="true"
+              >Price List</tag-button
+            >
+            <tag-button :isDiv="true" :isSecondary="true" :isActive="true"
+              >EULA</tag-button
+            >
+          </div>
+          <!-- </div> -->
+
+          <div v-if="error" class="kimera-text error-message">
+            <p>
+              Oh no, something went wrong! Please contact us directly via
+              post@kimeracorp.eu and provide the following text:
+            </p>
+            <pre>{{ errorBackup }}</pre>
+          </div>
+
+          <div v-if="success" class="kimera-text success-message">
+            <p>
+              Thanks for requesting an offer! We will get back to you as soon as
+              possible.
+            </p>
+          </div>
+
+          <div style="padding: 2rem 0" class="submit-button">
+            <tag-button
+              isBig
+              is-active
+              is-secondary
+              type="submit"
+              @click.native="submitForm"
+              :disabled="isSubmitting"
+              :class="isSubmitting ? 'is-submitting' : ''"
+              v-show="!success"
+              >Request Offer</tag-button
+            >
+            <!-- <button type="button" @click="submitForm">submit</button> -->
+            <!-- @click.native="submitForm" -->
+          </div>
+        </form>
       </div>
-    </div>
-  </keep-alive>
+    </keep-alive>
+  </div>
 </template>
 
 <script>
@@ -305,6 +381,11 @@ export default {
       fontFamilyChunked: [],
       licenseSizes: LicenseSizes,
       licenseTypes: LicenseTypes,
+      success: false,
+      error: false,
+      errorMessage: "",
+      errorBackup: "",
+      isSubmitting: false,
     };
   },
 
@@ -318,9 +399,17 @@ export default {
   computed: {
     ...mapGetters({
       getFontDataByName: "fontData/getFontDataByName",
+      showDisclaimer: "getShowShopDisclaimer",
     }),
   },
   methods: {
+    test() {
+      const form = document.querySelector("#myForm");
+      form.submit();
+    },
+    submitFormTest(event) {
+      console.log("submitFormTest ", event);
+    },
     getFontDataAsChunks(chunkSize) {
       const array = this.fontFamily;
       return divideArrayIntoChunks(array, chunkSize);
@@ -399,58 +488,60 @@ export default {
       // radioButton.checked = true;
     },
     submitForm() {
-      // Get all the data from the inputs and prepare an email template, that formats the data nicely and opens a new window with the email client
-      // const licenseSizeLicensee = document.querySelector(
-      //   'input[name="license-size-licensee"]:checked'
-      // ).value;
-      // const clientName = document.querySelector(
-      //   'input[name="client-name"]'
-      // ).value;
-      // // const isStudent = document.querySelector('input[name="student"]').checked;
-      // const isStudent =
-      //   document.querySelector('input[name="student"]:checked').value === "yes"; // Check if 'yes' is selected
+      const form = document.querySelector("#myForm");
+      let isValid = true;
 
-      // const companySize = document.querySelector(
-      //   'input[name="license-size"]'
-      // ).value;
-      // const licenseTypes = Array.from(
-      //   document.querySelectorAll('input[name="license-types"]:checked')
-      // ).map((input) => input.value);
-      // const fontCuts = Array.from(
-      //   document.querySelectorAll('input[name^="cut-"]:checked')
-      // ).map((input) => input.value);
+      for (let i = 0; i < form.elements.length; i++) {
+        const element = form.elements[i];
+        if (element.checkVisibility()) {
+          if (!element.validity.valid) {
+            isValid = false;
+          }
+        }
+      }
+      if (!isValid) return;
 
-      // // Prepare email template with the data
-      // const emailBody = `
-      //   Project is: ${licenseSizeLicensee}
-      //   Client Name: ${clientName}
-      //   Is Student: ${isStudent ? "Yes" : "No"}
-      //   Company Size: ${companySize}
-      //   License Types: ${licenseTypes.join(", ")}
-      //   Font Cuts (${fontCuts.length}): ${fontCuts.join(", ")}
-      // `;
-
-      // // Open a new window with the email client and pre-fill the email template
-      // const mailtoLink = `mailto:sales@kimeracorp.com?subject=Font%20Purchase%20Inquiry%20${
-      //   this.fontName
-      // }&body=${encodeURIComponent(emailBody)}`;
-      // window.open(mailtoLink);
+      if (document.querySelector('input[name="honeypot"]').value !== "") {
+        console.log("Oh oh, you're a bot!");
+        return;
+      }
 
       const licenseeType = document.querySelector(
         'input[name="license-size-licensee"]:checked'
       ).value;
 
-      const licenseSize = document.querySelector(
+      let licenseSize = document.querySelector(
         'input[name="license-size"]:checked'
-      ).value;
+      );
+
+      // console.log(licenseeType);
+      if (!licenseSize && licenseeType === "Commercial Project") {
+        alert("Please select a license size");
+        return;
+      }
+      if (licenseeType === "Commercial Project") {
+        licenseSize = licenseSize.value;
+      }
 
       const licenseTypes = Array.from(
         document.querySelectorAll('input[name="license-types"]:checked')
       ).map((checkbox) => checkbox.value);
 
+      // console.log(licenseTypes);
+      if (licenseTypes.length === 0) {
+        alert("Please select at least one license type");
+        return;
+      }
       const cutsSelection = Array.from(
         document.querySelectorAll('input[name^="cut-"]:checked')
       ).map((checkbox) => checkbox.value);
+
+      // console.log(cutsSelection);
+
+      if (cutsSelection.length === 0) {
+        alert("Please select at least one cut");
+        return;
+      }
 
       let isSameAsLicensee = document.querySelector(
         'input[name="same-as-licensee"]:checked'
@@ -511,14 +602,27 @@ export default {
         "#InvoiceDetails #licensee-details-email"
       ).value;
 
+      // get additional information text area
+      const additionalInformation = document.querySelector(
+        "#additional-information"
+      ).value;
+
       // Prepare the email content using the collected data
       const emailContent = `
+
+    Font Name: ${this.fontName}
+
     Licensee Type: ${licenseeType}
+
     License Size: ${
       licenseeType == "Student Project" ? "Student License" : licenseSize
     }
-    License Types: ${licenseTypes.join(", ")}
-    Cuts Selection: ${cutsSelection.join(", ")}
+    License Types: 
+    ${licenseTypes.join(", ")}
+
+    Cuts Selection: 
+    ${cutsSelection.join(", ")}
+
     Invoice is the same as Licensee: ${isSameAsLicensee}
 
     Contact Details:
@@ -548,15 +652,50 @@ export default {
     Email: ${emailInvoice}`
         : ""
     }
-  `;
+  
+    Additional Information:
+    ${additionalInformation}
 
-      // Do something with the prepared email content, such as sending an email
+    `;
+
       console.log(emailContent);
+
+      let data = {
+        content: emailContent,
+      };
+      let that = this;
+      this.isSubmitting = true;
+      // console.log(JSON.stringify(data));
+      fetch("https://formsubmit.co/ajax/489d8e6ffd4abce2bd9233ce422b5fff", {
+        // fetch("https://formsubmit.co/ajax/489d8e6ffd4abce2bd9233ce422b5fff", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          that.success = true;
+          that.isSubmitting = false;
+        })
+        .catch((error) => {
+          that.error = true;
+          that.isSubmitting = false;
+          that.errorMessage = error;
+          that.errorBackup = emailContent;
+          console.log(error);
+        });
     },
   },
   mounted() {
     this.fontFamily = this.getFontDataByName(this.fontName).fontFamilies;
     this.fontFamilyChunked = this.getFontDataAsChunks(3);
+
+    if (!this.showDisclaimer) {
+      this.$store.commit("setShowShopDisclaimer", true);
+    }
   },
 };
 </script>
@@ -577,9 +716,15 @@ export default {
   }
   &:has(#commercial:not(:checked)) #license-size-label {
     display: none;
+    input {
+      display: none;
+    }
   }
   &:has(#same-as-licensee:checked) .invoice-details {
     display: none;
+    input {
+      display: none;
+    }
   }
   // &:has(#licensee-details #licensee:checked) .person-form {
   //   display: none;
@@ -597,18 +742,53 @@ export default {
     }
   }
 }
+.is-submitting {
+  cursor: wait !important;
+}
+button.is-submitting {
+  opacity: 0.5;
+}
 .font-cuts-wrapper {
   // max-height: 30rem;
   // overflow-y: auto;
   font-size: 1.2rem;
   padding: 0.5rem 0;
 }
-
+input:disabled + label {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
 .label-wrapper {
   margin-bottom: 1rem;
 }
 .flex-space-between {
   display: flex;
   justify-content: space-between;
+}
+.sticky-buttons {
+  position: sticky;
+  bottom: 0rem;
+}
+.error-message {
+  p {
+    color: red;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  pre {
+    font-size: 1rem;
+    border: 1px solid black;
+  }
+}
+.success-message {
+  p {
+    color: rgb(12, 187, 12);
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+  }
 }
 </style>

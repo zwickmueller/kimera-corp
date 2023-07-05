@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import { gsap } from "gsap/all";
 export default {
   data() {
     return {
@@ -85,18 +86,24 @@ export default {
       else this.shouldPreload = true;
     },
     handleClick($event) {
-      $event.preventDefault();
-      // this.$nextTick(() => {
-      // this.shouldPreload = true;
-      this.$root.lastClickedImageId = this.blok.src.id;
-      if (this.blok.overrideSlideTarget)
-        this.$root.lastClickedImageId = this.blok.overrideSlideIndex;
-      $event.target.parentNode.parentNode.classList.add("clicked");
-      // this.$refs.link.$el.classList.add("clicked");
-      // });
-      // console.log($event.target.parentNode.parentNode);
-      const url = $event.target.parentNode.parentNode.pathname;
+      if ($event) $event.preventDefault();
+      if (this.$refs && this.$refs.link && this.$refs.link.$el) {
+        // this.$nextTick(() => {
+        // this.shouldPreload = true;
+        this.$root.lastClickedImageId = this.blok.src.id;
+        if (this.blok.overrideSlideTarget)
+          this.$root.lastClickedImageId = this.blok.overrideSlideIndex;
+        // $event.target.parentNode.parentNode.classList.add("clicked");
+        // $event.target.parentNode.parentNode.classList.add("clicked");
+        this.$refs.link.$el.classList.add("clicked");
+        // });
+        // console.log($event.target.parentNode.parentNode);
+      }
+      const url = "/" + this.blok.project.full_slug;
+      // const url = $event.target.parentNode.parentNode.pathname;
+      // console.log($event, url, $event.target.parentNode.parentNode.pathname);
       // console.log($event.target.parentNode.parentNode.pathname);
+      // return;
       setTimeout(() => {
         this.$router.push(url);
       }, 100); // Delay of 1 second
@@ -148,6 +155,24 @@ export default {
     // },
   },
   mounted() {
+    this.$root.$on("transitionTo", (payload) => {
+      if (payload == this.blok.project.full_slug) {
+        const allPreviews = document.querySelectorAll(
+          `a.grid-item[href="/${payload}"]`
+        );
+        const firstPreview = allPreviews[0];
+        // scroll smoothly to this.$el
+        if (firstPreview == this.$el) {
+          gsap.to(window, {
+            duration: 0.75,
+            scrollTo: firstPreview,
+            onStart: () => {
+              this.handleClick();
+            },
+          });
+        }
+      }
+    });
     this.$refs.link.$el.classList.add(
       this.$refs.link.$el.dataset.originalWidth
     );

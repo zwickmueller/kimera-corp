@@ -29,7 +29,7 @@ export default {
     });
     // this.$nextTick(() => {
     // animation.goToAndStop(60, true);
-
+    // return;
     // });
     animation.addEventListener("complete", () => {
       this.$root.$emit("intro-animation-complete");
@@ -64,6 +64,12 @@ export default {
   .lottie-container {
     width: 100%;
     height: 100%;
+    @include until($tablet) {
+      display: flex;
+      // justify-content: center;
+      height: 100svh;
+      align-items: center;
+    }
   }
   &:before {
     content: "";

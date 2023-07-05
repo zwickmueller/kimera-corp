@@ -232,7 +232,7 @@ export default {
       this.fitter.fit();
       // this.animInterval = setInterval(randomizeText, 2000);
       let last = 0;
-      let num = 0;
+      // let num = 0;
       let interval = 2;
       let that = this;
       function animationFrame(timestamp) {
@@ -240,7 +240,7 @@ export default {
 
         if (timeInSecond - last >= interval) {
           last = timeInSecond;
-          console.log(++num);
+          // console.log(++num);
           randomizeText();
         }
         that.fitter.fit();

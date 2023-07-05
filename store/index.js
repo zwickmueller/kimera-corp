@@ -7,12 +7,16 @@
 // export const plugins = [vuexLocal.plugin]
 import Tags from "../assets/data/tags.json";
 
+// const showedDisclaimer = false;
+
 export const state = () => ({
   isPageTransitioning: false,
   windowWidth: 1024,
   tags: Tags,
   infoContent: null,
   infoContentMobileState: "info",
+  showShopDisclaimer: false,
+  showedDisclaimer: false,
 });
 
 export const getters = {
@@ -34,6 +38,9 @@ export const getters = {
   getInfoMobileState(state) {
     return state.infoContentMobileState;
   },
+  getShowShopDisclaimer(state) {
+    return state.showShopDisclaimer;
+  },
 };
 
 export const mutations = {
@@ -51,6 +58,11 @@ export const mutations = {
   },
   setInfoMobileState(state, stateName) {
     state.infoContentMobileState = stateName;
+  },
+  setShowShopDisclaimer(state, bool) {
+    if (state.showedDisclaimer) return;
+    state.showShopDisclaimer = bool;
+    if (!bool) state.showedDisclaimer = true;
   },
 };
 

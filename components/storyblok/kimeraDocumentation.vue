@@ -130,12 +130,15 @@ export default {
       border-radius: var(--kimera-border-radius);
       overflow: hidden;
       @include until($tablet) {
+        object-fit: contain !important;
+        height: auto !important;
         max-width: 95vw;
       }
     }
     .video-container {
       height: min(55vh, 45rem) !important;
     }
+    cursor: grab;
 
     margin-right: calc(var(--kimera-grid-gap) / 2);
     flex-shrink: 0;
