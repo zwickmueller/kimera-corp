@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     handleMouseEnter() {
-      console.log("mouse enter");
+      // console.log("mouse enter");
       if (this.shouldPreload) return;
       else this.shouldPreload = true;
     },
@@ -164,10 +164,14 @@ export default {
         // scroll smoothly to this.$el
         if (firstPreview == this.$el) {
           gsap.to(window, {
-            duration: 0.75,
+            duration: 0.5,
             scrollTo: firstPreview,
             onStart: () => {
+              document.body.style.pointerEvents = "none";
+            },
+            onComplete: () => {
               this.handleClick();
+              document.body.style.pointerEvents = "";
             },
           });
         }
