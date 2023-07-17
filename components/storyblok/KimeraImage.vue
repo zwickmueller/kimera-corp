@@ -56,7 +56,7 @@
     <img
       class="image"
       :style="overrideStyles"
-      :src="transformImage(blok.src.filename, '1024x0')"
+      :src="transformImage(blok.src.filename, '1024x0/filters:format(jpg)')"
       :alt="blok.src.alt"
     />
     <!-- <source type="image/webp" :srcset="`${transformImage(blok.src.filename, '0x380/filters:format(webp)')} 380w,

@@ -32,7 +32,6 @@ export default {
     // return;
     // });
     animation.addEventListener("complete", () => {
-      this.$root.$emit("intro-animation-complete");
       console.log("animation complete");
     });
     animation.addEventListener("DOMLoaded", () => {
@@ -43,6 +42,10 @@ export default {
         delay: animation.getDuration(false) - fadeOutDuration,
         "--opacity": 0,
         //   delay: -0.5,
+        onStart: () => {
+          console.log("animation started");
+          this.$root.$emit("intro-animation-complete");
+        },
         onComplete: () => {
           this.renderSequence = false;
         },
