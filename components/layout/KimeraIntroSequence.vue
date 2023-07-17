@@ -18,7 +18,7 @@ export default {
     if (!this.renderSequence) return;
     var animation = lottie.loadAnimation({
       container: document.getElementById("lottie"), // Required
-      path: "/kimera_INTRO_ANIMATION_08.json", // Required
+      path: "/kimera_INTRO_ANIMATION_12.json", // Required
       renderer: "svg", // Required
       loop: false, // Optional
       autoplay: true, // Optional
@@ -33,6 +33,7 @@ export default {
     // });
     animation.addEventListener("complete", () => {
       this.$root.$emit("intro-animation-complete");
+      console.log("animation complete");
     });
     animation.addEventListener("DOMLoaded", () => {
       console.log(animation.getDuration(false));
