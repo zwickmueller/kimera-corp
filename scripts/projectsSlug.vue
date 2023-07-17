@@ -1,5 +1,5 @@
 <template>
-  <main class="">
+  <main class="kimera-project">
     <!-- <landing-page-gallery></landing-page-gallery>
   <project-grid></project-grid>
  -->
@@ -110,3 +110,5 @@ export default {
   },
 };
 </script>
+
+<style lang="scss"></style>

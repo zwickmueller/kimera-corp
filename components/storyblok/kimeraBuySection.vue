@@ -1,5 +1,5 @@
 <template>
-  <div class="kimera-buy-section-wrapper">
+  <div class="kimera-buy-section-wrapper" :style="getButtonColor">
     <div class="kimera-buy-section" ref="buySection">
       <!-- <div class="buy-cta buy-cta-small kimera-text-bigger">
         {{ blok.title }}
@@ -110,6 +110,11 @@ export default {
     ...mapGetters({
       showDisclaimer: "getShowShopDisclaimer",
     }),
+    getButtonColor() {
+      return this.blok.buttonColor
+        ? `--button-color: ${this.blok.buttonColor}`
+        : "--button-color: black";
+    },
   },
   methods: {
     hideShopDisclaimer() {
@@ -286,6 +291,7 @@ export default {
 </script>
 <style lang="scss">
 .kimera-buy-section-wrapper {
+  --button-color: var(--primary-project-color);
   height: 100%;
   width: 100%;
   @include until($tablet) {
@@ -307,7 +313,7 @@ export default {
 .kimera-buy-section {
   height: 100%;
   width: 100%;
-  background-color: var(--kimera-green);
+  // background-color: var(--kimera-green);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -322,7 +328,7 @@ export default {
   border-radius: 5rem;
   filter: drop-shadow(0px 0.4rem 0.3rem rgba(0, 0, 0, 0.075));
   padding: 1rem;
-  background-color: var(--kimera-green);
+  background-color: var(--button-color);
   transition: filter 0.375s ease, transform 0.375s ease,
     background-color 1s ease;
   &:not(.is-expanded):hover {

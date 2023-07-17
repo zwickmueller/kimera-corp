@@ -207,9 +207,9 @@ export default {
   left: 0;
 }
 .mobile-indicator {
-  color: var(--kimera-green);
+  color: var(--black);
   font-size: 1.15rem;
   top: -0.5rem;
-  filter: drop-shadow(0 0 2px var(--kimera-green));
+  // filter: drop-shadow(0 0 2px var(--kimera-green));
 }
 </style>

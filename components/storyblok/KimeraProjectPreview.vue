@@ -50,7 +50,7 @@
     <!-- style="display: none" -->
     <div class="preload-helper">
       <component
-        v-if="shouldPreload"
+        v-if="project && project.body && project.body[0] && shouldPreload"
         :is="project.body[0].component"
         :blok="project.body[0]"
       ></component>
