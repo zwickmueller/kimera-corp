@@ -24,6 +24,7 @@
         :is="currentState"
         :key="currentState"
         @changeShopOverlayContent="changeOverlayContent"
+        :fontName="fontName"
       ></component>
     </transition>
   </div>
@@ -38,6 +39,12 @@ export default {
       lastState: null,
       currentState: "shop-buy-or-trial-wrapper",
     };
+  },
+  props: {
+    fontName: {
+      type: String,
+      required: true,
+    },
   },
   methods: {
     changeOverlayContent(state) {

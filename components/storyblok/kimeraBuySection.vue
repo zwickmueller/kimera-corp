@@ -113,7 +113,7 @@ export default {
     getButtonColor() {
       return this.blok.buttonColor
         ? `--button-color: ${this.blok.buttonColor}`
-        : "--button-color: black";
+        : "--button-color: var(--kimera-grey)";
     },
   },
   methods: {

@@ -170,7 +170,7 @@
             >
               <!-- <div class="label-wrapper"> -->
               <selection-button-wrapper
-                :key="String(cut + 1)"
+                :key="String(cut) + String(i)"
                 isGrid
                 v-for="(chunk, i) in fontFamilyChunked"
               >
@@ -781,6 +781,9 @@ input:disabled + label {
     font-size: 1rem;
     border: 1px solid black;
   }
+}
+.selection-button-wrapper:empty {
+  display: none !important;
 }
 .success-message {
   p {
