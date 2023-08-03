@@ -165,7 +165,6 @@ export default {
   },
   mounted() {
     this.shouldPreload = this.hasParentWithClass(this.$el, "preload-helper");
-    console.log(a, this.$el);
   },
 };
 </script>
