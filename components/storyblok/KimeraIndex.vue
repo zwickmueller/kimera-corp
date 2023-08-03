@@ -19,10 +19,13 @@
         :key="blok._uid"
         :blok="blok"
         :is="blok.component"
-        v-show="blok.show"
+        v-show="
+          blok.show && !(blok.isDuplicate && currentActiveTags.length != 0)
+        "
         :class="[
           currentActiveTags.length > 0 ? 'is-currently-filtering' : '',
           blok.show ? 'is-visible' : '',
+          blok.isDuplicate ? 'is-duplicate' : '',
         ]"
       />
       <!-- </transition-group> -->
@@ -127,11 +130,7 @@ export default {
               // gsap.set(grid[0], { height: grid[0].scrollHeight });
             },
             onComplete: () => {
-              gsap.fromTo(
-                footer,
-                { opacity: 0 },
-                { opacity: 1, duration: 0.2 }
-              );
+              gsap.fromTo(footer, { opacity: 0 }, { opacity: 1, duration: 1 });
 
               // that.$nextTick(() => {
               // gsap.to(grid[0], { height: "auto", duration: 1 });
@@ -414,7 +413,10 @@ export default {
     visibleProjects: {
       cache: false,
       get() {
-        return this.projects.filter((el) => el.show);
+        return this.projects.filter(
+          (el) =>
+            el.show && !(el.isDuplicate && this.currentActiveTags.length != 0)
+        );
       },
     },
     projects() {
@@ -453,8 +455,11 @@ export default {
 
 <style lang="scss">
 .index-grid {
-  min-height: 105vh;
+  height: 100%;
+
+  min-height: 96vh;
 }
+
 .intro-sentence {
   padding: 3rem var(--kimera-side-padding);
   margin-top: 1rem;

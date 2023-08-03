@@ -1,7 +1,12 @@
 <template>
-  <div class="image-cta-container">
+  <div
+    class="image-cta-container"
+    @mouseenter="playLottieAnim()"
+    @mouseleave="playLottieAnim('reverse')"
+  >
     <div class="cta-image">
-      <div class="placeholder"></div>
+      <div class="placeholder" v-if="!lottieAnimName"></div>
+      <div class="lottie-container" ref="lottieContainer" v-else></div>
     </div>
     <div class="cta-button">{{ title }}</div>
   </div>
@@ -18,9 +23,43 @@ export default {
       type: String,
       required: true,
     },
+    lottieAnimName: {
+      type: String,
+      required: false,
+    },
   },
   data() {
-    return {};
+    return {
+      lottieAnim: null,
+    };
+  },
+  methods: {
+    playLottieAnim(direction) {
+      console.log("playLottieAnim", this.lottieAnim);
+      if (!this.lottieAnim) return;
+      if (direction === "reverse") {
+        this.lottieAnim.setSpeed(1.5);
+        this.lottieAnim.setDirection(-1);
+      } else {
+        this.lottieAnim.setSpeed(1);
+        this.lottieAnim.setDirection(1);
+      }
+      this.lottieAnim.play();
+    },
+  },
+  mounted() {
+    if (!this.lottieAnimName) return;
+    this.lottieAnim = lottie.loadAnimation({
+      container: this.$refs.lottieContainer, // Required
+      path: `/${this.lottieAnimName}.json`, // Required
+      renderer: "svg", // Required
+      loop: false, // Optional
+      autoplay: false, // Optional
+      name: "Kimera Intro", // Name for future reference. Optional.
+      rendererSettings: {
+        viewBoxOnly: true,
+      },
+    });
   },
 };
 </script>
@@ -28,8 +67,27 @@ export default {
 .image-cta-container {
   background-color: var(--white);
   border-radius: 1.5rem;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
   width: 100%;
   padding: 0.5rem;
+  .lottie-container {
+    width: 100%;
+    line-height: 0;
+    // overflow: hidden;
+    // border-radius: 1.5rem;
+    // position: relative;
+    // &:before {
+    //   content: "";
+    //   width: 100%;
+    //   height: 100%;
+    //   border-radius: 1.5rem;
+    //   position: absolute;
+    //   // background-color: red;
+    //   border: 1px solid black;
+    //   z-index: 1;
+    // }
+  }
   .cta-image {
     aspect-ratio: 1/1;
     display: flex;

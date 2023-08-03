@@ -207,16 +207,31 @@ export default {
       console.error(variableFont, " has no Variable Font assigned");
     }
 
+    console.log(this.sliders);
     const randomizeText = () => {
       // fitty.fitAll();
       this.fitter.fit();
-      let randomWeight = this.$helpers.getRandomNumber(100, 900);
-      let randomWidth = this.$helpers.getRandomNumber(50, 200);
+      // let randomWeight = this.$helpers.getRandomNumber(100, 900);
+      // let randomWidth = this.$helpers.getRandomNumber(50, 200);
 
-      this.sliders.wdth.value = randomWidth;
-      this.sliders.wght.value = randomWeight;
-      this.variableData.wdth = randomWidth;
-      this.variableData.wght = randomWeight;
+      for (const key in this.sliders) {
+        if (this.sliders.hasOwnProperty(key)) {
+          console.log(this.sliders[key]);
+          const slider = this.sliders[key];
+          let randomVal = this.$helpers.getRandomIntInRange(
+            Number(slider.min),
+            Number(slider.max)
+          );
+          console.log(randomVal);
+          this.sliders[key].value = randomVal;
+          this.variableData[key] = randomVal;
+        }
+      }
+
+      // this.sliders.wdth.value = randomWidth;
+      // this.sliders.wght.value = randomWeight;
+      // this.variableData.wdth = randomWidth;
+      // this.variableData.wght = randomWeight;
       // fitty.fitAll();
     };
 

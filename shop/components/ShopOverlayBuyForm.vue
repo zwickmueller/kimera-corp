@@ -633,7 +633,7 @@ export default {
     Last Name: ${lastName}`
     }
     City: ${city}
-    State: ${state}
+    Country: ${state}
     Postal Code: ${postalCode}
     Email: ${email}
 
@@ -647,7 +647,7 @@ export default {
     Last Name: ${lastNameInvoice}`
     }
     City: ${cityInvoice}
-    State: ${stateInvoice}
+    Country: ${stateInvoice}
     Postal Code: ${postalCodeInvoice}
     Email: ${emailInvoice}`
         : ""
@@ -700,13 +700,8 @@ export default {
 };
 </script>
 <style lang="scss">
-.temporary-buy-form {
-  // padding-bottom: 4rem;
-  input[type="text"] {
-    width: 100%;
-    height: 2rem;
-    // margin-bottom: 1rem;
-  }
+.temporary-buy-form,
+.temporary-trial-form {
   .submit-button {
     height: 3rem;
     width: 100%;
@@ -714,6 +709,15 @@ export default {
     align-items: flex-end;
     justify-content: center;
   }
+}
+.temporary-buy-form {
+  // padding-bottom: 4rem;
+  input[type="text"] {
+    width: 100%;
+    height: 2rem;
+    // margin-bottom: 1rem;
+  }
+
   &:has(#commercial:not(:checked)) #license-size-label {
     display: none;
     input {

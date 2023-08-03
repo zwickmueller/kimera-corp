@@ -1,8 +1,9 @@
 const axios = require("axios");
+// const CMSaccessToken = "YwkxX7UXlj9Wd7lngwwrbAtt";
 const CMSaccessToken = process.env.STORYBLOK_API_KEY;
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  ssr: process.env.APP_ENV === "production",
+  ssr: process.env.APP_ENV === "production" ? true : false,
   target: "static",
   // target: process.env.APP_ENV === "production" ? "server" : "static",
   // target: "server",
@@ -120,8 +121,24 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/style-resources",
+    "@nuxt/image",
   ],
-
+  image: {
+    provider: "storyblok",
+    storyblok: {
+      baseURL: "https://a.storyblok.com",
+    },
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+      "2xl": 2048,
+      "3xl": 2520,
+    },
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308

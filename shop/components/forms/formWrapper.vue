@@ -9,7 +9,13 @@
       </div>
       <div v-if="illustration" class="form-illustration">
         <!-- <div class="placeholder"></div> -->
-        <img :src="require('/assets/img/' + illustration + '.png')" alt="" />
+        <!-- <img :src="require('/assets/img/' + illustration + '.png')" alt="" /> -->
+        <nuxt-img
+          provider="static"
+          class="image"
+          :src="'/img/' + illustration + '.png'"
+        ></nuxt-img>
+        <!-- style="aspect-ratio: 1" -->
       </div>
     </div>
     <slot></slot>

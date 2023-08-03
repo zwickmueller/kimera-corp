@@ -13,12 +13,14 @@
             class="kimera-text-kacheln"
           >
             <transition name="landing-title" mode="out-in">
-              <span
-                @click="handleTransition"
-                style="display: block"
+              <tag-button
                 :key="slideShowTitle"
-              >
-                {{ slideShowTitle }}</span
+                @click.native="handleTransition"
+                style="display: block; cursor: pointer"
+                :is-div="true"
+                :is-secondary="true"
+                :is-small="false"
+                >View Project</tag-button
               >
             </transition>
           </p>

@@ -7,6 +7,7 @@
       :blok="blok"
       :is="blok.component"
     />
+    <!-- :baseFont="blok.baseFont" -->
   </div>
 </template>
 

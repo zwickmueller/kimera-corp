@@ -119,10 +119,10 @@
       </div>
       <div>
         <input-text
-          title="State"
+          title="Country"
           id="licensee-details-state"
           group="licensee-details-state"
-          placeholder="State"
+          placeholder="Country"
         ></input-text>
         <!-- <div class="kimera-text">
           <p>State</p>

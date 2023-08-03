@@ -22,6 +22,7 @@
     "big-text.js": "^1.0.1",
     "content-editable": "^2.0.1",
     "core-js": "^3.19.3",
+    "firebase": "^10.0.0",
     "fitty": "^2.3.6",
     "flickity-imagesloaded": "^2.0.0",
     "gsap": "^3.10.4",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.3",
+    "@nuxt/image": "^0.7.1",
     "@nuxtjs/eslint-config": "^8.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/style-resources": "^1.2.1",

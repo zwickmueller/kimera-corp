@@ -77,7 +77,7 @@
       "ss02",
       "case"
     ],
-    "variable": "/fonts/KMR-Waldenburg/KMR-WaldenburgVariable",
+    "variable": "/fonts/KMR-Waldenburg/KMR-WaldenburgVF",
     "fontFamilies": [
       {
         "path": "KMR-Waldenburg-Fein",
@@ -519,7 +519,7 @@
         "value": "ccmp"
       },
       {
-        "label": "Discretionary Ligatures",
+        "label": "Digital Clock",
         "value": "dlig"
       },
       {
@@ -578,7 +578,7 @@
       "aalt",
       "liga"
     ],
-    "variable": null,
+    "variable": "/fonts/KMR-Apparat/KMR-ApparatVF",
     "fontFamilies": [
       {
         "path": "KMR-Apparat-Light",

@@ -47,13 +47,16 @@ export default {
   data() {
     return {
       mobileToggle: false,
-      selectedFontData: null,
+      // selectedFontData: null,
     };
   },
   computed: {
     ...mapGetters({
       isMobile: "isMobile",
     }),
+    selectedFontData() {
+      return this.blok.font.selectedFontData;
+    },
     baseStyle() {
       if (!this.selectedFontData) return;
       // this.selectedFontData = JSON.parse(this.blok.font.selectedFontData)
@@ -90,7 +93,7 @@ export default {
           const afterWidth = this.$refs.after.getBoundingClientRect().width;
           let toFit;
           let toAdjust;
-          if (beforeWidth > afterWidth) {
+          if (beforeWidth < afterWidth) {
             toAdjust = this.$refs.after;
             toFit = this.$refs.before;
           } else {
@@ -125,6 +128,14 @@ export default {
     },
   },
   mounted() {
+    // console.log({
+    //   fontFamily: this.blok.font.selectedFontFamily,
+    //   fontWeight: this.selectedFontData.weight,
+    //   fontStretch: this.selectedFontData.fontStretch,
+    //   fontStyle: this.selectedFontData.fontStyle,
+    //   aspectRatio: `${this.blok.width / 2}/1`,
+    //   // aspectRatio: this.blok.width < 3 ? "1" : "2/1",
+    // });
     if (process.client) {
       this.resizeType();
       document.addEventListener("resize", this.resizeType);
