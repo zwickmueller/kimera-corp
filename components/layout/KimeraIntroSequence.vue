@@ -21,15 +21,17 @@ export default {
       path: "/kimera_INTRO_ANIMATION_12.json", // Required
       renderer: "svg", // Required
       loop: false, // Optional
-      autoplay: true, // Optional
+      autoplay: !this.debug, // Optional
       name: "Kimera Intro", // Name for future reference. Optional.
       rendererSettings: {
         viewBoxOnly: true,
       },
     });
     // this.$nextTick(() => {
-    // animation.goToAndStop(60, true);
-    // return;
+    if (this.debug) {
+      animation.goToAndStop(60, true);
+      return;
+    }
     // });
     animation.addEventListener("complete", () => {
       console.log("animation complete");
@@ -47,6 +49,7 @@ export default {
           this.$root.$emit("intro-animation-complete");
         },
         onComplete: () => {
+          if (this.debug) return;
           this.renderSequence = false;
         },
       });
@@ -68,6 +71,9 @@ export default {
   .lottie-container {
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     @include until($tablet) {
       display: flex;
       // justify-content: center;
