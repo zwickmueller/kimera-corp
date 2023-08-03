@@ -53,6 +53,7 @@
         v-if="project && project.body && project.body[0] && shouldPreload"
         :is="project.body[0].component"
         :blok="project.body[0]"
+        :doPreload="true"
       ></component>
     </div>
   </nuxt-link>

@@ -8,7 +8,7 @@
     legacyFormat="jpg"
     class="image kimera-image"
     :placeholder="15"
-    loading="lazy"
+    :loading="shouldPreload ? null : 'lazy'"
     quality="80"
     :style="backgroundStyles"
     :class="blok.hideOnMobile ? 'hide-on-mobile' : ''"
@@ -84,6 +84,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      shouldPreload: true,
+    };
+  },
   props: {
     blok: {
       type: Object,
@@ -99,6 +104,18 @@ export default {
       setTimeout(() => {
         this.$el.classList.add("disable-background");
       }, 500);
+    },
+    hasParentWithClass(element, className) {
+      let parent = element.parentElement;
+
+      while (parent) {
+        if (parent.classList.contains(className)) {
+          return true;
+        }
+        parent = parent.parentElement;
+      }
+
+      return false;
     },
   },
   computed: {
@@ -145,6 +162,10 @@ export default {
         height: height,
       };
     },
+  },
+  mounted() {
+    this.shouldPreload = this.hasParentWithClass(this.$el, "preload-helper");
+    console.log(a, this.$el);
   },
 };
 </script>
