@@ -209,7 +209,12 @@ export default {
   top: 0;
 }
 .index-grid .grid-item {
-  height: unset;
+  @include from($tablet) {
+    height: unset;
+  }
+  @include until($tablet) {
+    max-height: 100%;
+  }
 }
 .grid-item {
   min-height: 25rem;
