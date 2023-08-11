@@ -26,12 +26,15 @@ export default {
       { hid: "description", name: "description", content: "" },
       { name: "format-detection", content: "telephone=no" },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "stylesheet", href: "/js/plyr.css" },
+    ],
     script: [
-      //   {
-      //   charset: "utf-8",
-      //   src: "/js/patch.js",
-      // },
+      {
+        charset: "utf-8",
+        src: "/js/plyrpolyfilled.js",
+      },
       {
         charset: "utf-8",
         src: "https://cdn.jsdelivr.net/npm/container-query-polyfill@1/dist/container-query-polyfill.modern.js",

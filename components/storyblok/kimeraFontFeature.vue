@@ -55,11 +55,12 @@ export default {
       isMobile: "isMobile",
     }),
     selectedFontData() {
-      return this.blok.font.selectedFontData;
+      if (!this.blok.font.selectedFontData) return;
+      return JSON.parse(String(this.blok.font.selectedFontData));
+      // return this.blok.font.selectedFontData;
     },
     baseStyle() {
       if (!this.selectedFontData) return;
-      // this.selectedFontData = JSON.parse(this.blok.font.selectedFontData)
       return {
         fontFamily: this.blok.font.selectedFontFamily,
         fontWeight: this.selectedFontData.weight,

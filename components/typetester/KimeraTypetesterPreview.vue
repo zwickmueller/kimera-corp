@@ -61,10 +61,7 @@
       class="typetester-inner center-all"
       :style="getStyle"
       v-html="typetester.text"
-    >
-      <!-- <div class="typetester-inner center-all" contenteditable="true" @input="onInput" @focus="isFocused = true" @focusout="isFocused = false"> -->
-      <!-- {{typetester.text}} -->
-    </div>
+    ></div>
   </div>
 </template>
 
@@ -180,7 +177,7 @@ export default {
     }),
     getTimestampFormatted() {
       if (this.typetester.timestamp == "") {
-        return "12:35";
+        return "12:35:00 UTC +2";
       } else {
         return this.$helpers.formatTimeWithUTCOffset(this.typetester.timestamp);
       }
@@ -312,7 +309,7 @@ export default {
       );
       // this.typetesterOverrides.invertColors = !this.typetester.invertColors;
       // this.typetester.invertColors = !this.typetester.invertColors;
-      console.log("asd", this.typetester.invertColors);
+      // console.log("asd", this.typetester.invertColors);
       // Object.assign({}, this.defaults, this.typetesterData)
       // this.localInvertColors = !this.localInvertColors
       // this.$set(this.typetester, )

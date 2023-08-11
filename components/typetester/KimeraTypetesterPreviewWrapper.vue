@@ -56,6 +56,7 @@ export default {
           selectedOpenTypeFeatures:
             this.blok.fontSelector.selectedOpenTypeFeatures,
         },
+        timestamp: this.blok.timestamp,
         style: {
           fontFamily: this.blok.fontSelector.selectedFontFamily
             ? this.blok.fontSelector.selectedFontFamily

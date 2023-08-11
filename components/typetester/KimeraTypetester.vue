@@ -166,7 +166,8 @@
         </div>
         <div class="bottom" v-if="!isMobile">
           <div class="timestamp">
-            <span>{{ typetester.timestamp }}</span>
+            <span>{{ getTimestampFormatted() }}</span>
+            <!-- <span>{{ typetester.timestamp }}</span> -->
           </div>
           <div class="toggle">
             <dark-mode-toggle
@@ -252,7 +253,7 @@ export default {
         invertColors: false,
         isUserCreated: false,
         text: "Kimera",
-        timestamp: "13:35",
+        timestamp: "12:35:00 UTC +2",
         openTypeFeatures: {
           selectedOpenTypeFeatures: [],
         },
@@ -326,6 +327,13 @@ export default {
       updateCustomTypetest: "typetester/updateCustomTypetest",
       removeCustomTypetest: "typetester/removeCustomTypetest",
     }),
+    getTimestampFormatted() {
+      if (this.typetester.timestamp == "") {
+        return "12:35:00 UTC +2";
+      } else {
+        return this.$helpers.formatTimeWithUTCOffset(this.typetester.timestamp);
+      }
+    },
     setFontFamily(fontData) {
       this.loadFont(fontData.fontFamilies[0], fontData.name, fontData.fontDir);
       this.typetester.style.fontFamily = fontData.name;

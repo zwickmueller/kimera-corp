@@ -56,7 +56,10 @@
                   @changed="changedExclusiveLicense(i)"
                   :hasCheckmark="false"
                 >
-                  <div class="flex-space-between" style="width: 100%">
+                  <div
+                    class="flex-space-between"
+                    style="width: 100%; padding-right: 0.25rem"
+                  >
                     <div>{{ sizes[0] }}</div>
                     <div v-if="typeof sizes[1] == 'string'">
                       {{ sizes[1] }}
@@ -266,13 +269,13 @@
           </form-wrapper>
 
           <!-- <div> -->
-          <div class="flex-space-between sticky-buttons">
-            <tag-button :isDiv="true" :isSecondary="true" :isActive="true"
+          <div class="flex sticky-buttons">
+            <tag-button :is-form-button="true" :isDiv="true"
               >Price List</tag-button
             >
-            <tag-button :isDiv="true" :isSecondary="true" :isActive="true"
-              >EULA</tag-button
-            >
+            <!-- :isSecondary="true"
+              :isActive="true" -->
+            <tag-button :is-form-button="true" :isDiv="true">EULA</tag-button>
           </div>
           <!-- </div> -->
 
@@ -290,12 +293,14 @@
               possible.
             </p>
           </div>
-
-          <div style="padding: 2rem 0" class="submit-button">
+          <!-- style="padding: 2rem 0"  -->
+          <div class="form-submit-button">
+            <!-- :is-big="true" -->
+            <!-- :is-inverted="true" -->
+            <!-- :is-inverted="true" -->
             <tag-button
-              isBig
-              is-active
-              is-secondary
+              :is-inverted="true"
+              :is-form-button="true"
               type="submit"
               @click.native="submitForm"
               :disabled="isSubmitting"
@@ -702,12 +707,12 @@ export default {
 <style lang="scss">
 .temporary-buy-form,
 .temporary-trial-form {
-  .submit-button {
-    height: 3rem;
+  .form-submit-button {
     width: 100%;
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: flex-end;
+    transform: translateY(-100%);
   }
 }
 .temporary-buy-form {
@@ -772,6 +777,7 @@ input:disabled + label {
 .sticky-buttons {
   position: sticky;
   bottom: 0rem;
+  gap: 0.25rem;
 }
 .error-message {
   p {

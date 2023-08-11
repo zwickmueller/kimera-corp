@@ -5,7 +5,7 @@
     v-editable="blok"
     :class="blok.hideOnMobile ? 'hide-on-mobile' : ''"
   >
-    <video
+    <!-- <video
       v-if="!showMobileFallback && !blok.previewMobileFallback"
       ref="video"
       class="video"
@@ -17,7 +17,23 @@
       :autoplay="blok.autoplay"
       preload="auto"
       playsinline
-    ></video>
+    ></video> -->
+    <!-- :controls="false" -->
+    <video
+      :controls="blok.controls"
+      v-if="!showMobileFallback && !blok.previewMobileFallback"
+      ref="video"
+      class="video"
+      :loop="blok.loop"
+      muted
+      :style="overrideStyles"
+      :autoplay="blok.autoplay"
+      playsinline
+    >
+      <!-- preload="auto" -->
+      <source :src="blok.src.filename" type="video/mp4" />
+    </video>
+
     <component
       v-if="
         blok.mobileFallback &&
@@ -71,6 +87,10 @@ export default {
     //     }
     // });
     // this.prepareSuspendedVideo();
+    const player = new Plyr(this.$refs.video, {
+      controls: [],
+    });
+
     this.$refs.video
       .play()
       .then(() => {})
@@ -101,6 +121,9 @@ video.video {
     opacity: 0.5;
     // z-index: 9999999;
   }
+}
+.plyr--video {
+  height: 100%;
 }
 *::-webkit-media-controls-start-playback-button {
   display: none !important;

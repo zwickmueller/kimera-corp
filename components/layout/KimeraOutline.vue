@@ -374,6 +374,7 @@ aside {
   width: auto;
   padding: 0 1em 1em;
   transform: translateY(-2px);
+  margin-top: -2px;
   @include until($tablet) {
     transform: translateY(0px);
   }

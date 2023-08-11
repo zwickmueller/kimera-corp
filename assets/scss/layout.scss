@@ -29,6 +29,13 @@ $aspect-ratios: (
       aspect-ratio: 1 / 0.9;
     }
   }
+  .index-grid .grid-item.project-width-#{$n},
+  .index-grid .grid-item.grid-width-#{$n} {
+    aspect-ratio: $ratio;
+    // @include until($tablet) {
+    //   aspect-ratio: 1 / 0.9;
+    // }
+  }
 }
 
 .padding-top-s {

@@ -15,6 +15,8 @@ export default {
     };
   },
   mounted() {
+    if (window !== window.parent) this.renderSequence = false;
+
     if (!this.renderSequence) return;
     var animation = lottie.loadAnimation({
       container: document.getElementById("lottie"), // Required

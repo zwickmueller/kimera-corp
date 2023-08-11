@@ -37,6 +37,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    isFormButton: {
+      default: false,
+      type: Boolean,
+    },
   },
   computed: {
     getClasses() {
@@ -48,6 +52,7 @@ export default {
         "is-big kimera-text-bigger": this.isBig,
         "kimera-text-filter": !this.isBig,
         "is-buy-button": this.isBuyButton,
+        "is-form-button": this.isFormButton,
       };
     },
   },
@@ -107,6 +112,27 @@ export default {
     &:hover {
       // background: var(--black);
       color: var(--kimera-white);
+    }
+  }
+  &.is-form-button {
+    background-color: var(--kimera-white);
+    color: var(--black);
+    font-size: 1.25rem;
+    letter-spacing: 0;
+    padding: 0.65rem 0.8rem;
+    text-transform: none;
+    &:hover {
+      background-color: var(--black);
+      color: var(--kimera-white);
+      font-weight: 500;
+    }
+    &.is-inverted {
+      background-color: var(--black);
+      color: var(--kimera-white);
+      &:hover {
+        background-color: var(--kimera-white) !important;
+        color: var(--black) !important;
+      }
     }
   }
 }

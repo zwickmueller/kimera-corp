@@ -98,9 +98,9 @@ export default {
       border-radius: 1.2rem;
       width: 100%;
       background-color: black;
-      transform: scale(0.5);
-      transition: transform 0.25s ease;
     }
+    transform: scale(0.5);
+    transition: transform 0.25s ease;
   }
   .cta-button {
     margin-top: 0.5rem;
@@ -112,9 +112,9 @@ export default {
   &:hover {
     cursor: pointer;
     .cta-image {
-      .placeholder {
-        transform: scale(1);
-      }
+      // .placeholder {
+      transform: scale(1);
+      // }
     }
     .cta-button {
       color: var(--kimera-white);
