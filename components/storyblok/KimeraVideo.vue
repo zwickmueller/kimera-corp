@@ -72,6 +72,7 @@ export default {
     // });
     // this.prepareSuspendedVideo();
     // return;
+    return;
     const player = new Plyr(this.$refs.video, {
       controls: [],
     });
