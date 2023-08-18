@@ -1,7 +1,7 @@
 <template>
   <div class="slider" :class="initAnim ? '' : 'stop-anim'">
     <!-- <client-only> -->
-    <flicking
+    <Flicking
       ref="flicking"
       :options="options"
       :viewportTag="'div'"
@@ -33,7 +33,7 @@
       <!-- </div> -->
 
       <!-- </div> -->
-    </flicking>
+    </Flicking>
     <!-- </client-only> -->
   </div>
 </template>
@@ -43,6 +43,7 @@
 //   Flicking
 // } from "@egjs/vue-flicking";
 //
+import { Flicking } from "@egjs/vue-flicking";
 
 import { AutoPlay } from "@egjs/flicking-plugins";
 
@@ -78,6 +79,9 @@ export default {
       //   autoInit: true
       // }
     };
+  },
+  components: {
+    Flicking,
   },
   props: {
     blok: {
@@ -135,10 +139,10 @@ export default {
     },
   },
   mounted() {
-    console.log(
-      "this.$root.lastClickedImageId ",
-      this.$root.lastClickedImageId
-    );
+    // console.log(
+    //   "this.$root.lastClickedImageId ",
+    //   this.$root.lastClickedImageId
+    // );
     this.currentIndex = this.defaultIndex;
     this.$nextTick(() => {
       this.initAnim = true;
