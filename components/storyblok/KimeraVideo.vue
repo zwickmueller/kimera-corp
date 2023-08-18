@@ -1,12 +1,11 @@
 <template>
-  <div>DEBUG IN PROGRESS NOTHING TO SEE HERE</div>
-  <!-- <div
+  <!-- <div>DEBUG IN PROGRESS NOTHING TO SEE HERE</div> -->
+  <div
     ref="container"
     class="video-container"
     v-editable="blok"
     :class="blok.hideOnMobile ? 'hide-on-mobile' : ''"
   >
-    
     <video
       :controls="blok.controls"
       v-if="!showMobileFallback && !blok.previewMobileFallback"
@@ -31,8 +30,7 @@
       :is="blok.mobileFallback[0].component"
       :blok="blok.mobileFallback[0]"
     ></component>
-  
-  </div> -->
+  </div>
 </template>
 
 <script>
@@ -40,6 +38,7 @@ export default {
   data() {
     return {
       showMobileFallback: false,
+      player: null,
     };
   },
   props: {
@@ -64,6 +63,9 @@ export default {
       };
     },
   },
+  beforeDestroy() {
+    this.player.destroy();
+  },
   mounted() {
     //     Object.defineProperty(HTMLMediaElement.prototype, 'playing', {
     //     get: function () {
@@ -72,8 +74,8 @@ export default {
     // });
     // this.prepareSuspendedVideo();
     // return;
-    return;
-    const player = new Plyr(this.$refs.video, {
+    // return;
+    this.player = new Plyr(this.$refs.video, {
       controls: [],
     });
 
