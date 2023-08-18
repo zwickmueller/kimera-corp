@@ -1,24 +1,12 @@
 <template>
-  <div
+  <div>DEBUG IN PROGRESS NOTHING TO SEE HERE</div>
+  <!-- <div
     ref="container"
     class="video-container"
     v-editable="blok"
     :class="blok.hideOnMobile ? 'hide-on-mobile' : ''"
   >
-    <!-- <video
-      v-if="!showMobileFallback && !blok.previewMobileFallback"
-      ref="video"
-      class="video"
-      :controls="blok.controls"
-      :loop="blok.loop"
-      :src="blok.src.filename"
-      muted
-      :style="overrideStyles"
-      :autoplay="blok.autoplay"
-      preload="auto"
-      playsinline
-    ></video> -->
-    <!-- :controls="false" -->
+    
     <video
       :controls="blok.controls"
       v-if="!showMobileFallback && !blok.previewMobileFallback"
@@ -31,7 +19,6 @@
       playsinline
       preload="metadata"
     >
-      <!-- preload="auto" -->
       <source :src="blok.src.filename" type="video/mp4" />
     </video>
 
@@ -44,12 +31,8 @@
       :is="blok.mobileFallback[0].component"
       :blok="blok.mobileFallback[0]"
     ></component>
-    <!-- <img
-      
-      :src="blok.mobileFallback.filename"
-      alt=""
-    /> -->
-  </div>
+  
+  </div> -->
 </template>
 
 <script>
