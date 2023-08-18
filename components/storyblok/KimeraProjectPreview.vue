@@ -83,8 +83,8 @@ export default {
   methods: {
     handleMouseEnter() {
       // console.log("mouse enter");
-      if (this.shouldPreload) return;
-      else this.shouldPreload = true;
+      // if (this.shouldPreload) return;
+      // else this.shouldPreload = true;
     },
     handleClick($event) {
       if ($event) $event.preventDefault();
@@ -156,7 +156,7 @@ export default {
     // },
   },
   beforeDestroy() {
-    this.$el.removeEventListener("mouseenter", this.handleMouseEnter);
+    // this.$el.removeEventListener("mouseenter", this.handleMouseEnter);
   },
   mounted() {
     var isNotTouchdevice = window.matchMedia(
@@ -164,7 +164,7 @@ export default {
     );
     // alert(isNotTouchdevice.matches);
     if (isNotTouchdevice.matches) {
-      this.$el.addEventListener("mouseenter", this.handleMouseEnter);
+      // this.$el.addEventListener("mouseenter", this.handleMouseEnter);
     }
     this.$root.$on("transitionTo", (payload) => {
       if (payload == this.blok.project.full_slug) {
