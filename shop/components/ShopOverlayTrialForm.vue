@@ -9,6 +9,63 @@
       />
       <input type="text" name="name" id="trial-name" />
       <input type="submit" value="Submit" @click="submit" /> -->
+      <transition name="fade" mode="out-in">
+        <shop-modal
+          v-if="showModal"
+          @close="showModal = false"
+          :title="success ? 'Download successful!' : 'Error'"
+          key="showmodal"
+          :hasCursor="false"
+        >
+          <p v-if="success">
+            Hi there!<br />
+            <br />
+            thank you for downloading our Full Version Trials! You can use them
+            to test out our typefaces on your computer and pitch design
+            directions to your clients.
+            <br />
+            <br />
+            Please see our EULA for further information.
+            <br />
+            <br />
+            Best,<br />
+            kimera
+          </p>
+          <p v-if="error">
+            Oh, oh, something went wrong!<br />
+            <br />
+            Please write us an email at post@kimeracorp.eu so we can fix this.
+            In the meantime, you can download the trial here.
+            <br />
+            <br />
+            Please see our EULA for further information.
+            <br />
+            <br />
+            Best,<br />
+            kimera
+          </p>
+          <template #buttons>
+            <div class="flex trial-buttons">
+              <a :href="blok.eulaLink" target="_blank">
+                <tag-button
+                  :is-secondary="true"
+                  :isDiv="true"
+                  :is-form-button="true"
+                  >EULA</tag-button
+                ></a
+              >
+              <a :href="blok.trialLink" target="_blank">
+                <tag-button
+                  :is-secondary="true"
+                  :isDiv="true"
+                  :is-form-button="true"
+                  >Download</tag-button
+                ></a
+              >
+            </div>
+          </template>
+        </shop-modal>
+      </transition>
       <form-wrapper title="Trial Fonts" class="invoice-details">
         <div style="column-count: 2" class="gap">
           <input-text
@@ -38,15 +95,14 @@
       </form-wrapper>
       <div class="submit-button">
         <tag-button
-          isBig
-          is-active
-          is-secondary
+          :is-form-button="true"
+          :is-inverted="true"
           type="submit"
           @click.native="submit"
           :disabled="isSubmitting"
           :class="isSubmitting ? 'is-submitting' : ''"
           v-show="!success"
-          >Submit</tag-button
+          >Download Trial</tag-button
         >
       </div>
     </form>
@@ -63,14 +119,22 @@ export default {
     return {
       isSubmitting: false,
       success: false,
+      showModal: false,
+      error: false,
     };
+  },
+  props: {
+    blok: {
+      type: Object,
+      required: true,
+    },
   },
   methods: {
     async submit($event) {
-      console.log("submit");
+      this.isSubmitting = true;
       const form = document.getElementById("trial-form");
-      console.log();
       if (!form.checkValidity()) {
+        this.isSubmitting = false;
         return;
       }
       $event.preventDefault();
@@ -97,12 +161,24 @@ export default {
         email: email,
         newsletter: interestedInNewsletter,
       };
-      console.log(firestore);
+
       try {
         const docRef = await addDoc(collection(firestore, "list"), data);
 
-        console.log("Document written with ID: ", docRef.id);
+        // console.log("Document written with ID: ", docRef.id);
+        this.success = true;
+        this.error = false;
+        this.isSubmitting = false;
+        this.showModal = true;
+        // open trialLink
+        setTimeout(() => {
+          window.open(this.blok.trialLink, "_blank");
+        }, 1000);
       } catch (e) {
+        this.success = false;
+        this.error = true;
+        this.isSubmitting = false;
+
         console.error("Error adding document: ", e);
       }
 
@@ -145,6 +221,14 @@ export default {
 #trial-form {
   .gap {
     gap: 4px;
+  }
+  .submit-button {
+    display: flex;
+    justify-content: center;
+  }
+  .trial-buttons {
+    justify-content: space-between;
+    padding-top: 0.5rem;
   }
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
   <div class="slider-documentation">
     <client-only>
-      <flicking
-        ref="flicking"
-        :options="options"
-        :viewportTag="'div'"
-        :cameraTag="'div'"
-        :plugins="autoplay"
-      >
+      <Flicking ref="flicking" :options="options" :plugins="autoplay">
+        <!-- :viewportTag="'div'"
+      :cameraTag="'div'" -->
         <!-- :plugins="plugins" -->
-        <div class="slide" v-for="(_blok, index) in blok.body">
-          <component :key="_blok._uid" :blok="_blok" :is="_blok.component" />
+        <div
+          class="slide"
+          :key="_blok._uid"
+          v-for="(_blok, index) in blok.body"
+        >
+          <component :blok="_blok" :is="_blok.component" />
         </div>
-      </flicking>
+      </Flicking>
     </client-only>
   </div>
 </template>
@@ -24,6 +24,7 @@
 //
 
 import { AutoPlay } from "@egjs/flicking-plugins";
+import { Flicking } from "@egjs/vue-flicking";
 
 const plugins = [
   new AutoPlay({
@@ -35,6 +36,10 @@ const plugins = [
 ];
 
 export default {
+  components: {
+    Flicking,
+    // VueFlicking,
+  },
   data() {
     return {
       // plugins,
@@ -70,7 +75,16 @@ export default {
   },
   computed: {
     autoplay() {
-      return this.blok.autoplay ? plugins : [];
+      return this.blok.autoplay
+        ? [
+            new AutoPlay({
+              animationDuration: 1000,
+              duration: 4000,
+              direction: "NEXT",
+              stopOnHover: false,
+            }),
+          ]
+        : [];
     },
     options() {
       return {
@@ -90,9 +104,10 @@ export default {
         interruptable: true,
         bounce: 0,
         resizeOnContentsReady: true,
+        useFractionalSize: true,
         // overflow: true,
-        inputType: ["touch", "mouse"],
-        autoInit: true,
+        // inputType: ["touch", "mouse"],
+        // autoInit: false,
         hideBeforeInit: true,
         // firstPanelSize: "100%",
       };
@@ -100,9 +115,24 @@ export default {
   },
   methods: {},
   mounted() {
-    setTimeout(() => {
-      this.$refs.flicking.resize();
-    }, 200);
+    // this.$nextTick(() => {
+    //   this.$nextTick(() => {
+    //     this.$refs.flicking.init();
+    //     // setTimeout(() => {
+    //     //   this.$refs.flicking.resize();
+    //     // }, 1000);
+    //   });
+    // });
+    if (!process.client) return;
+    this.$nextTick(() => {
+      this.$nextTick(() => {
+        if (this.$refs.flicking) {
+          this.$refs.flicking.$once("mounted", () => {
+            this.$refs.flicking.resize();
+          });
+        }
+      });
+    });
   },
 };
 </script>
@@ -142,7 +172,7 @@ export default {
 
     margin-right: calc(var(--kimera-grid-gap) / 2);
     flex-shrink: 0;
-    transform: translate(var(--kimera-side-padding), 0px);
+    transform: translateX(var(--kimera-side-padding));
   }
   .flicking-viewport {
     height: 100% !important;

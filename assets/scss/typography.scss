@@ -16,7 +16,12 @@
   font-feature-settings: "calt" 1, "liga" 1, "rlig" 1, "rvrn" 1, "kern" 1,
     "rclt" 1;
 }
-
+.info-big-text {
+  font-size: 2.5rem;
+  letter-spacing: 0.01rem;
+  line-height: 1;
+  padding-bottom: 0.5rem;
+}
 .kimera-text-filter {
   font-size: 0.55rem;
   // font-size: 8.4px;

@@ -26,7 +26,7 @@
           </p>
         </div>
       </div>
-      <flicking
+      <Flicking
         ref="flicking"
         :options="options"
         :viewportTag="'div'"
@@ -47,13 +47,14 @@
             :is="_blok.body[0].component"
           />
         </div>
-      </flicking>
+      </Flicking>
     </client-only>
   </div>
 </template>
 
 <script>
 import { AutoPlay } from "@egjs/flicking-plugins";
+import { Flicking } from "@egjs/vue-flicking";
 
 const plugins = [
   new AutoPlay({
@@ -65,6 +66,9 @@ const plugins = [
 ];
 
 export default {
+  components: {
+    Flicking,
+  },
   data() {
     return {
       plugins,

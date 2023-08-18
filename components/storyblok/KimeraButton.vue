@@ -2,7 +2,7 @@
   <button
     type="button"
     name="kimera-button"
-    class="kimera-button kimera-text-filter button-reset"
+    class="kimera-button cta kimera-text-filter button-reset"
     @click="handleClick"
   >
     {{ blok.title }}
@@ -38,5 +38,11 @@ export default {
   margin: 0 auto;
   display: block;
   text-align: center;
+  &.cta {
+    @include until($tablet) {
+      max-width: unset;
+      width: unset;
+    }
+  }
 }
 </style>

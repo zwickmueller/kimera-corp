@@ -24,7 +24,9 @@
         :is="currentState"
         :key="currentState"
         @changeShopOverlayContent="changeOverlayContent"
+        @revertOverlayContent="revertOverlayContent"
         :fontName="fontName"
+        :blok="blok"
       ></component>
     </transition>
   </div>
@@ -43,6 +45,10 @@ export default {
   props: {
     fontName: {
       type: String,
+      required: true,
+    },
+    blok: {
+      type: Object,
       required: true,
     },
   },

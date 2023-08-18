@@ -36,6 +36,10 @@ $aspect-ratios: (
     //   aspect-ratio: 1 / 0.9;
     // }
   }
+  #recommended + .kimera-container-inner .kimera-flex-grid .grid-width-#{$n} {
+    aspect-ratio: $ratio;
+    height: auto;
+  }
 }
 
 .padding-top-s {

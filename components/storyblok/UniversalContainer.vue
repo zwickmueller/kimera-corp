@@ -48,7 +48,11 @@ export default {
   .kimera-container-inner {
     margin: 0 auto;
     &.has-max-width {
-      max-width: 1024px;
+      // max-width: 1024px;
+      max-width: calc(100% / 8 * 4 - var(--kimera-grid-gap) / 2);
+      @include until($tablet) {
+        max-width: 100%;
+      }
     }
   }
   h3 {

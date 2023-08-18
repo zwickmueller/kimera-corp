@@ -8,8 +8,8 @@
     @click.native="handleClick"
     :data-original-width="`grid-width-${width}`"
     data-new-width="null"
-    @mouseenter.native="handleMouseEnter"
   >
+    <!-- @mouseenter.native="handleMouseEnter" -->
     <!-- event="disabled" -->
     <div class="grid-item-tags">
       <div class="hide-on-desktop mobile-project-name kimera-text-mobile">
@@ -155,7 +155,17 @@ export default {
     //   return "";
     // },
   },
+  beforeDestroy() {
+    this.$el.removeEventListener("mouseenter", this.handleMouseEnter);
+  },
   mounted() {
+    var isNotTouchdevice = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    );
+    // alert(isNotTouchdevice.matches);
+    if (isNotTouchdevice.matches) {
+      this.$el.addEventListener("mouseenter", this.handleMouseEnter);
+    }
     this.$root.$on("transitionTo", (payload) => {
       if (payload == this.blok.project.full_slug) {
         const allPreviews = document.querySelectorAll(
@@ -264,57 +274,60 @@ export default {
   @include until($tablet) {
     height: auto;
   }
-  &:not(.is-transitioning):before {
-    content: attr(title);
-    // width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: absolute;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    pointer-events: none;
-    transform: translateX(-100%);
-    transition: transform 0.37s cubic-bezier(0, 1.65, 0.475, 1.005);
-    @include until($tablet) {
-      content: "";
-      // transform: translateX(0%);
-      // align-items: flex-end;
-      // padding: 1rem;
+  @media (hover: hover) {
+    &:not(.is-transitioning):before {
+      content: attr(title);
       // width: 100%;
-      // background: linear-gradient(0deg, var(--kimera-grey), transparent 4rem);
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+      transform: translateX(-100%);
+      transition: transform 0.37s cubic-bezier(0, 1.65, 0.475, 1.005);
+      @include until($tablet) {
+        content: unset;
+        display: none;
+        // transform: translateX(0%);
+        // align-items: flex-end;
+        // padding: 1rem;
+        // width: 100%;
+        // background: linear-gradient(0deg, var(--kimera-grey), transparent 4rem);
+      }
     }
-  }
-  &:not(.is-transitioning):hover {
-    @include from($tablet) {
-      &:before {
-        transform: translateX(0%);
-      }
-      .grid-item-overlay {
-        background: #c4c4c4;
-      }
-      .grid-item-overlay.overlay-background {
-        background: #f7f7f7;
-      }
+    &:not(.is-transitioning):hover {
+      @include from($tablet) {
+        &:before {
+          transform: translateX(0%);
+        }
+        .grid-item-overlay {
+          background: #c4c4c4;
+        }
+        .grid-item-overlay.overlay-background {
+          background: #f7f7f7;
+        }
 
-      .grid-item-overlay {
-      }
-      .kimera-image img {
-        filter: grayscale(100%) contrast(0.6) brightness(1.4);
-        mix-blend-mode: multiply;
-        opacity: 0.2;
-        // transform: scale(1.05);
-        // filter: grayscale(100%) contrast(0.6) brightness(1.6);
-        // mix-blend-mode: multiply;
-        // opacity: 0.4;
+        .grid-item-overlay {
+        }
+        .kimera-image img {
+          filter: grayscale(100%) contrast(0.6) brightness(1.4);
+          mix-blend-mode: multiply;
+          opacity: 0.2;
+          // transform: scale(1.05);
+          // filter: grayscale(100%) contrast(0.6) brightness(1.6);
+          // mix-blend-mode: multiply;
+          // opacity: 0.4;
+        }
       }
     }
-  }
-  &:not(.is-transitioning):hover {
-    @include from($tablet) {
-      .grid-item-overlay.overlay-background {
-        background: #fff;
+    &:not(.is-transitioning):hover {
+      @include from($tablet) {
+        .grid-item-overlay.overlay-background {
+          background: #fff;
+        }
       }
     }
   }

@@ -29,6 +29,7 @@
       :style="overrideStyles"
       :autoplay="blok.autoplay"
       playsinline
+      preload="metadata"
     >
       <!-- preload="auto" -->
       <source :src="blok.src.filename" type="video/mp4" />
@@ -87,6 +88,7 @@ export default {
     //     }
     // });
     // this.prepareSuspendedVideo();
+    // return;
     const player = new Plyr(this.$refs.video, {
       controls: [],
     });

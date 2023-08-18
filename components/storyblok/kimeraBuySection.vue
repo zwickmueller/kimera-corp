@@ -13,45 +13,34 @@
       >
         <!--  -->
         <transition name="fade" mode="out-in">
-          <div
-            class="shop-disclaimer"
+          <shop-modal
             v-if="isBuyButtonExpanded && showDisclaimer"
-            @click="hideShopDisclaimer"
-            key="showDisclaimer"
+            @click.native="hideShopDisclaimer"
+            key="showmodal"
           >
-            <div class="disclaimer-wrapper">
-              <div class="disclaimer-title">
-                <div>Full shop coming soon!</div>
-                <close-button
-                  style="height: 1.5rem"
-                  isCross
-                  class="shop-close-button"
-                ></close-button>
-              </div>
-
-              <!-- isInverted -->
-              <div class="disclaimer-inner kimera-text">
-                <p>
-                  Hi there!<br />
-                  <br />
-                  Our full webshop is currently under construction. In the
-                  meantime you can purchase our typefaces via a request formula
-                  that we will answer per mail and we want to give you a more
-                  personal and individual customer support.
-                  <br />
-                  <br />
-                  Best,<br />
-                  kimera
-                </p>
-              </div>
-            </div>
-          </div>
+            <p>
+              Hi there!<br />
+              <br />
+              Our full webshop is currently under construction. In the meantime,
+              you can purchase our typefaces through an automated request
+              formula and we’ll come back to you via mail as soon as possible.
+              <br />
+              <br />
+              We hope to give you a more personal and direct customer support
+              while things are being developed in the background.
+              <br />
+              <br />
+              Best,<br />
+              kimera
+            </p>
+          </shop-modal>
         </transition>
         <div class="buy-cta-text">{{ blok.title }}</div>
         <div class="buy-content">
           <shop-overlay-content
             @closeShopOverlay="closeShopOverlay"
             :fontName="blok.fontName"
+            :blok="blok"
           ></shop-overlay-content>
         </div>
       </div>
@@ -437,37 +426,6 @@ export default {
   }
 }
 
-.shop-disclaimer {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(2px);
-  color: var(--white);
-  cursor: pointer;
-  .disclaimer-wrapper {
-    background-color: var(--black);
-    padding: 0.75rem;
-    padding-top: 0.5rem;
-    border-radius: 1.25rem;
-    max-width: 30rem;
-    width: 100%;
-  }
-  .disclaimer-title {
-    padding-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .disclaimer-inner {
-    background-color: var(--kimera-dark-grey);
-    padding: 0.75rem;
-    border-radius: 1rem;
-  }
-}
 // a css keyframe animation called slide up that moves the button from the bottom to the top
 
 @keyframes slide-up {

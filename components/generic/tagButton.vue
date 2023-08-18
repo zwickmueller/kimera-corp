@@ -126,6 +126,14 @@ export default {
       color: var(--kimera-white);
       font-weight: 500;
     }
+    &.is-secondary {
+      color: var(--white) !important;
+      background: var(--kimera-dark-grey) !important;
+      &:hover {
+        background-color: var(--kimera-white) !important;
+        color: var(--black) !important;
+      }
+    }
     &.is-inverted {
       background-color: var(--black);
       color: var(--kimera-white);

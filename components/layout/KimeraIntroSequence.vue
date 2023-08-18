@@ -26,7 +26,7 @@ export default {
       autoplay: !this.debug, // Optional
       name: "Kimera Intro", // Name for future reference. Optional.
       rendererSettings: {
-        viewBoxOnly: true,
+        viewBoxOnly: window.innerWidth > 1024 ? true : false,
       },
     });
     // this.$nextTick(() => {
@@ -35,11 +35,11 @@ export default {
       return;
     }
     // });
-    animation.addEventListener("complete", () => {
-      console.log("animation complete");
-    });
+    // animation.addEventListener("complete", () => {
+    //   console.log("animation complete");
+    // });
     animation.addEventListener("DOMLoaded", () => {
-      console.log(animation.getDuration(false));
+      // console.log(animation.getDuration(false));
       let fadeOutDuration = 0.75;
       gsap.to(".intro-loader", {
         duration: fadeOutDuration,

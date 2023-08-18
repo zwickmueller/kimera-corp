@@ -270,12 +270,16 @@
 
           <!-- <div> -->
           <div class="flex sticky-buttons">
-            <tag-button :is-form-button="true" :isDiv="true"
-              >Price List</tag-button
-            >
+            <a :href="blok.pricingLink" target="_blank">
+              <tag-button :is-form-button="true" :isDiv="true"
+                >Price List</tag-button
+              >
+            </a>
             <!-- :isSecondary="true"
               :isActive="true" -->
-            <tag-button :is-form-button="true" :isDiv="true">EULA</tag-button>
+            <a :href="blok.eulaLink" target="_blank">
+              <tag-button :is-form-button="true" :isDiv="true">EULA</tag-button>
+            </a>
           </div>
           <!-- </div> -->
 
@@ -289,8 +293,12 @@
 
           <div v-if="success" class="kimera-text success-message">
             <p>
-              Thanks for requesting an offer! We will get back to you as soon as
-              possible.
+              Thank you for your request! We’ll come back to you asap. <br />
+              In the meantime you can check out our
+              <span @click="$emit('revertOverlayContent')"
+                >Full Version Trials</span
+              >
+              for testing purposes.
             </p>
           </div>
           <!-- style="padding: 2rem 0"  -->
@@ -400,6 +408,10 @@ export default {
       required: true,
       default: "KMR-Waldenburg",
     },
+    blok: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
     ...mapGetters({
@@ -495,10 +507,13 @@ export default {
     submitForm() {
       const form = document.querySelector("#myForm");
       let isValid = true;
-
+      function isVisible(e) {
+        return !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
+      }
       for (let i = 0; i < form.elements.length; i++) {
         const element = form.elements[i];
-        if (element.checkVisibility()) {
+        // if (element.checkVisibility()) {
+        if (isVisible(element)) {
           if (!element.validity.valid) {
             isValid = false;
           }
@@ -800,8 +815,14 @@ input:disabled + label {
     color: rgb(12, 187, 12);
     padding: 1rem;
     width: 100%;
-    text-align: center;
+    padding: 0.25rem;
+    padding-top: 0.5rem;
+    // text-align: center;
     font-size: 1rem;
+    span {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 }
 </style>

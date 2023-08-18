@@ -376,7 +376,7 @@ aside {
   transform: translateY(-2px);
   margin-top: -2px;
   @include until($tablet) {
-    transform: translateY(0px);
+    transform: translateY(2px);
   }
   button:not(.active-headline) {
   }
