@@ -207,7 +207,7 @@ export default {
       console.error(variableFont, " has no Variable Font assigned");
     }
 
-    console.log(this.sliders);
+    // console.log(this.sliders);
     const randomizeText = () => {
       // fitty.fitAll();
       this.fitter.fit();
@@ -222,7 +222,7 @@ export default {
             Number(slider.min),
             Number(slider.max)
           );
-          console.log(randomVal);
+          // console.log(randomVal);
           this.sliders[key].value = randomVal;
           this.variableData[key] = randomVal;
         }

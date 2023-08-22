@@ -98,7 +98,7 @@ export default {
 
       const callback = (entries, observer) => {
         entries.forEach((entry) => {
-          console.log(entry);
+          // console.log(entry);
           if (!this.player) return;
           if (entry.isIntersecting) {
             this.player
