@@ -5,6 +5,7 @@
       invertedColors ? 'invert-colors' : '',
       isHolding ? 'mobile-hover-state' : '',
     ]"
+    @mouseenter="mouseEntered"
     v-touch:start="handleLongTouch(true)"
     v-touch:end="handleLongTouch(false)"
   >
@@ -98,7 +99,7 @@ export default {
         } else {
           style.opacity = 0;
           style.transform = "translate(-50%, -50%) scale(0.5)";
-          console.log(style);
+          // console.log(style);
           this.$root.$emit("setGlyphMobileStyle", style);
         }
       };

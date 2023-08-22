@@ -100,9 +100,18 @@ export default {
       showDisclaimer: "getShowShopDisclaimer",
     }),
     getButtonColor() {
-      return this.blok.buttonColor
-        ? `--button-color: ${this.blok.buttonColor}`
-        : "--button-color: var(--kimera-grey)";
+      // return this.blok.buttonColor
+      //   ? `--button-color: ${this.blok.buttonColor}`
+      //   : "--button-color: var(--kimera-grey)";
+      return {
+        "--button-color": this.blok.buttonColor
+          ? this.blok.buttonColor
+          : "var(--kimera-grey)",
+        "--button-text-color":
+          this.blok.invertTextColor && !this.isBuyButtonExpanded
+            ? "var(--kimera-white)"
+            : "var(--black)",
+      };
     },
   },
   methods: {
@@ -281,6 +290,7 @@ export default {
 <style lang="scss">
 .kimera-buy-section-wrapper {
   --button-color: var(--primary-project-color);
+  --button-text-color: var(--black);
   height: 100%;
   width: 100%;
   @include until($tablet) {
@@ -413,6 +423,8 @@ export default {
   white-space: pre;
   // background-color: red;
   width: calc(100%);
+  color: var(--button-text-color);
+  transition: color 1s ease;
 }
 .buy-section-background-wrapper {
   background: var(--black);

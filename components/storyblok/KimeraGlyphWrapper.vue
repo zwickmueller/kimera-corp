@@ -220,7 +220,9 @@ export default {
   }
 }
 .type-test {
-  // @include text-crop;
+  @include until($tablet) {
+    transform: scale(1.25);
+  }
 }
 .kimera-glyph-set-wrapper {
   // flex: 1;
@@ -315,6 +317,9 @@ export default {
         width: 100%;
         h3 {
           padding-top: var(--kimera-small-gap);
+        }
+        @include until($tablet) {
+          display: none;
         }
       }
     }
