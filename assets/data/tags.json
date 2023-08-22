@@ -7,7 +7,7 @@
   {
     "name": "Typefaces",
     "isMainTag": true,
-    "subTags": ["Sans", "Serif", "Mono", "Display"],
+    "subTags": ["Sans"],
     "show": true,
     "value": "Typefaces"
   },
@@ -22,7 +22,7 @@
     "name": "Products",
     "isMainTag": true,
     "show": true,
-    "subTags": ["Poster", "Clothing", "Objects", "Specimen"],
+    "subTags": ["Poster"],
     "value": "Products"
   },
   {

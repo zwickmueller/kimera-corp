@@ -5,10 +5,10 @@
       invertedColors ? 'invert-colors' : '',
       isHolding ? 'mobile-hover-state' : '',
     ]"
-    @mouseenter="mouseEntered"
     v-touch:start="handleLongTouch(true)"
     v-touch:end="handleLongTouch(false)"
   >
+    <!-- @mouseenter="mouseEntered" -->
     <!-- v-touch-options="{ tapTolerance: 1000 }" -->
     <!-- @touchstart="handleLongTouch($event, true)"
     @touchend="handleLongTouch($event, false)" -->
@@ -48,6 +48,7 @@ export default {
       return () => {
         // $event.preventDefault();
         this.isHolding = bool;
+        // alert(this.isHolding);
 
         let element = this.$el;
         let parent = document.querySelector(".kimera-glyph-set-wrapper");
@@ -64,7 +65,7 @@ export default {
         //   .querySelector(".glyph-map-container")
         //   .getBoundingClientRect().width;
         //... your code to get the preview width ...
-        console.log(parentWidth);
+        // console.log(parentWidth);
         // Clamp the x position to stay within the bounds of the viewport
         // let clampedXPosition = Math.min(
         //   Math.max(xPosition, previewWidth / 2),
@@ -90,6 +91,7 @@ export default {
           transform: "translate(-50%, -50%) scale(1)",
           opacity: 1,
         };
+        // alert(JSON.parse(style));
         if (this.isHolding) {
           this.$root.$emit("setCurrentGlyph", this.glyph);
           this.$root.$emit("setGlyphMobileStyle", style);

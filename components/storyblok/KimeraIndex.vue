@@ -1,15 +1,9 @@
 <template>
   <div v-editable="story" class="page">
-    <!-- style="display: none" -->
     <landing-page-gallery
       :elements="story.content.slideShow"
     ></landing-page-gallery>
-    <!-- <div class="intro-sentence">
-      Kimera is an independent design agency and creative consultancy,
-      specializing in brand strategy, visual identity, and holistic brand
-      experiences.
-    </div> -->
-    <!-- <project-grid></project-grid> -->
+
     <div class="kimera-flex-grid index-grid">
       <!-- <single-grid> -->
       <!-- <transition-group name="list" tag="div" class="kimera-flex-grid" @before-leave="beforeLeave"> -->
@@ -28,14 +22,11 @@
           blok.isDuplicate ? 'is-duplicate' : '',
         ]"
       />
-      <!-- </transition-group> -->
-      <!-- </single-grid> -->
     </div>
   </div>
 </template>
 
 <script>
-// import cloneDeep from 'lodash.cloneDeep'
 import { gsap, Flip } from "gsap/all";
 import { mapGetters } from "vuex";
 

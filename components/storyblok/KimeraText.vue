@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     v-editable="blok"
     class="kimera-text"

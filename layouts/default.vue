@@ -43,6 +43,8 @@ export default {
   z-index: 3;
   opacity: 0;
   pointer-events: none;
+  touch-action: none;
+  // display: none;
 }
 .nav-height-adjustment {
   padding-top: var(--nav-height);

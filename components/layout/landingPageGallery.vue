@@ -1,7 +1,7 @@
 <template>
   <div class="kimera-landing slider">
     <client-only>
-      <div ref="stickyElement" class="landing-title fixed-reset">
+      <div ref="stickyElement" class="landing-title-wrapper fixed-reset">
         <div :style="`height: ${stickyHeight}px`">
           <p
             :class="[
@@ -13,13 +13,15 @@
             class="kimera-text-kacheln"
           >
             <transition name="landing-title" mode="out-in">
+              <!-- style="display: block; cursor: pointer" -->
               <tag-button
+                v-if="this.elements[this.currentIndex].link.cached_url"
                 :key="slideShowTitle"
                 @click.native="handleTransition"
-                style="display: block; cursor: pointer"
                 :is-div="true"
                 :is-secondary="true"
                 :is-small="false"
+                style="display: block; cursor: pointer"
                 >View Project</tag-button
               >
             </transition>
@@ -143,17 +145,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@egjs/vue-flicking/dist/flicking.css";
+// @import "@egjs/vue-flicking/dist/flicking.css";
 
 .kimera-landing {
+  position: relative;
   * {
     /* disable on touch highlights of html elements, especially on mobile! */
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    // -webkit-tap-highlight-color: transparent;
+    // -webkit-touch-callout: none;
+    // -webkit-user-select: none;
+    // -moz-user-select: none;
+    // -ms-user-select: none;
+    // user-select: none;
   }
   img {
     width: 100%;
@@ -164,7 +167,7 @@ export default {
     align-items: center;
     height: 100% !important;
   }
-  .landing-title {
+  .landing-title-wrapper {
     padding-left: var(--kimera-side-padding);
     z-index: 2;
     position: absolute;

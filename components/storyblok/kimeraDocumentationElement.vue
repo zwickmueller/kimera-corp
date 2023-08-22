@@ -1,5 +1,4 @@
 <template>
-  <!-- <div> -->
   <div class="slider-element">
     <component
       v-if="blok.body[0]"
@@ -13,7 +12,6 @@
       </p>
     </div>
   </div>
-  <!-- </div> -->
 </template>
 
 <script>

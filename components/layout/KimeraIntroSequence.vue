@@ -12,13 +12,17 @@ export default {
     return {
       renderSequence: true,
       debug: false,
+      animation: null,
     };
+  },
+  beforeDestroy() {
+    if (this.animation) this.animation.destroy();
   },
   mounted() {
     if (window !== window.parent) this.renderSequence = false;
 
     if (!this.renderSequence) return;
-    var animation = lottie.loadAnimation({
+    this.animation = lottie.loadAnimation({
       container: document.getElementById("lottie"), // Required
       path: "/kimera_INTRO_ANIMATION_12.json", // Required
       renderer: "svg", // Required
@@ -31,19 +35,19 @@ export default {
     });
     // this.$nextTick(() => {
     if (this.debug) {
-      animation.goToAndStop(60, true);
+      this.animation.goToAndStop(60, true);
       return;
     }
     // });
     // animation.addEventListener("complete", () => {
     //   console.log("animation complete");
     // });
-    animation.addEventListener("DOMLoaded", () => {
+    this.animation.addEventListener("DOMLoaded", () => {
       // console.log(animation.getDuration(false));
       let fadeOutDuration = 0.75;
       gsap.to(".intro-loader", {
         duration: fadeOutDuration,
-        delay: animation.getDuration(false) - fadeOutDuration,
+        delay: this.animation.getDuration(false) - fadeOutDuration,
         "--opacity": 0,
         //   delay: -0.5,
         onStart: () => {
@@ -52,7 +56,9 @@ export default {
         },
         onComplete: () => {
           if (this.debug) return;
+
           this.renderSequence = false;
+          // alert("animation complete");
         },
       });
     });

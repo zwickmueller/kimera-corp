@@ -772,6 +772,11 @@ export default {
 button.is-submitting {
   opacity: 0.5;
 }
+label {
+  // @include until($tablet) {
+  display: block;
+  // }
+}
 .font-cuts-wrapper {
   // max-height: 30rem;
   // overflow-y: auto;
@@ -783,7 +788,7 @@ input:disabled + label {
   cursor: not-allowed;
 }
 .label-wrapper {
-  margin-bottom: 1rem;
+  // margin-bottom: 1rem;
 }
 .flex-space-between {
   display: flex;
@@ -793,6 +798,8 @@ input:disabled + label {
   position: sticky;
   bottom: 0rem;
   gap: 0.25rem;
+  z-index: 1;
+  max-width: 50%;
 }
 .error-message {
   p {

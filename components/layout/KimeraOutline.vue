@@ -373,10 +373,11 @@ aside {
   // transition: all 0.3s linear;
   width: auto;
   padding: 0 1em 1em;
-  transform: translateY(-2px);
-  margin-top: -2px;
+  // transform: translateY(-2px);
+  // margin-top: -2px;
+  transform: translateY(0px);
   @include until($tablet) {
-    transform: translateY(2px);
+    // transform: translateY(2px);
   }
   button:not(.active-headline) {
   }

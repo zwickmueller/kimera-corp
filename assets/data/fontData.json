@@ -418,90 +418,6 @@
     ]
   },
   {
-    "name": "Melange",
-    "nameReadable": "Melange",
-    "fontDir": "/fonts/Melange/",
-    "fontFamilies": [
-      {
-        "path": "MelangeNeue-Hairline",
-        "weight": 100,
-        "weightReadable": "Hairline",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      },
-      {
-        "path": "MelangeNeue-Thin",
-        "weight": 150,
-        "weightReadable": "Thin",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      },
-      {
-        "path": "MelangeNeue-Light",
-        "weight": 200,
-        "weightReadable": "Light",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      },
-      {
-        "path": "MelangeNeue-Book",
-        "weight": 300,
-        "weightReadable": "Book",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      },
-      {
-        "path": "MelangeNeue-Regular",
-        "weight": 400,
-        "weightReadable": "Regular",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      },
-      {
-        "path": "MelangeNeue-Medium",
-        "weight": 450,
-        "weightReadable": "Medium",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      },
-      {
-        "path": "MelangeNeue-SemiBold",
-        "weight": 500,
-        "weightReadable": "SemiBold",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      },
-      {
-        "path": "MelangeNeue-Bold",
-        "weight": 600,
-        "weightReadable": "Bold",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      },
-      {
-        "path": "MelangeNeue-ExtraBold",
-        "weight": 700,
-        "weightReadable": "ExtraBold",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      },
-      {
-        "path": "MelangeNeue-Black",
-        "weight": 800,
-        "weightReadable": "Black",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      },
-      {
-        "path": "MelangeNeue-ExtraBlack",
-        "weight": 900,
-        "weightReadable": "ExtraBlack",
-        "fontStyle": "normal",
-        "fontStretch": "normal"
-      }
-    ]
-  },
-  {
     "name": "KMR-Apparat",
     "nameReadable": "Apparat",
     "fontDir": "/fonts/KMR-Apparat/WEB/WOFF/",
@@ -572,11 +488,7 @@
       }
     ],
     "openTypeFeaturesFiltered": [
-      "dlig",
-      "ccmp",
-      "calt",
-      "aalt",
-      "liga"
+      "dlig"
     ],
     "variable": "/fonts/KMR-Apparat/KMR-ApparatVF",
     "fontFamilies": [

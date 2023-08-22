@@ -41,7 +41,7 @@
 
 .landing-title-enter-active,
 .landing-title-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease !important;
 }
 
 .landing-title-enter {

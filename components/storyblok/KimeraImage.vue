@@ -1,13 +1,9 @@
 <template>
-  <!-- <div v-editable="blok" class="kimera-image"> -->
-
-  <!-- sizes="sm:100vw md:50vw lg:50vw xl:100vw" -->
   <nuxt-picture
     v-editable="blok"
     :src="blok.src.filename"
     legacyFormat="jpg"
     class="image kimera-image"
-    :placeholder="15"
     :loading="shouldPreload ? null : 'lazy'"
     quality="80"
     :style="backgroundStyles"
@@ -15,71 +11,6 @@
     :imgAttrs="{ style: overrideStyles, alt: blok.src.alt }"
     @load="imageLoaded"
   />
-  <!-- :style="backgroundStyles" -->
-  <!-- :style="`aspect-ratio: ${extractImageData.aspectRatio}`" -->
-  <!-- height="24rem" -->
-
-  <!-- <picture
-    v-editable="blok"
-    class="kimera-image"
-    :class="blok.hideOnMobile ? 'hide-on-mobile' : ''"
-  >
-    <source
-      type="image/webp"
-      :srcset="`${transformImage(
-        blok.src.filename,
-        '0x380/filters:format(webp)'
-      )} 380w,
-                ${transformImage(
-                  blok.src.filename,
-                  '800x0/filters:format(webp)'
-                )} 800w,
-                ${transformImage(
-                  blok.src.filename,
-                  '1200x0/filters:format(webp)'
-                )} 1200w,
-                ${transformImage(
-                  blok.src.filename,
-                  '1800x0/filters:format(webp)'
-                )} 1800w,
-                ${transformImage(
-                  blok.src.filename,
-                  '2048x0/filters:format(webp)'
-                )} 2048w`"
-      sizes="100vw"
-    />
-    <source
-      type="image/png"
-      :srcset="`${transformImage(
-        blok.src.filename,
-        '0x380/filters:format(png)'
-      )} 380w,
-                  ${transformImage(
-                    blok.src.filename,
-                    '800x0/filters:format(png)'
-                  )} 800w,
-                  ${transformImage(
-                    blok.src.filename,
-                    '1200x0/filters:format(png)'
-                  )} 1200w,
-                  ${transformImage(
-                    blok.src.filename,
-                    '1800x0/filters:format(png)'
-                  )} 1800w,
-                  ${transformImage(
-                    blok.src.filename,
-                    '2048x0/filters:format(png)'
-                  )} 2048w`"
-      sizes="100vw"
-    />
-    <img
-      class="image"
-      :style="overrideStyles"
-      :src="transformImage(blok.src.filename, '1024x0/filters:format(jpg)')"
-      :alt="blok.src.alt"
-    />
-</picture> -->
-  <!-- </div> -->
 </template>
 
 <script>

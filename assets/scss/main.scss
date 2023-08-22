@@ -64,6 +64,7 @@ html {
   // font-weight: 150;
   font-variation-settings: "wdth" 5, "wght" 150;
   font-synthesis: none;
+  font-kerning: normal;
   @include until($tablet) {
     font-size: unquote("clamp(12px, 1.0vw, 24px)");
   }

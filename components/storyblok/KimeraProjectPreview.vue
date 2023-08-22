@@ -9,8 +9,6 @@
     :data-original-width="`grid-width-${width}`"
     data-new-width="null"
   >
-    <!-- @mouseenter.native="handleMouseEnter" -->
-    <!-- event="disabled" -->
     <div class="grid-item-tags">
       <div class="hide-on-desktop mobile-project-name kimera-text-mobile">
         {{
@@ -26,7 +24,6 @@
         <span v-else> ~</span>
       </div>
     </div>
-    <!-- :class="checkProjectType" -->
     <div
       class="grid-item-inner center-all relative kimera-text-kacheln"
       :class="checkClasses"
@@ -41,13 +38,10 @@
         class="grid-item-overlay overlay-foreground h-w-100p fixed-reset absolute"
       ></div>
       <kimera-image :blok="blok"></kimera-image>
-      <!-- <image-container :blok="blok.src[0]"></image-container> -->
       <div
         class="grid-item-overlay overlay-background h-w-100p fixed-reset absolute"
       ></div>
     </div>
-    <!-- {{ project.body[0].component }} -->
-    <!-- style="display: none" -->
     <div class="preload-helper">
       <component
         v-if="project && project.body && project.body[0] && shouldPreload"
@@ -83,8 +77,8 @@ export default {
   methods: {
     handleMouseEnter() {
       // console.log("mouse enter");
-      // if (this.shouldPreload) return;
-      // else this.shouldPreload = true;
+      if (this.shouldPreload) return;
+      else this.shouldPreload = true;
     },
     handleClick($event) {
       if ($event) $event.preventDefault();
@@ -231,7 +225,7 @@ export default {
   height: 33rem;
   position: relative;
   @include until($tablet) {
-    min-height: unset;
+    min-height: auto;
     height: auto;
     padding-top: 1rem;
     // aspect-ratio: 1;
@@ -273,6 +267,8 @@ export default {
   height: 100%;
   @include until($tablet) {
     height: auto;
+    // width: 100%;
+    // aspect-ratio: 1;
   }
   @media (hover: hover) {
     &:not(.is-transitioning):before {

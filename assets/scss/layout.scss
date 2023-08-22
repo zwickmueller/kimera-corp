@@ -35,10 +35,17 @@ $aspect-ratios: (
     // @include until($tablet) {
     //   aspect-ratio: 1 / 0.9;
     // }
+    @include until($tablet) {
+      aspect-ratio: unset;
+    }
   }
   #recommended + .kimera-container-inner .kimera-flex-grid .grid-width-#{$n} {
     aspect-ratio: $ratio;
-    height: auto;
+    // height: auto;
+    // min-height: auto;
+    @include until($tablet) {
+      aspect-ratio: unset;
+    }
   }
 }
 
