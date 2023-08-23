@@ -55,6 +55,7 @@ export default {
   height: 100%;
   width: 100%;
   z-index: 1;
+  margin-left: -0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,8 +67,8 @@ export default {
     padding: 0.75rem;
     padding-top: 0.5rem;
     border-radius: 1.25rem;
-    max-width: 30rem;
-    width: 100%;
+    max-width: 26rem;
+    width: 90%;
   }
   .modal-title {
     padding-bottom: 1rem;

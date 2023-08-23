@@ -160,6 +160,9 @@ video.video {
 .plyr--video {
   height: 100%;
 }
+.plyr {
+  --plyr-video-background: transparent;
+}
 *::-webkit-media-controls-start-playback-button {
   display: none !important;
   -webkit-appearance: none;
