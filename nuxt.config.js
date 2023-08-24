@@ -1,4 +1,6 @@
 const axios = require("axios");
+import meta from "./assets/data/meta.js";
+
 // const CMSaccessToken = "YwkxX7UXlj9Wd7lngwwrbAtt";
 const CMSaccessToken = process.env.STORYBLOK_API_KEY;
 export default {
@@ -27,6 +29,74 @@ export default {
       {
         name: "format-detection",
         content: "telephone=no,date=no,address=no,email=no,url=no",
+      },
+
+      {
+        hid: "twitter:title",
+        name: "twitter:title",
+        property: "twitter:title",
+        content: meta.defaultTitle,
+      },
+      {
+        hid: "twitter:description",
+        property: "twitter:description",
+        name: "twitter:description",
+        content: meta.defaultDescription,
+      },
+      {
+        hid: "twitter:url",
+        name: "twitter:url",
+        property: "twitter:url",
+        content: meta.defaultUrl,
+      },
+      {
+        hid: "twitter:image:src",
+        property: "twitter:image:src",
+        name: "twitter:image:src",
+        content: meta.defaultShareImage,
+      },
+      {
+        hid: "twitter:image:alt",
+        property: "twitter:image:alt",
+        name: "twitter:image:alt",
+        content: meta.defaultTitle,
+      },
+
+      {
+        hid: "og:title",
+        name: "og:title",
+        property: "og:title",
+        content: meta.defaultTitle,
+      },
+      {
+        hid: "og:type",
+        name: "og:type",
+        property: "og:type",
+        content: "Website",
+      },
+      {
+        hid: "og:description",
+        name: "og:description",
+        property: "og:description",
+        content: meta.defaultDescription,
+      },
+      {
+        hid: "og:image",
+        name: "og:image",
+        property: "og:image",
+        content: meta.defaultShareImage,
+      },
+      {
+        hid: "og:image:secure_url",
+        name: "og:image:secure_url",
+        property: "og:image:secure_url",
+        content: meta.defaultShareImage,
+      },
+      {
+        hid: "og:image:alt",
+        name: "og:image:alt",
+        property: "og:image:alt",
+        content: meta.defaultTitle,
       },
     ],
     link: [

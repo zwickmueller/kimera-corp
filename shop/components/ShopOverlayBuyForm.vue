@@ -5,7 +5,7 @@
         <form
           id="myForm"
           method="POST"
-          action="https://formsubmit.co/ajax/489d8e6ffd4abce2bd9233ce422b5fff"
+          action="https://formsubmit.co/request@kimeracorp.eu"
         >
           <div class="temporary-buy-form-inner relative">
             <!-- <div class="kimera-text" style="padding-bottom: 2rem">
