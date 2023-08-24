@@ -160,6 +160,7 @@ export default {
         name: name,
         email: email,
         newsletter: interestedInNewsletter,
+        date: new Date(),
       };
 
       try {
