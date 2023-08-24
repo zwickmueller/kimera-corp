@@ -314,7 +314,9 @@
               :disabled="isSubmitting"
               :class="isSubmitting ? 'is-submitting' : ''"
               v-show="!success"
-              >Request Offer</tag-button
+              >{{
+                isSubmitting ? "Processing Request" : "Request Offer"
+              }}</tag-button
             >
             <!-- <button type="button" @click="submitForm">submit</button> -->
             <!-- @click.native="submitForm" -->
@@ -686,7 +688,7 @@ export default {
       let that = this;
       this.isSubmitting = true;
       // console.log(JSON.stringify(data));
-      fetch("https://formsubmit.co/ajax/489d8e6ffd4abce2bd9233ce422b5fff", {
+      fetch("https://formsubmit.co/request@kimeracorp.eu", {
         // fetch("https://formsubmit.co/ajax/489d8e6ffd4abce2bd9233ce422b5fff", {
         method: "POST",
         headers: {
