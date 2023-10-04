@@ -161,6 +161,7 @@ export default {
         email: email,
         newsletter: interestedInNewsletter,
         date: new Date(),
+        font: this.blok.fontName,
       };
 
       try {
