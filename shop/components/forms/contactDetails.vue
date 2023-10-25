@@ -1,8 +1,5 @@
 <template>
   <div class="label-wrapper contact-details">
-    <!-- <div class="kimera-text">
-      <p style="text-transform: capitalize">{{ type }} Details</p>
-    </div> -->
     <selection-button-wrapper class="company-or-person">
       <selection-button
         :id="'licensee-' + type"
@@ -24,30 +21,6 @@
       ></selection-button>
     </selection-button-wrapper>
 
-    <!-- <div style="column-count: 2" class="company-or-person">
-      <div>
-        <input
-          type="radio"
-          :id="'licensee-' + type"
-          checked
-          class="company-licensee"
-          :name="'licensee-type' + type"
-          value="Company"
-        />
-        <label :for="'licensee-' + type">Company</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          :id="'licensee2-' + type"
-          class="person-licensee"
-          :name="'licensee-type' + type"
-          value="Person"
-        />
-        <label :for="'licensee2-' + type">Person</label>
-      </div>
-    </div> -->
-
     <div class="company-form">
       <input-text
         title="Company Name"
@@ -55,13 +28,8 @@
         group="company-name"
         placeholder="Legal Name of Licensee"
       ></input-text>
-      <!-- <input
-        type="text"
-        id="company-name"
-        name="company-name"
-        placeholder="Legal Name of Licensee"
-      /> -->
     </div>
+
     <div class="person-form gap" style="column-count: 2">
       <div>
         <input-text
@@ -70,16 +38,6 @@
           group="person-first-name"
           placeholder="John"
         ></input-text>
-
-        <!-- <div class="kimera-text">
-          <p>First Name</p>
-        </div>
-        <input
-          type="text"
-          id="person-first-name"
-          name="person-first-name"
-          placeholder="John"
-        /> -->
       </div>
       <div>
         <input-text
@@ -88,18 +46,9 @@
           group="person-last-name"
           placeholder="Doe"
         ></input-text>
-        <!-- <div class="kimera-text">
-          <p>Last Name</p>
-        </div>
-        <input
-          type="text"
-          id="person-last-name"
-          name="person-last-name"
-          placeholder="Doe"
-        /> -->
       </div>
     </div>
-    <div style="column-count: 3" class="gap">
+    <div style="column-count: 2" class="gap">
       <div>
         <input-text
           title="City"
@@ -107,43 +56,8 @@
           group="licensee-details-city"
           placeholder="City"
         ></input-text>
-        <!-- <div class="kimera-text">
-          <p>City</p>
-        </div>
-        <input
-          type="text"
-          id="licensee-details-city"
-          name="licensee-details-city"
-          placeholder="City"
-        /> -->
       </div>
       <div>
-        <input-text
-          title="Country"
-          id="licensee-details-state"
-          group="licensee-details-state"
-          placeholder="Country"
-        ></input-text>
-        <!-- <div class="kimera-text">
-          <p>State</p>
-        </div>
-        <input
-          type="text"
-          id="licensee-details-state"
-          name="licensee-details-state"
-          placeholder="State"
-        /> -->
-      </div>
-      <div>
-        <!-- <div class="kimera-text">
-          <p>Postal Code</p>
-        </div>
-        <input
-          type="text"
-          id="licensee-details-postal-code"
-          name="licensee-details-postal-code"
-          placeholder="Postal Code"
-        /> -->
         <input-text
           title="Postal Code"
           id="licensee-details-postal-code"
@@ -151,6 +65,21 @@
           placeholder="Postal Code"
         ></input-text>
       </div>
+      <div></div>
+    </div>
+    <div style="column-count: 2" class="gap">
+      <input-text
+        title="Street Name and Number"
+        id="licensee-details-street-adress"
+        group="licensee-details-street-adress"
+        placeholder="Street Name and Number"
+      ></input-text>
+      <input-text
+        title="Country"
+        id="licensee-details-state"
+        group="licensee-details-state"
+        placeholder="Country"
+      ></input-text>
     </div>
     <div>
       <input-text

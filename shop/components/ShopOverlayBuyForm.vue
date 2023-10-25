@@ -600,6 +600,9 @@ export default {
       const email = document.querySelector(
         "#LicenseeDetails #licensee-details-email"
       ).value;
+      const streetAndNumber = document.querySelector(
+        "#LicenseeDetails #licensee-details-street-adress"
+      ).value;
 
       // INVOICE DETAILS
       const companyNameInvoice = document.querySelector(
@@ -622,6 +625,9 @@ export default {
       ).value;
       const emailInvoice = document.querySelector(
         "#InvoiceDetails #licensee-details-email"
+      ).value;
+      const streetAndNumberInvoice = document.querySelector(
+        "#InvoiceDetails #licensee-details-street-adress"
       ).value;
 
       // get additional information text area
@@ -657,6 +663,7 @@ export default {
     City: ${city}
     Country: ${state}
     Postal Code: ${postalCode}
+    Street and Number: ${streetAndNumber}
     Email: ${email}
 
     ${
@@ -671,6 +678,7 @@ export default {
     City: ${cityInvoice}
     Country: ${stateInvoice}
     Postal Code: ${postalCodeInvoice}
+    Street and Number: ${streetAndNumberInvoice}
     Email: ${emailInvoice}`
         : ""
     }
@@ -680,8 +688,7 @@ export default {
 
     `;
 
-      console.log(emailContent);
-
+      // console.log(emailContent);
       let data = {
         content: emailContent,
       };
