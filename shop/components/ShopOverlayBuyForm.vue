@@ -301,8 +301,29 @@
               for testing purposes.
             </p>
           </div>
+
+          <div v-if="tempMessage" class="kimera-text success-message">
+            <p>
+              Thank you for your request! Please contact us directly via
+              <a style="text-decoration: underline" :href=" `mailto: request@kimeracorp.eu?subject=Font License Request&body=${encodeURIComponent(
+          tempMessage
+        )}`" target="_blank">request@kimeracorp.eu</a> with the message below and we will come back to
+              you as soon as possible.<br />
+            </p>
+            <p style="color:black">
+
+              <pre>{{ tempMessage }}</pre>
+            </p>
+            <p>
+              In the meantime you can check out our
+              <span @click="$emit('revertOverlayContent')"
+                >Full Version Trials</span
+              >
+              for testing purposes.
+            </p>
+          </div>
           <!-- style="padding: 2rem 0"  -->
-          <div class="form-submit-button">
+          <div class="form-submit-button" v-show="!tempMessage">
             <!-- :is-big="true" -->
             <!-- :is-inverted="true" -->
             <!-- :is-inverted="true" -->
@@ -401,6 +422,7 @@ export default {
       errorMessage: "",
       errorBackup: "",
       isSubmitting: false,
+      tempMessage: "",
     };
   },
 
@@ -688,6 +710,16 @@ export default {
 
     `;
 
+      // Open email client with the email content
+      window.open(
+        `mailto: request@kimeracorp.eu?subject=Font License Request&body=${encodeURIComponent(
+          emailContent
+        )}`
+      );
+
+      this.tempMessage = emailContent;
+
+      return;
       // console.log(emailContent);
       let data = {
         content: emailContent,

@@ -216,7 +216,7 @@ export default {
 
       for (const key in this.sliders) {
         if (this.sliders.hasOwnProperty(key)) {
-          console.log(this.sliders[key]);
+          // console.log(this.sliders[key]);
           const slider = this.sliders[key];
           let randomVal = this.$helpers.getRandomIntInRange(
             Number(slider.min),
